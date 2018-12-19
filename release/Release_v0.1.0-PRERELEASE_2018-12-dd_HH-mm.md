@@ -14,6 +14,7 @@ TODO
 #8 [api] Create new interface 'FXMLPresenter'.
 #6 [api] Move content from 'afterburner.fx' to this library.
 #5 [pom] Tweak the `pom.xml` to fit the necessities from the library.
+#2 [ci] Connect the GitHub project with Travis CI.
 #1 [lib] Create basic library structure.
 
 
