@@ -11,6 +11,7 @@ TODO
 
 
 #### Feature
+#6 [api] Move content from 'afterburner.fx' to this library.
 #5 [pom] Tweak the `pom.xml` to fit the necessities from the library.
 #1 [lib] Create basic library structure.
 
@@ -25,6 +26,7 @@ TODO
 
 
 #### Documentation
+#4 [doc] Create basic concept for the library.
 
 
 
