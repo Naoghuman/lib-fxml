@@ -23,6 +23,7 @@ SPECIFICATION
     - Package       : com.package.my
     - Mandory files : MyView.java, MyPresenter.java
                       where this files must end with the suffix 'View' and 'Presenter'.
+                      and CamelCase from the prefix from the classes are mandory.
     - Optional files: my.fxml, my.properties, my.css
                       where the file name and -type are mandory if they are exists.
 

@@ -31,6 +31,7 @@ TODO
 
 
 #### Refactoring
+#7 [api] Delete content from 'afterburner.fx' after prototyping the new api.
 
 
 
