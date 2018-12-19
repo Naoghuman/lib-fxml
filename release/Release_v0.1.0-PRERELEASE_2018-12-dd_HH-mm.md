@@ -11,6 +11,7 @@ TODO
 
 
 #### Feature
+#15 [test] Create unittests for the class 'FXMLValidator'.
 #14 [internal] Create new class 'FXMLValidator'.
 #9 [api] Create new class 'FXMLPresenterData'.
 #8 [api] Create new interface 'FXMLPresenter'.
