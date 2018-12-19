@@ -114,13 +114,32 @@
             <resource>
                 <directory>src/main/java</directory>
                 <includes>
+                    <include>**/*.fxml</include>
+                    <include>**/*.css</include>
                     <include>**/*.properties</include>
                 </includes>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
-                <filtering>true</filtering>
                 <includes>
+                    <include>**/*.fxml</include>
+                    <include>**/*.css</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/test/java</directory>
+                <includes>
+                    <include>**/*.fxml</include>
+                    <include>**/*.css</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/test/resources</directory>
+                <includes>
+                    <include>**/*.fxml</include>
+                    <include>**/*.css</include>
                     <include>**/*.properties</include>
                 </includes>
             </resource>
@@ -133,6 +152,13 @@
             <artifactId>lib-logger</artifactId>
             <version>0.6.0</version>
             <type>jar</type>
+        </dependency>
+        
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+            <scope>compile</scope>
         </dependency>
         
         <dependency>
