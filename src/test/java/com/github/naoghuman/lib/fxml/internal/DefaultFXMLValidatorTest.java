@@ -23,16 +23,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * UnitTests to test the validator {@link com.github.naoghuman.lib.fxml.internal.FXMLValidator}.
+ * UnitTests to test the validator {@link com.github.naoghuman.lib.fxml.internal.DefaultFXMLValidator}.
  *
  * @since   0.1.0-PRERELEASE
  * @version 0.1.0-PRERELEASE
  * @author  Naoghuman
- * @see     com.github.naoghuman.lib.fxml.internal.FXMLValidator
+ * @see     com.github.naoghuman.lib.fxml.internal.DefaultFXMLValidator
  */
-public class FXMLValidatorTest {
+public class DefaultFXMLValidatorTest {
     
-    public FXMLValidatorTest() {
+    public DefaultFXMLValidatorTest() {
     }
     
     @Before
@@ -46,55 +46,55 @@ public class FXMLValidatorTest {
     @Test
     public void isNullTrue() {
         String hello = null;
-        assertTrue(FXMLValidator.isNull(hello));
+        assertTrue(DefaultFXMLValidator.isNull(hello));
     }
     
     @Test
     public void isNullFalse() {
         String hello = "hello";
-        assertFalse(FXMLValidator.isNull(hello));
+        assertFalse(DefaultFXMLValidator.isNull(hello));
     }
     
     @Test
     public void nonNullTrue() {
         String hello = "hello";
-        assertTrue(FXMLValidator.nonNull(hello));
+        assertTrue(DefaultFXMLValidator.nonNull(hello));
     }
     
     @Test
     public void nonNullFalse() {
         String hello = null;
-        assertFalse(FXMLValidator.nonNull(hello));
+        assertFalse(DefaultFXMLValidator.nonNull(hello));
     }
     
     @Test
     public void requireNonNull() {
         String hello = "hello";
-        FXMLValidator.requireNonNull(hello);
+        DefaultFXMLValidator.requireNonNull(hello);
     }
     
     @Test(expected = NullPointerException.class)
     public void requireNonNullThrowsNullPointerException() {
         String hello = null;
-        FXMLValidator.requireNonNull(hello);
+        DefaultFXMLValidator.requireNonNull(hello);
     }
     
     @Test
     public void requireNonNullAndNotEmptyString() {
         String hello = "hello";
-        FXMLValidator.requireNonNullAndNotEmpty(hello);
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(hello);
     }
     
     @Test(expected = NullPointerException.class)
     public void requireNonNullAndNotEmptyStringThrowsNullPointerException() {
         String hello = null;
-        FXMLValidator.requireNonNullAndNotEmpty(hello);
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(hello);
     }
     
     @Test(expected = IllegalArgumentException.class)
     public void requireNonNullAndNotEmptyStringThrowsIllegalArgumentException() {
         String hello = "";
-        FXMLValidator.requireNonNullAndNotEmpty(hello);
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(hello);
     }
     
 }

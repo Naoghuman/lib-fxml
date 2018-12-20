@@ -16,6 +16,7 @@
  */
 package com.github.naoghuman.lib.fxml.core;
 
+import com.github.naoghuman.lib.fxml.internal.DefaultFXMLValidator;
 import java.util.HashMap;
 
 /**
@@ -24,7 +25,7 @@ import java.util.HashMap;
  * @version 0.1.0-PRERELEASE
  * @author  Naoghuman
  */
-public final class FXMLPresenterData {
+public final class FXMLModel {
     
     private final HashMap<String, Object> data = new HashMap<>();
     
@@ -83,6 +84,8 @@ public final class FXMLPresenterData {
      * @author  Naoghuman
      */
     public void put(final String key, final Object value) {
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(key);
+        
         data.put(key, value);
     }
     

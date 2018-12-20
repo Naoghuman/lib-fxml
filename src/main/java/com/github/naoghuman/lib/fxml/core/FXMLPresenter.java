@@ -29,12 +29,12 @@ public interface FXMLPresenter {
     
     /**
      * 
-     * @param  fxmlPresenterData 
+     * @param   model 
      * @since   0.1.0-PRERELEASE
      * @version 0.1.0-PRERELEASE
      * @author  Naoghuman
      */
-    public default void configure(final FXMLPresenterData fxmlPresenterData) {
+    public default void configure(final FXMLModel model) {
         
     }
     
@@ -45,8 +45,8 @@ public interface FXMLPresenter {
      * @version 0.1.0-PRERELEASE
      * @author  Naoghuman
      */
-    public default FXMLPresenterData getData() {
-        return new FXMLPresenterData();
+    public default FXMLModel getModel() {
+        return new FXMLModel();
     }
     
     /**
@@ -56,7 +56,7 @@ public interface FXMLPresenter {
      * @version 0.1.0-PRERELEASE
      * @author  Naoghuman
      */
-    public default Optional<Parent> getRoot() {
+    public default Optional<Parent> getView() {
         return Optional.empty();
     }
     

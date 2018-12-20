@@ -26,7 +26,7 @@ import java.util.Objects;
  * @version 0.1.0-PRERELEASE
  * @author  Naoghuman
  */
-public class FXMLValidator {
+public class DefaultFXMLValidator {
     
     /**
      * Delegates to {@link java.util.Objects#isNull(java.lang.Object)}.
