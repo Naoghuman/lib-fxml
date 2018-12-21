@@ -91,8 +91,8 @@ public class DefaultFXMLValidator {
      * </ul>
      *
      * @param   value the attribute which should be validated.
-     * @throws  NullPointerException     if {@code (value        == NULL)}.
      * @throws  IllegalArgumentException if {@code (value.trim() == EMPTY)}.
+     * @throws  NullPointerException     if {@code (value        == NULL)}.
      * @since   0.1.0-PRERELEASE
      * @version 0.1.0-PRERELEASE
      * @author  Naoghuman
@@ -102,6 +102,32 @@ public class DefaultFXMLValidator {
         
         if (value.trim().isEmpty()) {
             throw new IllegalArgumentException("The attribute [value] can't be EMPTY."); // NOI18N
+        }
+    }
+    
+    /**
+     * Checks if the {@code value} ends with the given {@code suffix}.
+     * <p>
+     * An additional error message will be added to the error stack:
+     * <ul>
+     * <li>"The attribute [value] must ends with the suffix: %s"</li>
+     * </ul>
+     * 
+     * @param   value  the String which should be checked.
+     * @param   suffix the suffix which must append at the end from the {@code value}.
+     * @throws  IllegalArgumentException if {@code ((value.trim() || suffxi.trim() == EMPTY) || (!value.endsWith(suffix)))}.
+     * @throws  NullPointerException     if {@code (value || suffix  == NULL)}.
+     * @since   0.1.0-PRERELEASE
+     * @version 0.1.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public static void requireEndsWith(final String value, final String suffix) {
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(value);
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(suffix);
+        
+        if (!value.endsWith(suffix)) {
+            throw new IllegalArgumentException(String.format(
+                    "The attribute [value] must ends with the suffix: %s", suffix)); // NOI18N
         }
     }
     

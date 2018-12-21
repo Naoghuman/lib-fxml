@@ -89,4 +89,16 @@ public final class FXMLModel {
         data.put(key, value);
     }
     
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("FXMLModel [").append("\n"); // NOI18N
+        
+        sb.append("  data: ").append(data.toString()).append("\n"); // NOI18N
+        
+        sb.append("]"); // NOI18N
+        
+        return sb.toString();
+    }
+    
 }

@@ -13,6 +13,7 @@ TODO
 #### Feature
 #15 [test] Create unittests for the class 'FXMLValidator'.
 #14 [internal] Create new class 'FXMLValidator'.
+#10 [api] Create new class 'FXMLView'.
 #9 [api] Create new class 'FXMLPresenterData'.
 #8 [api] Create new interface 'FXMLPresenter'.
 #6 [api] Move content from 'afterburner.fx' to this library.
