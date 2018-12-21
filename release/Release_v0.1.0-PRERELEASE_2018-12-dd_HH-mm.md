@@ -35,6 +35,7 @@ TODO
 #20 [doc] Write basic ReadMe structure.
 #19 [doc] Create new uml diagram form the basic concept form the library.
 #4 [doc] Create basic concept for the library.
+#3 [doc] Add badges from img.shield.io to the ReadMe.md.
 
 
 
