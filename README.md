@@ -10,7 +10,15 @@ Lib-FXML
 Intention
 ---
 
-TODO
+`Lib-FXML` allows the developer to load [JavaFX] relevant files (.fxml, .css, .properties) 
+and connect them to a controller (called the presenter).
+
+[Adam Bien]'s GitHub project [afterburner.fx] has not been developed for over 3 years (in 2018).  
+So I'm going to develop my own lightweight implementation of afterburner.fx for my own 
+`libraries`, `frameworks` and `applications`.
+
+Finally, I want to make it clear that I did not just copy the source code from Adam, 
+but used the conventions, ideas of afterburner.fx for my own implementation.
 
 _Image:_ Overview basic concept from `Lib-FXML` 
 ![Overview_Lib-FXML_MVP_v0.1.0-PRERELEASE_2018-12-20.png][Overview_Lib-FXML_MVP_v0.1.0-PRERELEASE_2018-12-20]
@@ -136,6 +144,8 @@ You can reach me under <peter.rogge@yahoo.de>.
 
 
 [//]: # (Links)
+[Adam Bien]:http://adambien.blog/roller/
+[afterburner.fx]:https://github.com/AdamBien/afterburner.fx
 [Eclipse]:https://www.eclipse.org/
 [FXML]:http://docs.oracle.com/javafx/2/fxml_get_started/jfxpub-fxml_get_started.htm
 [General Public License 3.0]:http://www.gnu.org/licenses/gpl-3.0.en.html

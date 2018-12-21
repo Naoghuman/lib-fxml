@@ -1,6 +1,7 @@
 Welcome to `Lib-FXML` with the new release `x.y.z`.
 
-TODO
+`Lib-FXML` allows the developer to load [JavaFX] relevant files (.fxml, .css, .properties) 
+and connect them to a controller (called the presenter).
 
 
 
@@ -45,5 +46,3 @@ Naoghuman
 
 [//]: # (Links)
 [JavaFX]:http://docs.oracle.com/javase/8/javase-clienttechnologies.htm
-[Maven]:http://maven.apache.org/
-[NetBeans]:https://netbeans.org/

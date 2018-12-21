@@ -5,12 +5,15 @@ INTENTION
 In this concept I want to write down the main points which I want to use as basics 
 for my new library 'Lib-FXML'.
 
-Since `Adam Bien's` GitHub project [afterburner.fx] hasn't been developed for over 
-3 years (since 2015), I will develop my own implementation of afterburner.fx for 
-my own libraries, applications.
+`Lib-FXML` allows the developer to load [JavaFX] relevant files (.fxml, .css, .properties) 
+and connect them to a controller (called the presenter).
 
-Firstly I should clarify that I don't want copy & paste Adam's sourcecode, instead 
-I will adapt conventions, ideas from afterburner.fx for my own implementation. 
+[Adam Bien]'s GitHub project [afterburner.fx] has not been developed for over 3 years (in 2018).  
+So I'm going to develop my own lightweight implementation of afterburner.fx for my own 
+`libraries`, `frameworks` and `applications`.
+
+Finally, I want to make it clear that I did not just copy the source code from Adam, 
+but used the conventions, ideas of afterburner.fx for my own implementation.
 
 In the next chapter 'Specification' I will write down the points which I want to 
 implement in my own library. Thx to Adam for the inspiration for this library.

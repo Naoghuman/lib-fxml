@@ -1,6 +1,7 @@
 Welcome to `Lib-FXML` with the new release `0.1.0-PRERELEASE`.
 
-TODO
+`Lib-FXML` allows the developer to load [JavaFX] relevant files (.fxml, .css, .properties) 
+and connect them to a controller (called the presenter).
 
 
 
@@ -33,6 +34,7 @@ TODO
 
 #### Documentation
 #22 [doc] Add 'tags' to the GitHub project.
+#21 [doc] Write the section 'Intention'.
 #20 [doc] Write basic ReadMe structure.
 #19 [doc] Create new uml diagram form the basic concept form the library.
 #4 [doc] Create basic concept for the library.
@@ -60,5 +62,3 @@ Naoghuman
 
 [//]: # (Links)
 [JavaFX]:http://docs.oracle.com/javase/8/javase-clienttechnologies.htm
-[Maven]:http://maven.apache.org/
-[NetBeans]:https://netbeans.org/
