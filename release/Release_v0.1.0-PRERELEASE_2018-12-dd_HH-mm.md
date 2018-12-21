@@ -6,8 +6,7 @@ and connect them to a controller (called the presenter).
 
 
 #### Summary
-* ...
-* ...
+* Initialize the new GitHub project and write basic concept for the new library.
 
 
 

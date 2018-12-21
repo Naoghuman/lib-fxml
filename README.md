@@ -71,10 +71,10 @@ Download<a name="Download" />
 ---
 
 Current `version` is `0.1.0-PRERELEASE`. Main points in this release are:
-* ...
+* Initialize the new GitHub project and write basic concept for the new library.
 
 Download:
-* [Release v0.1.0-PRERELEASE] (12.dd.2018 / MM.dd.yyyy)
+* [Release v0.1.0-PRERELEASE] (12.21.2018 / MM.dd.yyyy)
 
 An `overview` about all existings releases can be found here:
 * [Overview] from all releases in Lib-FXML.
