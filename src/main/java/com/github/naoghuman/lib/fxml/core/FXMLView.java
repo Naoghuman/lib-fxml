@@ -17,14 +17,13 @@
 package com.github.naoghuman.lib.fxml.core;
 
 import com.github.naoghuman.lib.fxml.internal.DefaultFXMLValidator;
+import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import java.io.IOException;
 import java.net.URL;
 import java.util.MissingResourceException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import static java.util.ResourceBundle.getBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
@@ -103,7 +102,9 @@ public final class FXMLView {
             
             fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(FXMLView.class.getName()).log(Level.SEVERE, null, ex);
+            LoggerFacade.getDefault().error(this.getClass(),
+                    String.format("Can't load FXML file with path: %s", this.getURLforFXML().get().getPath()),
+                    ex);
         }
     }
     
@@ -111,7 +112,9 @@ public final class FXMLView {
         try {
             instance = Class.forName(presenter).newInstance();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-            Logger.getLogger(FXMLView.class.getName()).log(Level.SEVERE, null, ex);
+            LoggerFacade.getDefault().error(this.getClass(),
+                    String.format("Can't create an instance from type: %s", presenter),
+                    ex);
         }
     }
     
@@ -128,6 +131,9 @@ public final class FXMLView {
         try {
             resourceBundle = Optional.ofNullable(getBundle(baseBundleName));
         } catch (MissingResourceException ex) {
+            LoggerFacade.getDefault().error(this.getClass(),
+                    String.format("Can't create a ResourceBundle with: %s", baseBundleName),
+                    ex);
         }
     }
     
