@@ -21,6 +21,7 @@ and connect them to a controller (called the presenter).
 
 
 #### Bug
+#25 [test] Test resources (.css, .fxml, .properties) will be copied in the generated .jar file.
 
 
 

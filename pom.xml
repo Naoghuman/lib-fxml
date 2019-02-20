@@ -56,6 +56,20 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/com/github/naoghuman/lib/fxml/core/MyFXMLTest.java</exclude>
+                        <exclude>**/com/github/naoghuman/lib/fxml/core/MyPresenter.java</exclude>
+                        <exclude>**/com/github/naoghuman/lib/fxml/core/*.fxml</exclude>
+                        <exclude>**/com/github/naoghuman/lib/fxml/core/*.css</exclude>
+                        <exclude>**/com/github/naoghuman/lib/fxml/core/*.properties</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
@@ -111,36 +125,7 @@
             </plugin>-->
         </plugins>
         <resources>
-            <!--
-                Hint:
-                 - Add here the suffixes from the files with should be included 
-                   into the jar file.
-            -->
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.fxml</include>
-                    <include>**/*.css</include>
-                    <include>**/*.properties</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.fxml</include>
-                    <include>**/*.css</include>
-                    <include>**/*.properties</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/test/java</directory>
-                <includes>
-                    <include>**/*.fxml</include>
-                    <include>**/*.css</include>
-                    <include>**/*.properties</include>
-                </includes>
-            </resource>
-            <resource>
+           <resource>
                 <directory>src/test/resources</directory>
                 <includes>
                     <include>**/*.fxml</include>
