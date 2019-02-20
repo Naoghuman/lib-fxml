@@ -45,10 +45,31 @@ public final class FXMLView {
      * @param   presenter
      * @return 
      * @since   0.1.0-PRERELEASE
-     * @version 0.1.0-PRERELEASE
+     * @version 0.2.0-PRERELEASE
      * @author  Naoghuman
      */
     public static FXMLView create(final String presenter) {
+        DefaultFXMLValidator.requireEndsWith(presenter, DEFAULT_SUFFIX_PRESENTER);
+        
+        return new FXMLView(presenter);
+    }
+    
+    /**
+     * 
+     * @param   presenter
+     * @param   model
+     * @return 
+     * @since   0.2.0-PRERELEASE
+     * @version 0.2.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public static FXMLView create(final String presenter, final FXMLModel model) {
+        DefaultFXMLValidator.requireEndsWith(presenter, DEFAULT_SUFFIX_PRESENTER);
+        DefaultFXMLValidator.requireNonNull(model);
+        
+        final FXMLView view = new FXMLView(presenter);
+        view.getPresenter().configure(model);
+        
         return new FXMLView(presenter);
     }
     
@@ -62,8 +83,6 @@ public final class FXMLView {
     private Optional<URL> urlForFXML = Optional.empty();
     
     private FXMLView(final String presenter) {
-        DefaultFXMLValidator.requireEndsWith(presenter, DEFAULT_SUFFIX_PRESENTER);
-        
         this.initializeResourceBundle(presenter);
         
         this.initializePresenter(presenter);
