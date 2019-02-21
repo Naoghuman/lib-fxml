@@ -16,8 +16,6 @@
  */
 package com.github.naoghuman.lib.fxml.core;
 
-import com.github.naoghuman.lib.fxml.core.FXMLModel;
-import com.github.naoghuman.lib.fxml.core.FXMLPresenter;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;

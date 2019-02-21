@@ -17,6 +17,7 @@
 package com.github.naoghuman.lib.fxml.core;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
@@ -30,6 +31,8 @@ public class MyFXMLTest extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        primaryStage.setTitle("Demo Lib-Fxml v0.2.0-PRERELEASE");
+        
         FXMLView view = FXMLView.create(MyPresenter.class.getName());
         System.out.println(view.toString());
         
@@ -42,6 +45,11 @@ public class MyFXMLTest extends Application {
             
             presenter.configure(data);
         }
+        
+        final Scene scene = new Scene(view.getView().get(), 640, 360);
+        primaryStage.setScene(scene);
+        
+        primaryStage.show();
     }
     
 }
