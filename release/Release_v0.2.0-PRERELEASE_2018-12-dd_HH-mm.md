@@ -17,6 +17,7 @@ and connect them to a controller (called the presenter).
 
 #### Enhancement
 #29 [api] Extend the class FXMLView by error with msg from LoggerFacade.
+#28 [api] Extend the method FXMLModel.get(String, Class'T').
 #27 [api] Create new factory method FXMLView.create(String, FXMLModel).
 
 

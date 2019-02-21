@@ -16,9 +16,6 @@
  */
 package com.github.naoghuman.lib.fxml.core;
 
-import com.github.naoghuman.lib.fxml.core.FXMLModel;
-import com.github.naoghuman.lib.fxml.core.FXMLPresenter;
-import com.github.naoghuman.lib.fxml.core.FXMLView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
