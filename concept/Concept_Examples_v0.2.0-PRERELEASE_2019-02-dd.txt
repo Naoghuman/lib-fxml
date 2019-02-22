@@ -1,0 +1,52 @@
+--------------------------------------------------------------------------------
+CONCEPT <Section 'Examples' in ReadMe> - v0.2.0-PRERELEASE
+--------------------------------------------------------------------------------
+INTENTION
+In this concept I want to describe the basic points for the section 'Examples'
+in the ReadMe.
+
+An example :) how it should be can be seen in the library 'Lib-I18N'.
+
+--------------------------------------------------------------------------------
+SPECIFICATION
+Position from the section
+ - The first section in the ReadMe is the section 'Examples'.
+ - This position will also reflect into the section 'Content'.
+
+Details 'Content'
+ - All concrete examples have an own link in 'Content/Examples'.
+ - Every concrete example will start with 'How to...'.
+   For example: 'How to use the builder I18NResourceBundleBuilder'
+
+Details 'Examples'
+The section 'Examples' have follow structure:
+ - Every concrete example starts with an explanation.
+ - Then the specifiction for the usage will be shown.
+ - Last one or two sourcecode implementations as examples.
+
+Suggestions for examples
+ - Usage from FXMLView.create(String)
+ - Usage from FXMLView.create(String, FXMLModel)
+ - Demo Lib-FXML (screenshots, points...)
+
+--------------------------------------------------------------------------------
+LINKS
+
+Lib-I18N
+ - How to use the builder I18NResourceBundleBuilder
+   https://github.com/Naoghuman/lib-i18n#HoToUsReBuBu
+
+--------------------------------------------------------------------------------
+EXTRAS
+ - ...
+
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
