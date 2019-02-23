@@ -11,10 +11,10 @@ An example :) how it should be can be seen in the library 'Lib-I18N'.
 SPECIFICATION
 Position from the section
  - The first section in the ReadMe is the section 'Examples'.
- - This position will also reflect into the section 'Content'.
+ - This position be will also reflect into the section 'Content'.
 
 Details 'Content'
- - All concrete examples have an own link in 'Content/Examples'.
+ - All sub-sections from the section 'Examples' have an own link in 'Content/Examples'.
  - Every concrete example will start with 'How to...'.
    For example: 'How to use the builder I18NResourceBundleBuilder'
 

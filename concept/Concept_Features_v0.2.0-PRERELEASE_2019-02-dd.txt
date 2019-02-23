@@ -1,0 +1,48 @@
+--------------------------------------------------------------------------------
+CONCEPT <Section 'Features' in ReadMe>
+--------------------------------------------------------------------------------
+INTENTION
+In this concept I want to describe the basic points for the section 'Features'
+in the ReadMe.
+
+An example :) how it should be can be seen in the library 'Lib-I18N'.
+
+--------------------------------------------------------------------------------
+SPECIFICATION
+Position from the section
+ - The third section in the ReadMe is the section 'Examples'.
+ - This position will be also reflect into the section 'Content'.
+
+Details 'Features'
+ - All sub-sections from the section 'Features' have an own link in 'Content/Features'.
+ - There are two sub-sections:
+    - [Main library features](#MaLiFe)
+    - [General library features](#GeLiFe)
+
+Structure from a sub-section
+ - Every concrete feature is ordered by a number-list (1., 2. aso.).
+ - `Key terms` will be `linked` or `highlighted`.
+
+--------------------------------------------------------------------------------
+LINKS
+
+Lib-I18N
+ - The ReadMe from the library 'Lib-I18N' can be used as a reference for the 
+   features in this ReadMe.
+ - Main library featureas
+   https://github.com/Naoghuman/lib-i18n#MaLiFe
+
+--------------------------------------------------------------------------------
+EXTRAS
+ - ...
+
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
