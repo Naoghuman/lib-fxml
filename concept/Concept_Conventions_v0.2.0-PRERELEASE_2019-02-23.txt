@@ -1,0 +1,43 @@
+--------------------------------------------------------------------------------
+CONCEPT <Section 'Conventions' in ReadMe>
+--------------------------------------------------------------------------------
+INTENTION
+In this concept I want to describe the basic points for the section 'Conventions'
+in the ReadMe.
+
+An example :) how it should be can be seen in the library 'Lib-I18N'.
+
+--------------------------------------------------------------------------------
+SPECIFICATION
+Position from the section
+ - The second section in the ReadMe is the section 'Conventions'.
+ - This position will be also reflect into the section 'Content'.
+
+Details 'Features'
+ - All concrete concentions have an own link in 'Content/Conventions'.
+ - The basic structure from a convention is
+    - Description from the convention.
+    - Sourcecode example.
+
+--------------------------------------------------------------------------------
+LINKS
+
+Lib-I18N
+ - The ReadMe from the library 'Lib-I18N' can be used as a reference for the 
+   conventions in this ReadMe.
+ - https://github.com/Naoghuman/lib-i18n#CoBaFrRe
+
+--------------------------------------------------------------------------------
+EXTRAS
+ - ...
+
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
