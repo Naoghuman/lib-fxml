@@ -22,41 +22,43 @@ import javafx.scene.Parent;
 /**
  *
  * @since   0.1.0-PRERELEASE
- * @version 0.1.0-PRERELEASE
+ * @version 0.2.0-PRERELEASE
  * @author  Naoghuman
  */
-public interface FXMLPresenter {
+public abstract class FXMLPresenter {
+    
+    private Optional<FXMLModel> fxmlModel = Optional.empty();
     
     /**
      * 
      * @param   model 
      * @since   0.1.0-PRERELEASE
-     * @version 0.1.0-PRERELEASE
+     * @version 0.2.0-PRERELEASE
      * @author  Naoghuman
      */
-    public default void configure(final FXMLModel model) {
-        
+    public void configure(final FXMLModel model) {
+        fxmlModel = Optional.ofNullable(model);
     }
     
     /**
      * 
      * @return 
      * @since   0.1.0-PRERELEASE
-     * @version 0.1.0-PRERELEASE
+     * @version 0.2.0-PRERELEASE
      * @author  Naoghuman
      */
-    public default FXMLModel getModel() {
-        return new FXMLModel();
+    public Optional<FXMLModel> getModel() {
+        return fxmlModel;
     }
     
     /**
      * 
      * @return 
      * @since   0.1.0-PRERELEASE
-     * @version 0.1.0-PRERELEASE
+     * @version 0.2.0-PRERELEASE
      * @author  Naoghuman
      */
-    public default Optional<Parent> getView() {
+    public Optional<Parent> getView() {
         return Optional.empty();
     }
     

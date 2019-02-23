@@ -23,24 +23,25 @@ import javafx.fxml.Initializable;
 /**
  *
  */
-public class MyPresenter implements Initializable, FXMLPresenter {
+public class MyPresenter extends FXMLPresenter implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
-        System.out.println("## MyPresenter ##############");
-        System.out.println("  location      : " + (location  == null ? "NULL" : location.toString()));
-        System.out.println("  resourceBundle: " + (resources == null ? "NULL" : resources.getBaseBundleName()));
-        System.out.println("  rb.key.hello  : " + (resources == null ? "NULL" : resources.getString("key.hello")));
+        System.out.println("## MyPresenter.initialize(URL, ResourceBundle) #####");
+        System.out.println("    - location      : " + (location  == null ? "NULL" : location.toString()));
+        System.out.println("    - resourceBundle: " + (resources == null ? "NULL" : resources.getBaseBundleName()));
+        System.out.println("    - rb.key.hello  : " + (resources == null ? "NULL" : resources.getString("key.hello")));
         System.out.println("################");
         
     }
     
     @Override
-    public void configure(FXMLModel data) {
+    public void configure(FXMLModel model) {
+        super.configure(model);
         
-        System.out.println("## MyPresenter ##############");
-        System.out.println(data.toString());
+        System.out.println("## MyPresenter.configure(FXMLModel) ################");
+        System.out.println(model.toString());
         System.out.println("################");
         
     }
