@@ -36,6 +36,7 @@ and connect them to a controller (called the presenter).
 
 
 #### Refactoring
+#36 [api] Change in FXMLModel toString() the term 'data' to 'model'.
 
 
 
