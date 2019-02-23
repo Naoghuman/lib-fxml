@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Setting the flag status to "trace" will log the log4j2 debug messages to the
+ console.
+-->
+<!-- <Configuration status="trace">  <Configuration> -->
+<Configuration>
+    <Appenders>
+        <File name="APPLICATION" fileName="log/application.log" append="false">
+            <PatternLayout pattern="%d  %-5p %m     [%c{1}]%n" />
+        </File>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d  %-5p %m     [%c{1}]%n" />
+        </Console>
+        <RollingFile name="ROLLING" fileName="log/application-rolling.log" filePattern="log/application-rolling-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="%d  %-5p %m     [%c{1}]%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="16 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="7"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="APPLICATION" />
+            <AppenderRef ref="ROLLING" />
+            <AppenderRef ref="STDOUT" />
+        </Root>
+    </Loggers>
+</Configuration>

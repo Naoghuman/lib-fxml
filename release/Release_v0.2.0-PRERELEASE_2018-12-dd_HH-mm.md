@@ -16,6 +16,7 @@ and connect them to a controller (called the presenter).
 
 
 #### Enhancement
+#39 [api] Attribut 'baseBundleName' should be 'optional' in FXMLView.
 #38 [api] Attribut 'urlForFXML' should be a 'must existing' in FXMLView.
 #37 [api] Change FXMLPresenter to abstract class.
 #29 [api] Extend the class FXMLView by error with msg from LoggerFacade.

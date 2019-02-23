@@ -65,6 +65,7 @@
                         <exclude>**/com/github/naoghuman/lib/fxml/core/*.fxml</exclude>
                         <exclude>**/com/github/naoghuman/lib/fxml/core/*.css</exclude>
                         <exclude>**/com/github/naoghuman/lib/fxml/core/*.properties</exclude>
+                        <exclude>**/*.xml</exclude>
                     </excludes>
                 </configuration>
             </plugin>
@@ -131,6 +132,7 @@
                     <include>**/*.fxml</include>
                     <include>**/*.css</include>
                     <include>**/*.properties</include>
+                    <include>**/*.xml</include>
                 </includes>
             </resource>
         </resources>

@@ -95,10 +95,12 @@ public final class FXMLView {
     private void initializeFXMLLoader() {
         try {
             fxmlLoader = new FXMLLoader();
-            
             fxmlLoader.setController(instance);
             fxmlLoader.setLocation( this.getURLforFXML());
-            fxmlLoader.setResources(this.getResourceBundle().get());
+            
+            if (this.getResourceBundle().isPresent()) {
+                fxmlLoader.setResources(this.getResourceBundle().get());
+            }
             
             fxmlLoader.load();
         } catch (IOException ex) {
@@ -135,9 +137,9 @@ public final class FXMLView {
         try {
             resourceBundle = Optional.ofNullable(getBundle(baseBundleName));
         } catch (MissingResourceException ex) {
-            LoggerFacade.getDefault().error(this.getClass(), 
+            LoggerFacade.getDefault().warn(this.getClass(), 
                     String.format(
-                            "Can't create a ResourceBundle with: %s", // NOI18N
+                            "Can't create a ResourceBundle with the path: %s", // NOI18N
                             baseBundleName), 
                     ex);
         }
@@ -256,7 +258,7 @@ public final class FXMLView {
         sb.append("  conventionalName: ").append(this.getConventionalName()).append("\n"); // NOI18N
         sb.append("  baseBundleName  : ").append(this.getBaseBundleName()  ).append("\n"); // NOI18N
         sb.append("  urlForCSS       : ").append(this.getURLforCSS().isPresent()  ? this.getURLforCSS().get().toString() : "<NOT-DEFINED>").append("\n"); // NOI18N
-        sb.append("  urlForFXML      : ").append(this.getURLforFXML() == null     ? this.getURLforFXML().toString()      : "<NOT-DEFINED>").append("\n"); // NOI18N
+        sb.append("  urlForFXML      : ").append(this.getURLforFXML() != null     ? this.getURLforFXML().toString()      : "<NOT-DEFINED>").append("\n"); // NOI18N
         sb.append("  parent          : ").append(this.getView().isPresent()       ? this.getView().get().toString()      : "<NOT-DEFINED>").append("\n"); // NOI18N
         
         sb.append("]"); // NOI18N
