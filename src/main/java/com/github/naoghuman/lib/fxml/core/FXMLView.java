@@ -69,7 +69,7 @@ public final class FXMLView {
         final FXMLView view = new FXMLView(presenter);
         view.getPresenter().configure(model);
         
-        return new FXMLView(presenter);
+        return view;
     }
     
     private FXMLLoader fxmlLoader;
