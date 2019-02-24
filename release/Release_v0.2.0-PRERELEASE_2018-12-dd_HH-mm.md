@@ -32,6 +32,7 @@ and connect them to a controller (called the presenter).
 
 
 #### Documentation
+#35 [doc] Create JavaDoc in folder 'doc/apidocs'.
 #23 [doc] Create new concept 'Examples'.
 #17 [doc] Create new concept 'Features'.
 #16 [doc] Create new concept 'Conventions'.

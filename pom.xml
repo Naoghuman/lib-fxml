@@ -98,6 +98,7 @@
                 <version>3.0.1</version>
                 <configuration>
                     <additionalparam>-Xdoclint:none</additionalparam>
+                    <destDir>docs/apidocs</destDir>
                 </configuration>
                 <!-- for RELEASE 
                 <executions>

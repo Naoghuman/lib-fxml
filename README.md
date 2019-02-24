@@ -63,8 +63,11 @@ store and access simple data in a Java(FX) application:
 JavaDoc<a name="JavaDoc" />
 ---
 
-TODO
+The [JavaDoc] from the library `Lib-FXML` can be explored here: [JavaDoc Lib-FXML] _(in work)_
 
+_Image:_ JavaDoc Lib-FXML v0.2.0-PRERELEASE
+TODO
+ 
 
 
 Download<a name="Download" />
@@ -151,6 +154,8 @@ You can reach me under <peter.rogge@yahoo.de>.
 [General Public License 3.0]:http://www.gnu.org/licenses/gpl-3.0.en.html
 [IntelliJ IDEA]:http://www.jetbrains.com/idea/
 [Issue]:https://github.com/Naoghuman/lib-fxml/issues
+[JavaDoc]:http://www.oracle.com/technetwork/java/javase/documentation/index-jsp-135444.html
+[JavaDoc Lib-FXML]:http://naoghuman.github.io/lib-fxml/apidocs
 [JavaFX]:http://docs.oracle.com/javase/8/javase-clienttechnologies.htm
 [JavaFX Scene Builder]:http://www.oracle.com/technetwork/java/javase/downloads/index.html
 [JDK 8]:http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
