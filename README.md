@@ -73,11 +73,12 @@ TODO
 Download<a name="Download" />
 ---
 
-Current `version` is `0.1.0-PRERELEASE`. Main points in this release are:
-* Initialize the new GitHub project and write basic concept for the new library.
+Current `version` is `0.2.0-PRERELEASE`. Main points in this release are:
+* Extend the api from Lib-FXML with more methods, tests and internal validations.
+* Prepare the documentation for the future releases.
 
 Download:
-* [Release v0.1.0-PRERELEASE] (12.21.2018 / MM.dd.yyyy)
+* [Release v0.2.0-PRERELEASE] (02.24.2019 / MM.dd.yyyy)
 
 An `overview` about all existings releases can be found here:
 * [Overview] from all releases in Lib-FXML.
@@ -167,5 +168,5 @@ You can reach me under <peter.rogge@yahoo.de>.
 [Maven]:http://maven.apache.org/
 [NetBeans]:https://netbeans.org/
 [Overview]:https://github.com/Naoghuman/lib-fxml/releases
-[Release v0.1.0-PRERELEASE]:https://github.com/Naoghuman/lib-fxml/releases/tag/v0.1.0-PRERELEASE
+[Release v0.2.0-PRERELEASE]:https://github.com/Naoghuman/lib-fxml/releases/tag/v0.2.0-PRERELEASE
 [Pull Request]:https://help.github.com/articles/using-pull-requests

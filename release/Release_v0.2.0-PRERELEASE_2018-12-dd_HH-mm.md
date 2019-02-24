@@ -6,8 +6,8 @@ and connect them to a controller (called the presenter).
 
 
 #### Summary
-* ...
-* ...
+* Extend the api from Lib-FXML with more methods, tests and internal validations.
+* Prepare the documentation for the future releases.
 
 
 
