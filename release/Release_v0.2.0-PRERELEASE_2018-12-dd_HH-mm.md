@@ -32,6 +32,7 @@ and connect them to a controller (called the presenter).
 
 
 #### Documentation
+#40 [doc] Extend the topics in the GitHub project.
 #35 [doc] Create JavaDoc in folder 'doc/apidocs'.
 #23 [doc] Create new concept 'Examples'.
 #17 [doc] Create new concept 'Features'.
