@@ -98,9 +98,9 @@ public final class FXMLView {
             fxmlLoader.setController(instance);
             fxmlLoader.setLocation( this.getURLforFXML());
             
-            if (this.getResourceBundle().isPresent()) {
-                fxmlLoader.setResources(this.getResourceBundle().get());
-            }
+            this.getResourceBundle().ifPresent((bundle) -> {
+                fxmlLoader.setResources(bundle);
+            });
             
             fxmlLoader.load();
         } catch (IOException ex) {
@@ -220,8 +220,8 @@ public final class FXMLView {
             parent = Optional.ofNullable(fxmlLoader.getRoot());
         }
         
-        if (parent.isPresent() && urlForCSS.isPresent()) {
-            parent.get().getStylesheets().add(urlForCSS.get().toExternalForm());
+        if (parent.isPresent() && this.getURLforCSS().isPresent()) {
+            parent.get().getStylesheets().add(this.getURLforCSS().get().toExternalForm());
         }
         
         return parent;
@@ -255,11 +255,11 @@ public final class FXMLView {
         sb.append("FXMLVIEW [").append("\n"); // NOI18N
         
         sb.append("  presenter       : ").append(this.getInstance().getClass().getName()).append("\n"); // NOI18N
-        sb.append("  conventionalName: ").append(this.getConventionalName()).append("\n"); // NOI18N
-        sb.append("  baseBundleName  : ").append(this.getBaseBundleName()  ).append("\n"); // NOI18N
-        sb.append("  urlForCSS       : ").append(this.getURLforCSS().isPresent()  ? this.getURLforCSS().get().toString() : "<NOT-DEFINED>").append("\n"); // NOI18N
-        sb.append("  urlForFXML      : ").append(this.getURLforFXML() != null     ? this.getURLforFXML().toString()      : "<NOT-DEFINED>").append("\n"); // NOI18N
-        sb.append("  parent          : ").append(this.getView().isPresent()       ? this.getView().get().toString()      : "<NOT-DEFINED>").append("\n"); // NOI18N
+        sb.append("  conventionalName: ").append(this.getConventionalName()             ).append("\n"); // NOI18N
+        sb.append("  baseBundleName  : ").append(this.getBaseBundleName()               ).append("\n"); // NOI18N
+        sb.append("  urlForCSS       : ").append(this.getURLforCSS().isPresent() ? this.getURLforCSS().get().toString() : "<NOT-DEFINED>").append("\n"); // NOI18N
+        sb.append("  urlForFXML      : ").append(this.getURLforFXML() != null    ? this.getURLforFXML().toString()      : "<NOT-DEFINED>").append("\n"); // NOI18N
+        sb.append("  parent          : ").append(this.getView().isPresent()      ? this.getView().get().toString()      : "<NOT-DEFINED>").append("\n"); // NOI18N
         
         sb.append("]"); // NOI18N
         
