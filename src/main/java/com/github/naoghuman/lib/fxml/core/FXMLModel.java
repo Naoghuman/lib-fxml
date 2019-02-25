@@ -28,6 +28,14 @@ import java.util.HashMap;
  */
 public final class FXMLModel {
     
+    /**
+     * 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public static final FXMLModel EMPTY = new FXMLModel();
+    
     private final HashMap<String, Object> data = new HashMap<>();
     
     /**

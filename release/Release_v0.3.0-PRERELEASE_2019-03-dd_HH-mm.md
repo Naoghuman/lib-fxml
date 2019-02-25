@@ -16,6 +16,7 @@ and connect them to a controller (called the presenter).
 
 
 #### Enhancement
+#47 [api] Create 'FXMLModel.EMPTY' instance in the class FXMLModel.
 
 
 
