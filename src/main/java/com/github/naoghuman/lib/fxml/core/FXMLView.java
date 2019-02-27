@@ -23,7 +23,6 @@ import java.net.URL;
 import java.util.MissingResourceException;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import static java.util.ResourceBundle.getBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
@@ -135,7 +134,7 @@ public final class FXMLView {
         baseBundleName = baseBundleName.toLowerCase();
         
         try {
-            resourceBundle = Optional.ofNullable(getBundle(baseBundleName));
+            resourceBundle = Optional.ofNullable(ResourceBundle.getBundle(baseBundleName));
         } catch (MissingResourceException ex) {
             LoggerFacade.getDefault().warn(this.getClass(), 
                     String.format(
