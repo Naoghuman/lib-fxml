@@ -110,7 +110,7 @@ public class DefaultFXMLValidator {
      * <p>
      * An additional error message will be added to the error stack:
      * <ul>
-     * <li>"The attribute [value] must ends with the suffix: %s"</li>
+     * <li>"The attribute [value=%s] must ends with the suffix: %s"</li>
      * </ul>
      * 
      * @param   value  the String which should be checked.
@@ -127,7 +127,8 @@ public class DefaultFXMLValidator {
         
         if (!value.endsWith(suffix)) {
             throw new IllegalArgumentException(String.format(
-                    "The attribute [value] must ends with the suffix: %s", suffix)); // NOI18N
+                    "The attribute [value=%s] must ends with the suffix: %s", // NOI18N
+                    value, suffix));
         }
     }
     
