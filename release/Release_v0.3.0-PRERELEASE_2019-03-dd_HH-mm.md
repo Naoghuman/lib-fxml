@@ -30,6 +30,7 @@ and connect them to a controller (called the presenter).
 
 
 #### Refactoring
+#44 [cleanup] Rename 'data' in FXMLModel.
 
 
 

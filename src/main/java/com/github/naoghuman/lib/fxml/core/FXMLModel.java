@@ -36,16 +36,16 @@ public final class FXMLModel {
      */
     public static final FXMLModel EMPTY = new FXMLModel();
     
-    private final HashMap<String, Object> data = new HashMap<>();
+    private final HashMap<String, Object> model = new HashMap<>();
     
     /**
      * 
      * @since   0.1.0-PRERELEASE
-     * @version 0.1.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
     public void clear() {
-        data.clear();
+        model.clear();
     }
     
     /**
@@ -55,7 +55,7 @@ public final class FXMLModel {
      * @param   type
      * @return 
      * @since   0.1.0-PRERELEASE
-     * @version 0.2.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
     public <T> T get(final String key, final Class<T> type) {
@@ -64,7 +64,7 @@ public final class FXMLModel {
         
         T value = null;
         try {
-            value = type.cast(data.get(key));
+            value = type.cast(model.get(key));
         } catch (Exception ex) {
             LoggerFacade.getDefault().error(this.getClass(), 
                     String.format(
@@ -80,22 +80,22 @@ public final class FXMLModel {
      * 
      * @return 
      * @since   0.1.0-PRERELEASE
-     * @version 0.1.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
     public HashMap<String, Object> getAll() {
-        return data;
+        return model;
     }
     
     /**
      * 
      * @return 
      * @since   0.1.0-PRERELEASE
-     * @version 0.1.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
     public boolean isEmpty() {
-        return data.isEmpty();
+        return model.isEmpty();
     }
     
     /**
@@ -103,14 +103,14 @@ public final class FXMLModel {
      * @param   key
      * @param   value 
      * @since   0.1.0-PRERELEASE
-     * @version 0.2.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
     public void put(final String key, final Object value) {
         DefaultFXMLValidator.requireNonNullAndNotEmpty(key);
         DefaultFXMLValidator.requireNonNull(value);
         
-        data.put(key, value);
+        model.put(key, value);
     }
     
     @Override
@@ -118,7 +118,7 @@ public final class FXMLModel {
         final StringBuilder sb = new StringBuilder();
         sb.append("FXMLModel [").append("\n"); // NOI18N
         
-        sb.append("  model: ").append(data.toString()).append("\n"); // NOI18N
+        sb.append("  model: ").append(model.toString()).append("\n"); // NOI18N
         
         sb.append("]"); // NOI18N
         
