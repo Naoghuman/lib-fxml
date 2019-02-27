@@ -1,0 +1,114 @@
+--------------------------------------------------------------------------------
+CONCEPT <SaveToDatabase>
+--------------------------------------------------------------------------------
+INTENTION
+This concept should describe the new concept 'SaveToDatabase' in context from a 
+concrete FXMLPresenter and its associated FXMLModel.
+
+There are several different parts which works together that changed data in a 
+FXMLModel can be saved in a database (xml-, json-file...).
+ 1) A concrete FXMLPresenter.
+ 2) The associated FXMLModel.
+ 3) The processing from a save event.
+ 4) A receiver which is responsible for the saving to a database.
+
+Additional information:
+The library Lib-FXML should be work in context from my (Naoghuman) libraries.
+That mean I will use the library Lib-Action for the configuration and managing 
+from the ActionEvents for the saving.
+
+--------------------------------------------------------------------------------
+SPECIFICATION
+Lib-Action
+ - The library allowed to register an ActionEvent mapped to an Action-ID (String).
+ - With the call ActionFacade.getDefault().handle("Action-ID") the associated 
+   EventHandler<ActionEvent> can be fired.
+ - So we have following parts that an ActionEvent can correctly handled with the 
+   library Lib-Action:
+    - Action-Id from type String.
+    - An EventHandler<ActionEvent> which is associated with the Action-ID.
+      ActionFacade.getDefault().register(...).
+      See also ReadMe (section Examples) from Lib-Action.
+    - And the call events
+      ActionFacade.getDefault().handle(...)
+
+FXMLModel
+ - A new String constant KEY_ACTION_ID is needed.
+   Over this key the associated Action-ID can be received from the FXMLModel.
+   With the individual Action-ID the associated EventHandler<ActionEvent> can 
+   then called in the FXMLPresenter.
+
+FXMLPresenter
+ - A new method:
+   protected onActionSaveToDatabase() {
+      this.getModel().ifPresent((fxmlModel) -> {
+         final String actionId = fxmlModel.get(FXMLModel.KEY_ACTION_ID, String.class);
+         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
+
+         final TransferData transferData = TransferDataBuilder.create()
+               .actionId(actionId)
+               .objectValue(fxmlModel)
+               .build();
+                
+         ActionHandlerFacade.getDefault().handle(transferData);
+      });
+   }
+   The developer needs then only call super.onActionSaveToDatabase() if the 
+   FMXLModel should be saved with the precondition that the received 
+   EventHandler<ActionEvent> is registerd.
+   Developer have also the option to overwrite the method to implemente an own 
+   behaviour.
+
+pom.xml
+ - Needs a new dependency to Lib-Action
+        <dependency>
+            <groupId>com.github.naoghuman</groupId>
+            <artifactId>lib-action</artifactId>
+            <version>0.6.0</version>
+            <type>jar</type>
+        </dependency>
+
+--------------------------------------------------------------------------------
+EXAMPLES
+Example how to configure the FXMLModel with an Action-Id:
+
+    final String ON_ACTION__SAVE_FXMLMODEL_TO_DATABASE = "ON_ACTION__SAVE_FXMLMODEL_TO_DATABASE";
+    final FXMLModel model = new FXMLModel();
+    model.put(FXMLModel.KEY_ACTION_ID, ON_ACTION__SAVE_FXMLMODEL_TO_DATABASE);
+
+Example how to register an EventHandler<ActionEvent>:
+public class SqlFXMLModel ... {
+    private void registerOnActionSaveFXMLModelToDatabase() {
+        LoggerFacade.getDefault().debug(this.getClass(), "SqlFXMLModel.onActionSaveFXMLModelToDatabase()"); // NOI18N
+        
+        ActionHandlerFacade.getDefault().register(
+                ON_ACTION__SAVE_FXMLMODEL_TO_DATABASE,
+                (ActionEvent event) -> {
+                    final TransferData transferData = (TransferData) event.getSource();
+                    final Optional<Object> optional = transferData.getObject();
+                    optional.ifPresent((object) -> {
+                        if (object instance of FXMLModel) {
+                            this.onActionSaveFXMLModelToDatabase((FXMLModel)object);
+                        }
+                    });
+                });
+    }
+    ...
+}
+
+--------------------------------------------------------------------------------
+LINKS
+ - ...
+
+--------------------------------------------------------------------------------
+IDEAS
+This concept can also be used as basic information for an article about Lib-FXML feature 
+"How to save an associated FXMLModel after changes in a FXMLPresenter to database?".
+ - Should be written after the concept is ready for an enhancement from FXMLModel.
+   FXMLModel can then handel Xy properties like StringProperty, IntegerProperty.
+   With this properties the value can be binded so changes FXMLPresenter will reflect 
+   to the data in the associated FXMLModel.
+   That means bind ones during the configuration in FXMLPresenter.configure(FXMLModel)
+   and then only save the always actual data.
+
+--------------------------------------------------------------------------------
