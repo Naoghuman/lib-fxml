@@ -19,6 +19,7 @@ package com.github.naoghuman.lib.fxml.core;
 import com.github.naoghuman.lib.fxml.internal.DefaultFXMLValidator;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import java.util.HashMap;
+import java.util.Optional;
 
 /**
  *
@@ -48,27 +49,28 @@ public final class FXMLModel {
         model.clear();
     }
     
+    
     /**
      * 
      * @param   <T>
-     * @param   key
      * @param   type
+     * @param   key
      * @return 
      * @since   0.1.0-PRERELEASE
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public <T> T get(final String key, final Class<T> type) {
+    public <T> Optional<T> get(final Class<T> type, final String key) {
         DefaultFXMLValidator.requireNonNullAndNotEmpty(key);
         DefaultFXMLValidator.requireNonNull(type);
         
-        T value = null;
+        Optional<T> value = Optional.empty();
         try {
-            value = type.cast(model.get(key));
+            value = Optional.ofNullable(type.cast(model.get(key)));
         } catch (Exception ex) {
-            LoggerFacade.getDefault().error(this.getClass(), 
+            LoggerFacade.getDefault().warn(this.getClass(), 
                     String.format(
-                            "Can't cast the 'value' from 'key=%s' to 'Class<T>=%s'.",
+                            "Can't cast the 'value' from 'key=%s' to 'Optional<T>=%s'. Return Optional.empty().",
                             key, type.getName()), 
                     ex);
         }
