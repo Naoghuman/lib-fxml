@@ -23,12 +23,12 @@ import javafx.fxml.Initializable;
 /**
  *
  */
-public class MyPresenter extends FXMLPresenter implements Initializable {
+public class MyController extends FXMLController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
-        System.out.println("## MyPresenter.initialize(URL, ResourceBundle) #####");
+        System.out.println("## MyController.initialize(URL, ResourceBundle) #####");
         System.out.println("    - location      : " + (location  == null ? "NULL" : location.toString()));
         System.out.println("    - resourceBundle: " + (resources == null ? "NULL" : resources.getBaseBundleName()));
         System.out.println("    - rb.key.hello  : " + (resources == null ? "NULL" : resources.getString("key.hello")));
@@ -40,7 +40,7 @@ public class MyPresenter extends FXMLPresenter implements Initializable {
     public void configure(FXMLModel model) {
         super.configure(model);
         
-        System.out.println("## MyPresenter.configure(FXMLModel) ################");
+        System.out.println("## MyController.configure(FXMLModel) ################");
         System.out.println(model.toString());
         System.out.println("################");
         

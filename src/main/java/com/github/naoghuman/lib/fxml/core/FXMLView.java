@@ -34,33 +34,33 @@ import javafx.scene.Parent;
  */
 public final class FXMLView {
     
-    private final static String DEFAULT_SUFFIX_CSS       = ".css"; // NOI18N
-    private final static String DEFAULT_SUFFIX_FXML      = ".fxml"; // NOI18N
-    private final static String DEFAULT_SUFFIX_PRESENTER = "Presenter"; // NOI18N
+    private final static String DEFAULT_SUFFIX_CSS        = ".css";       // NOI18N
+    private final static String DEFAULT_SUFFIX_FXML       = ".fxml";      // NOI18N
+    private final static String DEFAULT_SUFFIX_CONTROLLER = "Controller"; // NOI18N
     
     /**
      * 
-     * @param   presenter
+     * @param   controller
      * @return 
      * @since   0.1.0-PRERELEASE
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static FXMLView create(final Class<? extends FXMLPresenter> presenter) {
-        return FXMLView.create(presenter, FXMLModel.EMPTY);
+    public static FXMLView create(final Class<? extends FXMLController> controller) {
+        return FXMLView.create(controller, FXMLModel.EMPTY);
     }
     
     /**
      * 
-     * @param   presenter
+     * @param   controller
      * @param   model
      * @return 
      * @since   0.2.0-PRERELEASE
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static FXMLView create(final Class<? extends FXMLPresenter> presenter, final FXMLModel model) {
-        return new FXMLView(presenter, model);
+    public static FXMLView create(final Class<? extends FXMLController> controller, final FXMLModel model) {
+        return new FXMLView(controller, model);
     }
     
     private FXMLLoader fxmlLoader;
@@ -72,40 +72,40 @@ public final class FXMLView {
     private Optional<ResourceBundle> resourceBundle = Optional.empty();
     private Optional<URL>            urlForCSS      = Optional.empty();
 
-    private FXMLView(final Class<? extends FXMLPresenter> presenter, final FXMLModel model) {
-        DefaultFXMLValidator.requireNonNull(presenter);
+    private FXMLView(final Class<? extends FXMLController> controller, final FXMLModel model) {
+        DefaultFXMLValidator.requireNonNull(controller);
         DefaultFXMLValidator.requireNonNull(model);
         
-        this.initializePresenter(presenter);
+        this.initializeController(controller);
         this.initializeConventionalName();
         this.initializeURLforFXML();
-        this.initializeResourceBundle(presenter);
+        this.initializeResourceBundle(controller);
         this.initializeURLforCSS();
         
         this.initializeFXMLLoader(model);
     }
     
-    private void initializePresenter(final Class<? extends FXMLPresenter> presenter) {
-        final String presenterName = presenter.getName();
-        DefaultFXMLValidator.requireEndsWith(presenterName, DEFAULT_SUFFIX_PRESENTER);
+    private void initializeController(final Class<? extends FXMLController> controller) {
+        final String controllerName = controller.getName();
+        DefaultFXMLValidator.requireEndsWith(controllerName, DEFAULT_SUFFIX_CONTROLLER);
         
         try {
-            instance = Class.forName(presenterName).newInstance();
+            instance = Class.forName(controllerName).newInstance();
             DefaultFXMLValidator.requireNonNull(instance);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             LoggerFacade.getDefault().error(this.getClass(),
                     String.format(
                             "Can't create a 'controller' instance from class: %s", // NOI18N
-                            presenterName),
+                            controllerName),
                     ex);
         }
     }
     
     private void initializeConventionalName() {
         final String simpleName = this.getInstance().getClass().getSimpleName();
-        DefaultFXMLValidator.requireEndsWith(simpleName, DEFAULT_SUFFIX_PRESENTER);
+        DefaultFXMLValidator.requireEndsWith(simpleName, DEFAULT_SUFFIX_CONTROLLER);
         
-        conventionalName = simpleName.substring(0, simpleName.lastIndexOf(DEFAULT_SUFFIX_PRESENTER));
+        conventionalName = simpleName.substring(0, simpleName.lastIndexOf(DEFAULT_SUFFIX_CONTROLLER));
         conventionalName = conventionalName.toLowerCase();
         DefaultFXMLValidator.requireNonNullAndNotEmpty(conventionalName);
     }
@@ -120,11 +120,11 @@ public final class FXMLView {
         }
     }
     
-    private void initializeResourceBundle(final Class<? extends FXMLPresenter> presenter) {
-        final String presenterName = presenter.getName();
-        DefaultFXMLValidator.requireEndsWith(presenterName, DEFAULT_SUFFIX_PRESENTER);
+    private void initializeResourceBundle(final Class<? extends FXMLController> controller) {
+        final String controllerName = controller.getName();
+        DefaultFXMLValidator.requireEndsWith(controllerName, DEFAULT_SUFFIX_CONTROLLER);
         
-        baseBundleName = presenterName.substring(0, presenterName.lastIndexOf(DEFAULT_SUFFIX_PRESENTER));
+        baseBundleName = controllerName.substring(0, controllerName.lastIndexOf(DEFAULT_SUFFIX_CONTROLLER));
         baseBundleName = baseBundleName.toLowerCase();
         DefaultFXMLValidator.requireNonNullAndNotEmpty(baseBundleName);
         
@@ -161,7 +161,7 @@ public final class FXMLView {
                 });
             });
             
-            this.getPresenter().configure(model);
+            this.getController().configure(model);
         } catch (IOException ex) {
             LoggerFacade.getDefault().error(this.getClass(),
                     String.format(
@@ -201,11 +201,11 @@ public final class FXMLView {
      * 
      * @return 
      * @since   0.1.0-PRERELEASE
-     * @version 0.1.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public FXMLPresenter getPresenter() {
-        return (FXMLPresenter) fxmlLoader.getController();
+    public FXMLController getController() {
+        return (FXMLController) fxmlLoader.getController();
     }
     
     /**
@@ -257,9 +257,9 @@ public final class FXMLView {
         final StringBuilder sb = new StringBuilder();
         sb.append("FXMLVIEW [").append("\n"); // NOI18N
         
-        sb.append("  presenter       : ").append(this.getPresenter().getClass().getName()).append("\n"); // NOI18N
-        sb.append("  conventionalName: ").append(this.getConventionalName()              ).append("\n"); // NOI18N
-        sb.append("  baseBundleName  : ").append(this.getBaseBundleName()                ).append("\n"); // NOI18N
+        sb.append("  controller      : ").append(this.getController().getClass().getName()).append("\n"); // NOI18N
+        sb.append("  conventionalName: ").append(this.getConventionalName()               ).append("\n"); // NOI18N
+        sb.append("  baseBundleName  : ").append(this.getBaseBundleName()                 ).append("\n"); // NOI18N
         sb.append("  urlForFXML      : ").append(this.getURLforFXML() != null    ? this.getURLforFXML().toString()      : "<NOT-DEFINED>").append("\n"); // NOI18N
         sb.append("  urlForCSS       : ").append(this.getURLforCSS().isPresent() ? this.getURLforCSS().get().toString() : "<NOT-DEFINED>").append("\n"); // NOI18N
         sb.append("  parent          : ").append(this.getRoot().isPresent()      ? this.getRoot().get().toString()      : "<NOT-DEFINED>").append("\n"); // NOI18N

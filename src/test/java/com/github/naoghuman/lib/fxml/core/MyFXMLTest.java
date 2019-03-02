@@ -36,17 +36,17 @@ public class MyFXMLTest extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Demo Lib-Fxml v0.2.0-PRERELEASE");
         
-        FXMLView view = FXMLView.create(MyPresenter.class);
+        FXMLView view = FXMLView.create(MyController.class);
         System.out.println(view.toString());
         
-        FXMLPresenter presenter = view.getPresenter();
-        if (presenter != null) {
+        FXMLController controller = view.getController();
+        if (controller != null) {
             final FXMLModel data = new FXMLModel();
             data.put("my.int",    12345);
             data.put("my.double", 3.145d);
             data.put("my.string", "hello fxml");
             
-            presenter.configure(data);
+            controller.configure(data);
         }
         
         final Scene scene = new Scene(view.getRoot().get(), 640, 360);

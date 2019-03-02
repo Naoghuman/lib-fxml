@@ -22,10 +22,10 @@ import javafx.scene.Parent;
 /**
  *
  * @since   0.1.0-PRERELEASE
- * @version 0.2.0-PRERELEASE
+ * @version 0.3.0-PRERELEASE
  * @author  Naoghuman
  */
-public abstract class FXMLPresenter {
+public abstract class FXMLController {
     
     private Optional<FXMLModel> fxmlModel = Optional.empty();
     

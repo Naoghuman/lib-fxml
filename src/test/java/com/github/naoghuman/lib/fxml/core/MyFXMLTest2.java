@@ -41,7 +41,7 @@ public class MyFXMLTest2 extends Application {
         model.put("my.double", 3.145d);
         model.put("my.string", "hello fxml");
             
-        FXMLView view = FXMLView.create(MyPresenter.class, model);
+        FXMLView view = FXMLView.create(MyController.class, model);
         System.out.println(view.toString());
         
         final Scene scene = new Scene(view.getRoot().get(), 640, 360);

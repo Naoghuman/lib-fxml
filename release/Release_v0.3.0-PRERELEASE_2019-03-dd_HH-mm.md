@@ -32,6 +32,7 @@ and connect them to a controller (called the presenter).
 
 
 #### Refactoring
+#51 [cleanup] Rename the class FXMLPresenter to FXMLController.
 #46 [cleanup] Rewrite the 'create(...)' methods in FXMLView.
 #44 [cleanup] Rename 'data' in FXMLModel.
 #43 [cleanup] Refactore the usage from the method ResourceBundle.getBundle(...) in FXMLView.
