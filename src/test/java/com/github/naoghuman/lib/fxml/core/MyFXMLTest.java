@@ -36,7 +36,7 @@ public class MyFXMLTest extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Demo Lib-Fxml v0.2.0-PRERELEASE");
         
-        FXMLView view = FXMLView.create(MyPresenter.class.getName());
+        FXMLView view = FXMLView.create(MyPresenter.class);
         System.out.println(view.toString());
         
         FXMLPresenter presenter = view.getPresenter();
@@ -49,7 +49,7 @@ public class MyFXMLTest extends Application {
             presenter.configure(data);
         }
         
-        final Scene scene = new Scene(view.getView().get(), 640, 360);
+        final Scene scene = new Scene(view.getRoot().get(), 640, 360);
         primaryStage.setScene(scene);
         
         primaryStage.show();

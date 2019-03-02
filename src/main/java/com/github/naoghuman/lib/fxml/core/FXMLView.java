@@ -43,13 +43,11 @@ public final class FXMLView {
      * @param   presenter
      * @return 
      * @since   0.1.0-PRERELEASE
-     * @version 0.2.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static FXMLView create(final String presenter) {
-        DefaultFXMLValidator.requireEndsWith(presenter, DEFAULT_SUFFIX_PRESENTER);
-        
-        return new FXMLView(presenter);
+    public static FXMLView create(final Class<? extends FXMLPresenter> presenter) {
+        return FXMLView.create(presenter, FXMLModel.EMPTY);
     }
     
     /**
@@ -58,87 +56,84 @@ public final class FXMLView {
      * @param   model
      * @return 
      * @since   0.2.0-PRERELEASE
-     * @version 0.2.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static FXMLView create(final String presenter, final FXMLModel model) {
-        DefaultFXMLValidator.requireEndsWith(presenter, DEFAULT_SUFFIX_PRESENTER);
-        DefaultFXMLValidator.requireNonNull(model);
-        
-        final FXMLView view = new FXMLView(presenter);
-        view.getPresenter().configure(model);
-        
-        return view;
+    public static FXMLView create(final Class<? extends FXMLPresenter> presenter, final FXMLModel model) {
+        return new FXMLView(presenter, model);
     }
     
     private FXMLLoader fxmlLoader;
     private Object     instance;
     private String     baseBundleName;
     private String     conventionalName;
+    private URL        urlForFXML;
     
     private Optional<ResourceBundle> resourceBundle = Optional.empty();
     private Optional<URL>            urlForCSS      = Optional.empty();
-    private URL                      urlForFXML     = null;
-    
-    private FXMLView(final String presenter) {
-        this.initializeResourceBundle(presenter);
+
+    private FXMLView(final Class<? extends FXMLPresenter> presenter, final FXMLModel model) {
+        DefaultFXMLValidator.requireNonNull(presenter);
+        DefaultFXMLValidator.requireNonNull(model);
         
         this.initializePresenter(presenter);
-        
         this.initializeConventionalName();
-        this.initializeURLforCSS();
         this.initializeURLforFXML();
-        this.initializeFXMLLoader();
+        this.initializeResourceBundle(presenter);
+        this.initializeURLforCSS();
+        
+        this.initializeFXMLLoader(model);
     }
     
-    private void initializeFXMLLoader() {
+    private void initializePresenter(final Class<? extends FXMLPresenter> presenter) {
+        final String presenterName = presenter.getName();
+        DefaultFXMLValidator.requireEndsWith(presenterName, DEFAULT_SUFFIX_PRESENTER);
+        
         try {
-            fxmlLoader = new FXMLLoader();
-            fxmlLoader.setController(instance);
-            fxmlLoader.setLocation( this.getURLforFXML());
-            
-            this.getResourceBundle().ifPresent((bundle) -> {
-                fxmlLoader.setResources(bundle);
-            });
-            
-            fxmlLoader.load();
-        } catch (IOException ex) {
-            LoggerFacade.getDefault().error(this.getClass(),
-                    String.format(
-                            "Can't load FXML file with path: %s", // NOI18N
-                            this.getURLforFXML().getPath()),
-                    ex);
-        }
-    }
-    
-    private void initializePresenter(final String presenter) {
-        try {
-            instance = Class.forName(presenter).newInstance();
+            instance = Class.forName(presenterName).newInstance();
+            DefaultFXMLValidator.requireNonNull(instance);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             LoggerFacade.getDefault().error(this.getClass(),
                     String.format(
-                            "Can't create an instance from type: %s", // NOI18N
-                            presenter),
+                            "Can't create a 'controller' instance from class: %s", // NOI18N
+                            presenterName),
                     ex);
         }
     }
     
     private void initializeConventionalName() {
-        conventionalName = this.getInstance().getClass().getSimpleName();
-        conventionalName = conventionalName.substring(0, conventionalName.lastIndexOf(DEFAULT_SUFFIX_PRESENTER));
+        final String simpleName = this.getInstance().getClass().getSimpleName();
+        DefaultFXMLValidator.requireEndsWith(simpleName, DEFAULT_SUFFIX_PRESENTER);
+        
+        conventionalName = simpleName.substring(0, simpleName.lastIndexOf(DEFAULT_SUFFIX_PRESENTER));
         conventionalName = conventionalName.toLowerCase();
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(conventionalName);
     }
     
-    private void initializeResourceBundle(final String presenter) {
-        baseBundleName = presenter.substring(0, presenter.lastIndexOf(DEFAULT_SUFFIX_PRESENTER));
+    private void initializeURLforFXML() {
+        urlForFXML = this.getInstance().getClass().getResource(this.getConventionalName() + DEFAULT_SUFFIX_FXML);
+        if (urlForFXML == null) {
+            throw new IllegalArgumentException(String.format(
+                    "Can't find a '.fxml' resource with the name: %s%s", // NOI18N
+                    this.getConventionalName(),
+                    DEFAULT_SUFFIX_FXML));
+        }
+    }
+    
+    private void initializeResourceBundle(final Class<? extends FXMLPresenter> presenter) {
+        final String presenterName = presenter.getName();
+        DefaultFXMLValidator.requireEndsWith(presenterName, DEFAULT_SUFFIX_PRESENTER);
+        
+        baseBundleName = presenterName.substring(0, presenterName.lastIndexOf(DEFAULT_SUFFIX_PRESENTER));
         baseBundleName = baseBundleName.toLowerCase();
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(baseBundleName);
         
         try {
             resourceBundle = Optional.ofNullable(ResourceBundle.getBundle(baseBundleName));
         } catch (MissingResourceException ex) {
             LoggerFacade.getDefault().warn(this.getClass(), 
                     String.format(
-                            "Can't create a ResourceBundle with the path: %s", // NOI18N
+                            "Can't found a ResourceBundle with the specified 'base' name: %s", // NOI18N
                             baseBundleName), 
                     ex);
         }
@@ -148,13 +143,31 @@ public final class FXMLView {
         urlForCSS = Optional.ofNullable(this.getInstance().getClass().getResource(this.getConventionalName() + DEFAULT_SUFFIX_CSS));
     }
     
-    private void initializeURLforFXML() {
-        urlForFXML = this.getInstance().getClass().getResource(this.getConventionalName() + DEFAULT_SUFFIX_FXML);
-        if (urlForFXML == null) {
-            throw new IllegalArgumentException(String.format(
-                    "Can't find a resource with the path: %s%s", // NOI18N
-                    this.getConventionalName(),
-                    DEFAULT_SUFFIX_FXML));
+    private void initializeFXMLLoader(final FXMLModel model) {
+        try {
+            fxmlLoader = new FXMLLoader();
+            fxmlLoader.setController(this.getInstance());
+            fxmlLoader.setLocation(  this.getURLforFXML());
+            
+            this.getResourceBundle().ifPresent((bundle) -> {
+                fxmlLoader.setResources(bundle);
+            });
+            
+            fxmlLoader.load();
+        
+            this.getRoot().ifPresent((root) -> {
+                this.getURLforCSS().ifPresent((url) -> {
+                    root.getStylesheets().add(url.toExternalForm());
+                });
+            });
+            
+            this.getPresenter().configure(model);
+        } catch (IOException ex) {
+            LoggerFacade.getDefault().error(this.getClass(),
+                    String.format(
+                            "Can't load '.fxml' file with the path: %s", // NOI18N
+                            this.getURLforFXML().getPath()),
+                    ex);
         }
     }
     
@@ -210,20 +223,11 @@ public final class FXMLView {
      * 
      * @return 
      * @since   0.1.0-PRERELEASE
-     * @version 0.1.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public Optional<Parent> getView() {
-        Optional<Parent> parent = Optional.empty();
-        if (fxmlLoader != null) {
-            parent = Optional.ofNullable(fxmlLoader.getRoot());
-        }
-        
-        if (parent.isPresent() && this.getURLforCSS().isPresent()) {
-            parent.get().getStylesheets().add(this.getURLforCSS().get().toExternalForm());
-        }
-        
-        return parent;
+    public Optional<Parent> getRoot() {
+        return Optional.ofNullable(fxmlLoader.getRoot());
     }
     
     /**
@@ -253,12 +257,12 @@ public final class FXMLView {
         final StringBuilder sb = new StringBuilder();
         sb.append("FXMLVIEW [").append("\n"); // NOI18N
         
-        sb.append("  presenter       : ").append(this.getInstance().getClass().getName()).append("\n"); // NOI18N
-        sb.append("  conventionalName: ").append(this.getConventionalName()             ).append("\n"); // NOI18N
-        sb.append("  baseBundleName  : ").append(this.getBaseBundleName()               ).append("\n"); // NOI18N
-        sb.append("  urlForCSS       : ").append(this.getURLforCSS().isPresent() ? this.getURLforCSS().get().toString() : "<NOT-DEFINED>").append("\n"); // NOI18N
+        sb.append("  presenter       : ").append(this.getPresenter().getClass().getName()).append("\n"); // NOI18N
+        sb.append("  conventionalName: ").append(this.getConventionalName()              ).append("\n"); // NOI18N
+        sb.append("  baseBundleName  : ").append(this.getBaseBundleName()                ).append("\n"); // NOI18N
         sb.append("  urlForFXML      : ").append(this.getURLforFXML() != null    ? this.getURLforFXML().toString()      : "<NOT-DEFINED>").append("\n"); // NOI18N
-        sb.append("  parent          : ").append(this.getView().isPresent()      ? this.getView().get().toString()      : "<NOT-DEFINED>").append("\n"); // NOI18N
+        sb.append("  urlForCSS       : ").append(this.getURLforCSS().isPresent() ? this.getURLforCSS().get().toString() : "<NOT-DEFINED>").append("\n"); // NOI18N
+        sb.append("  parent          : ").append(this.getRoot().isPresent()      ? this.getRoot().get().toString()      : "<NOT-DEFINED>").append("\n"); // NOI18N
         
         sb.append("]"); // NOI18N
         
