@@ -19,6 +19,7 @@ and connect them to a controller (called the presenter).
 #50 [api] Enhance FXMLModel.get(Class'T', String) to return an Optional'T'.
 #48 [test] Enhance the method DefaultFXMLValidator.requireEndsWith(...).
 #47 [api] Create 'FXMLModel.EMPTY' instance in the class FXMLModel.
+#45 [api] Create new interface FXMLModelable.
 
 
 
