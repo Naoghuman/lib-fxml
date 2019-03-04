@@ -255,14 +255,14 @@ public final class FXMLView {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append("FXMLVIEW [").append("\n"); // NOI18N
+        sb.append("FXMLView [").append("\n"); // NOI18N
         
         sb.append("  controller      : ").append(this.getController().getClass().getName()).append("\n"); // NOI18N
         sb.append("  conventionalName: ").append(this.getConventionalName()               ).append("\n"); // NOI18N
         sb.append("  baseBundleName  : ").append(this.getBaseBundleName()                 ).append("\n"); // NOI18N
         sb.append("  urlForFXML      : ").append(this.getURLforFXML() != null    ? this.getURLforFXML().toString()      : "<NOT-DEFINED>").append("\n"); // NOI18N
         sb.append("  urlForCSS       : ").append(this.getURLforCSS().isPresent() ? this.getURLforCSS().get().toString() : "<NOT-DEFINED>").append("\n"); // NOI18N
-        sb.append("  parent          : ").append(this.getRoot().isPresent()      ? this.getRoot().get().toString()      : "<NOT-DEFINED>").append("\n"); // NOI18N
+        sb.append("  root            : ").append(this.getRoot().isPresent()      ? this.getRoot().get().toString()      : "<NOT-DEFINED>").append("\n"); // NOI18N
         
         sb.append("]"); // NOI18N
         

@@ -23,10 +23,10 @@ import javafx.stage.Stage;
 /**
  *
  * @since   0.1.0-PRERELEASE
- * @version 0.1.0-PRERELEASE
+ * @version 0.3.0-PRERELEASE
  * @author  Naoghuman
  */
-public class MyFXMLTest extends Application {
+public class DemoWithAllFiles extends Application {
     
     public static void main(String[] args) {
         launch(args);
@@ -34,22 +34,17 @@ public class MyFXMLTest extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Demo Lib-Fxml v0.2.0-PRERELEASE");
+        primaryStage.setTitle("Demo: Lib-FXML v0.3.0-PRERELEASE");
         
-        FXMLView view = FXMLView.create(MyController.class);
+        final FXMLModel model = new FXMLModel();
+        model.put("my.int",    12345);
+        model.put("my.double", 3.145d);
+        model.put("my.string", "Hello Lib-FXML!");
+            
+        FXMLView view = FXMLView.create(DemoWithAllFilesController.class, model);
         System.out.println(view.toString());
         
-        FXMLController controller = view.getController();
-        if (controller != null) {
-            final FXMLModel data = new FXMLModel();
-            data.put("my.int",    12345);
-            data.put("my.double", 3.145d);
-            data.put("my.string", "hello fxml");
-            
-            controller.configure(data);
-        }
-        
-        final Scene scene = new Scene(view.getRoot().get(), 640, 360);
+        final Scene scene = new Scene(view.getRoot().get(), 960, 360);
         primaryStage.setScene(scene);
         
         primaryStage.show();
