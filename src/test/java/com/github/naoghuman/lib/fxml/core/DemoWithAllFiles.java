@@ -34,12 +34,12 @@ public class DemoWithAllFiles extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Demo: Lib-FXML v0.3.0-PRERELEASE");
+        primaryStage.setTitle("Demo with all Files: Lib-FXML v0.3.0-PRERELEASE");
         
         final FXMLModel model = new FXMLModel();
         model.put("my.int",    12345);
         model.put("my.double", 3.145d);
-        model.put("my.string", "Hello Lib-FXML!");
+        model.put("my.string", "Hello Lib-FXML from demo with all files!");
             
         FXMLView view = FXMLView.create(DemoWithAllFilesController.class, model);
         System.out.println(view.toString());
