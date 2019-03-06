@@ -207,6 +207,33 @@ public final class FXMLView {
         return (FXMLController) fxmlLoader.getController();
     }
     
+    
+    /**
+     * 
+     * @param   <T>
+     * @param   type
+     * @return 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public <T extends FXMLController> Optional<T> getController(final Class<T> type) {
+        DefaultFXMLValidator.requireNonNull(type);
+        
+        Optional<T> value = Optional.empty();
+        try {
+            value = Optional.ofNullable(type.cast(this.getController()));
+        } catch (Exception ex) {
+            LoggerFacade.getDefault().warn(this.getClass(), 
+                    String.format(
+                            "Can't downcast FXMLController to type of '%s'. Return Optional.empty().",
+                            type.getName()), 
+                    ex);
+        }
+        
+        return value;
+    }
+    
     /**
      * 
      * @return 
