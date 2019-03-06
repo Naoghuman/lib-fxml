@@ -33,6 +33,7 @@ and connect them to a controller (called the presenter).
 
 
 #### Refactoring
+#54 [cleanup] Rewrite the 'toString()' method from FXMLModel, -View.
 #51 [cleanup] Rename the class FXMLPresenter to FXMLController.
 #46 [cleanup] Rewrite the 'create(...)' methods in FXMLView.
 #44 [cleanup] Rename 'data' in FXMLModel.
@@ -50,6 +51,7 @@ Naoghuman
 
 
 [//]: # (Issues which will be integrated in this release)
+#42 [test] Rename the demo applications to fit the necessities from the api.
 
 
 

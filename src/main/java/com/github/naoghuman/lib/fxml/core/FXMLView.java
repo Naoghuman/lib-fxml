@@ -131,11 +131,10 @@ public final class FXMLView {
         try {
             resourceBundle = Optional.ofNullable(ResourceBundle.getBundle(baseBundleName));
         } catch (MissingResourceException ex) {
-            LoggerFacade.getDefault().warn(this.getClass(), 
+            LoggerFacade.getDefault().debug(this.getClass(), 
                     String.format(
                             "Can't found a ResourceBundle with the specified 'base' name: %s", // NOI18N
-                            baseBundleName), 
-                    ex);
+                            baseBundleName));
         }
     }
     
@@ -255,14 +254,14 @@ public final class FXMLView {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append("FXMLView [").append("\n"); // NOI18N
+        sb.append("FXMLView [\n"); // NOI18N
         
-        sb.append("  controller      : ").append(this.getController().getClass().getName()).append("\n"); // NOI18N
-        sb.append("  conventionalName: ").append(this.getConventionalName()               ).append("\n"); // NOI18N
-        sb.append("  baseBundleName  : ").append(this.getBaseBundleName()                 ).append("\n"); // NOI18N
-        sb.append("  urlForFXML      : ").append(this.getURLforFXML() != null    ? this.getURLforFXML().toString()      : "<NOT-DEFINED>").append("\n"); // NOI18N
-        sb.append("  urlForCSS       : ").append(this.getURLforCSS().isPresent() ? this.getURLforCSS().get().toString() : "<NOT-DEFINED>").append("\n"); // NOI18N
-        sb.append("  root            : ").append(this.getRoot().isPresent()      ? this.getRoot().get().toString()      : "<NOT-DEFINED>").append("\n"); // NOI18N
+        sb.append("  controller       = ").append(this.getController().getClass().getName()).append(",\n"); // NOI18N
+        sb.append("  conventionalName = ").append(this.getConventionalName()               ).append(",\n"); // NOI18N
+        sb.append("  baseBundleName   = ").append(this.getBaseBundleName()                 ).append(",\n"); // NOI18N
+        sb.append("  urlForFXML       = ").append(this.getURLforFXML() != null    ? this.getURLforFXML().toString()      : "<not-defined>").append(",\n"); // NOI18N
+        sb.append("  urlForCSS        = ").append(this.getURLforCSS().isPresent() ? this.getURLforCSS().get().toString() : "<not-defined>").append(",\n"); // NOI18N
+        sb.append("  root             = ").append(this.getRoot().isPresent()      ? this.getRoot().get().toString()      : "<not-defined>").append("\n"); // NOI18N
         
         sb.append("]"); // NOI18N
         

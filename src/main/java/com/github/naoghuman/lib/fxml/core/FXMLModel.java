@@ -19,6 +19,8 @@ package com.github.naoghuman.lib.fxml.core;
 import com.github.naoghuman.lib.fxml.internal.DefaultFXMLValidator;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -118,9 +120,38 @@ public final class FXMLModel {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append("FXMLModel [").append("\n"); // NOI18N
+        sb.append("FXMLModel [\n"); // NOI18N
         
-        sb.append("  model: ").append(model.toString()).append("\n"); // NOI18N
+        final Iterator<Map.Entry<String, Object>> iterator = model.entrySet().iterator();
+        if (!iterator.hasNext()) {
+            sb.append("  <no-entries-defined>"); // NOI18N
+        }
+        
+        int maxLength = 0;
+        for(final String key : model.keySet()) {
+            maxLength = Math.max(maxLength, key.length());
+        }
+        
+        final int elements = model.size();
+        int counter = 0;
+        while (iterator.hasNext()) {
+            final Map.Entry<String, Object> next = iterator.next();
+            final String key = next.getKey();
+            final Object value = next.getValue();
+            
+            sb.append("  "); // NOI18N
+            sb.append(String.format("%-" + maxLength + "s", key)); // NOI18N
+            sb.append(" = "); // NOI18N
+            sb.append(value);
+            
+            ++counter;
+            if (counter < elements) {
+                sb.append(",\n"); // NOI18N
+            }
+            else {
+                sb.append("\n"); // NOI18N
+            }
+        }
         
         sb.append("]"); // NOI18N
         
