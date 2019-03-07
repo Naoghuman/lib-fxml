@@ -39,9 +39,6 @@ public class DemoWithoutCssFileController extends FXMLController implements Init
 
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        DefaultFXMLValidator.requireNonNull(location);
-        DefaultFXMLValidator.requireNonNull(resources);
-        
         this.location        = (location  != null ? location.toString()                      : "<not-defined>"); // NOI18N
         this.resources       = (resources != null ? resources.getBaseBundleName()            : "<not-defined>"); // NOI18N
         this.keyHelloLibFXML = (resources != null ? resources.getString("key.hello.libfxml") : "<not-defined>"); // NOI18N
@@ -54,7 +51,7 @@ public class DemoWithoutCssFileController extends FXMLController implements Init
         sb.append("================================================================================\n\n"); // NOI18N
         sb.append("This demo shows how to load the following files with the library 'Lib-FXML' in v0.3.0-PRERELEASE.\n"); // NOI18N
         sb.append(" - The factory FXMLView.create (class FXMLController>, FXMLModel extended)\n"); // NOI18N
-        sb.append("   loads an instance of the controller class DemoWithAllFilesController,\n"); // NOI18N
+        sb.append("   loads an instance of the controller class ").append(this.getClass().getSimpleName()).append(",\n");
         sb.append("   automatically configuring thereby the passed FXMLModel.\n"); // NOI18N
         sb.append(" - The optional file '.properties' is automatically loaded with the 'conventional name'\n"); // NOI18N
         sb.append("   (controller name in lower case without the suffix controller).\n\n"); // NOI18N

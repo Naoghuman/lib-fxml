@@ -29,7 +29,7 @@ import javafx.scene.control.TextArea;
  * @version 0.3.0-PRERELEASE
  * @author  Naoghuman
  */
-public class DemoWithAllFilesController extends FXMLController implements Initializable {
+public class DemoWithoutPropertiesFileController extends FXMLController implements Initializable {
     
     @FXML private TextArea taDemoInfos;
     
@@ -53,8 +53,8 @@ public class DemoWithAllFilesController extends FXMLController implements Initia
         sb.append(" - The factory FXMLView.create (class FXMLController>, FXMLModel extended)\n"); // NOI18N
         sb.append("   loads an instance of the controller class ").append(this.getClass().getSimpleName()).append(",\n");
         sb.append("   automatically configuring thereby the passed FXMLModel.\n"); // NOI18N
-        sb.append(" - The optional files '.css' and '.properties' are automatically loaded\n"); // NOI18N
-        sb.append("   with the 'conventional name' (controller name in lower case without the suffix controller).\n\n"); // NOI18N
+        sb.append(" - The optional file '.css' is automatically loaded with the 'conventional name'\n"); // NOI18N
+        sb.append("   (controller name in lower case without the suffix controller).\n\n"); // NOI18N
         
         sb.append("================================================================================\n\n"); // NOI18N
         sb.append("Demo files:\n"); // NOI18N
@@ -62,7 +62,6 @@ public class DemoWithAllFilesController extends FXMLController implements Initia
         sb.append(" - DemoWithAllFilesController.java\n"); // NOI18N
         sb.append(" - demowithallfiles.css\n"); // NOI18N
         sb.append(" - demowithallfiles.fxml\n"); // NOI18N
-        sb.append(" - demowithallfiles.properties\n\n"); // NOI18N
         
         sb.append("================================================================================\n\n"); // NOI18N
         sb.append("Details:\n"); // NOI18N
