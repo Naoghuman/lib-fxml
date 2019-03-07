@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -14,73 +9,10 @@
    <children>
       <VBox layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
          <children>
-            <Label text="ResourceBundle">
+            <TextArea fx:id="taDemoInfos" editable="false" wrapText="true" VBox.vgrow="ALWAYS">
                <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <HBox>
-               <children>
-                  <GridPane maxWidth="1.7976931348623157E308" prefHeight="50.0" HBox.hgrow="ALWAYS">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="NEVER" maxWidth="128.0" minWidth="128.0" prefWidth="128.0" />
-                      <ColumnConstraints hgrow="NEVER" maxWidth="7.0" minWidth="7.0" prefWidth="7.0" />
-                      <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="445.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                    </rowConstraints>
-                     <children>
-                        <Label text=" - URL Location" />
-                        <Label text=" - ResourceBundle" GridPane.rowIndex="1" />
-                        <Label text=" - key.hello.libfxml" GridPane.rowIndex="2" />
-                        <Label text=":" GridPane.columnIndex="1" />
-                        <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="lLocation" text="&lt;text&gt;" GridPane.columnIndex="2" />
-                        <Label fx:id="lResourceBundle" text="&lt;text&gt;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <Label fx:id="lHelloLibFXML" text="&lt;text&gt;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                     </children>
-                  </GridPane>
-               </children>
-            </HBox>
-            <Label text="FXMLModel">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <padding>
-                  <Insets top="14.0" />
-               </padding>
-            </Label>
-            <HBox>
-               <children>
-                  <GridPane maxWidth="1.7976931348623157E308" prefHeight="50.0" HBox.hgrow="ALWAYS">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="NEVER" maxWidth="128.0" minWidth="128.0" prefWidth="128.0" />
-                        <ColumnConstraints hgrow="NEVER" maxWidth="7.0" minWidth="7.0" prefWidth="7.0" />
-                        <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="445.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                     </rowConstraints>
-                     <children>
-                        <Label text=" - my.int" />
-                        <Label text=" - my.double" GridPane.rowIndex="1" />
-                        <Label text=" - my.string" GridPane.rowIndex="2" />
-                        <Label text=":" GridPane.columnIndex="1" />
-                        <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="lMyInt" text="&lt;text&gt;" GridPane.columnIndex="2" />
-                        <Label fx:id="lMyDouble" text="&lt;text&gt;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <Label fx:id="lMyString" text="&lt;text&gt;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                     </children>
-                  </GridPane>
-               </children>
-            </HBox>
+                  <Font name="Monospaced Regular" size="12.0" />
+               </font></TextArea>
          </children>
       </VBox>
    </children>

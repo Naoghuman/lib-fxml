@@ -35,7 +35,7 @@ public class DemoWithAllFiles extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Lib-FXML Demo with all files");
+        primaryStage.setTitle("Lib-FXML Demo with all files!");
         
         final FXMLModel model = new FXMLModel();
         model.put("my.int",    12345);

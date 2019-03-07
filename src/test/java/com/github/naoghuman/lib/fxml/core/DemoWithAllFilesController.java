@@ -103,7 +103,7 @@ public class DemoWithAllFilesController extends FXMLController implements Initia
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append("DemoWithAllFilesController [\n"); // NOI18N
+        sb.append(this.getClass().getSimpleName()).append(" [\n"); // NOI18N
         
         sb.append("  urlLocation       = ").append(location       ).append(",\n"); // NOI18N
         sb.append("  resourceBundle    = ").append(resources      ).append(",\n"); // NOI18N
