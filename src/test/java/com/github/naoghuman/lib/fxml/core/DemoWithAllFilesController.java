@@ -21,7 +21,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 
 /**
  *
@@ -31,39 +31,87 @@ import javafx.scene.control.Label;
  */
 public class DemoWithAllFilesController extends FXMLController implements Initializable {
     
-    @FXML private Label lHelloLibFXML;
-    @FXML private Label lLocation;
-    @FXML private Label lResourceBundle;
+    @FXML private TextArea taDemoInfos;
     
-    @FXML private Label lMyDouble;
-    @FXML private Label lMyInt;
-    @FXML private Label lMyString;
+    private String keyHelloLibFXML;
+    private String resources;
+    private String location;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(final URL location, final ResourceBundle resources) {
+        DefaultFXMLValidator.requireNonNull(location);
+        DefaultFXMLValidator.requireNonNull(resources);
         
-        lLocation.setText(      (location  == null ? "NULL" : location.toString()));
-        lResourceBundle.setText((resources == null ? "NULL" : resources.getBaseBundleName()));
-        lHelloLibFXML.setText(  (resources == null ? "NULL" : resources.getString("key.hello.libfxml")));
+        this.location        = (location  != null ? location.toString()                      : "<not-defined>"); // NOI18N
+        this.resources       = (resources != null ? resources.getBaseBundleName()            : "<not-defined>"); // NOI18N
+        this.keyHelloLibFXML = (resources != null ? resources.getString("key.hello.libfxml") : "<not-defined>"); // NOI18N
+    
+        taDemoInfos.appendText(this.initializeDemoInfos());
+    }
+    
+    private String initializeDemoInfos() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("================================================================================\n\n"); // NOI18N
+        sb.append("This demo shows how to load the following files with the library 'Lib-FXML' in v0.3.0-PRERELEASE.\n"); // NOI18N
+        sb.append(" - The factory FXMLView.create (class FXMLController>, FXMLModel extended)\n"); // NOI18N
+        sb.append("   loads an instance of the controller class DemoWithAllFilesController,\n"); // NOI18N
+        sb.append("   automatically configuring thereby the passed FXMLModel.\n"); // NOI18N
+        sb.append(" - The optional files '.css' and '.properties' are automatically loaded\n"); // NOI18N
+        sb.append("   with the 'conventional name' (controller name in lower case without the suffix controller).\n\n"); // NOI18N
+        
+        sb.append("================================================================================\n\n"); // NOI18N
+        sb.append("Demo files:\n"); // NOI18N
+        sb.append(" - DemoWithAllFiles.java\n"); // NOI18N
+        sb.append(" - DemoWithAllFilesController.java\n"); // NOI18N
+        sb.append(" - demowithallfiles.css\n"); // NOI18N
+        sb.append(" - demowithallfiles.fxml\n"); // NOI18N
+        sb.append(" - demowithallfiles.properties\n\n"); // NOI18N
+        
+        sb.append("================================================================================\n\n"); // NOI18N
+        sb.append("Details:\n"); // NOI18N
+        
+        return sb.toString();
     }
     
     @Override
-    public void configure(FXMLModel model) {
+    public void configure(final FXMLModel model) {
         DefaultFXMLValidator.requireNonNull(model);
         
         super.configure(model);
         
-        model.get(Integer.class, "my.int").ifPresent((myInt) -> {
-            lMyInt.setText(String.valueOf(myInt));
-        });
+        taDemoInfos.appendText(model.toString());
+        taDemoInfos.appendText("\n\n"); // NOI18N
+        taDemoInfos.appendText(this.toString());
+        taDemoInfos.appendText("\n\n"); // NOI18N
+    }
+    
+    /**
+     * 
+     * @param   fxmlViewInfos 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public void onActionShowFXMLViewInfos(final String fxmlViewInfos) {
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(fxmlViewInfos);
         
-        model.get(Double.class, "my.double").ifPresent((myDouble) -> {
-            lMyDouble.setText(String.valueOf(myDouble));
-        });
+        taDemoInfos.appendText(fxmlViewInfos);
+        taDemoInfos.appendText("\n\n"); // NOI18N
+        taDemoInfos.appendText("================================================================================\n"); // NOI18N
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("DemoWithAllFilesController [\n"); // NOI18N
         
-        model.get(String.class, "my.string").ifPresent((myString) -> {
-            lMyString.setText(myString);
-        });
+        sb.append("  urlLocation       = ").append(location       ).append(",\n"); // NOI18N
+        sb.append("  resourceBundle    = ").append(resources      ).append(",\n"); // NOI18N
+        sb.append("  key.hello.libfxml = ").append(keyHelloLibFXML).append("\n");  // NOI18N
+        
+        sb.append("]"); // NOI18N
+        
+        return sb.toString();
     }
     
 }

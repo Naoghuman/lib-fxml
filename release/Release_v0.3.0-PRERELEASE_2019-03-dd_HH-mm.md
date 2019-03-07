@@ -21,6 +21,7 @@ and connect them to a controller (called the presenter).
 #48 [test] Enhance the method DefaultFXMLValidator.requireEndsWith(...).
 #47 [api] Create 'FXMLModel.EMPTY' instance in the class FXMLModel.
 #45 [api] Create new interface FXMLModelable.
+#42 [test] Rename the demo applications to fit the necessities from the api.
 
 
 
@@ -52,7 +53,6 @@ Naoghuman
 
 
 [//]: # (Issues which will be integrated in this release)
-#42 [test] Rename the demo applications to fit the necessities from the api.
 
 
 

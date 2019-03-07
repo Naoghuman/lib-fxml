@@ -16,6 +16,7 @@
  */
 package com.github.naoghuman.lib.fxml.core;
 
+import java.util.Optional;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -34,17 +35,20 @@ public class DemoWithAllFiles extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Demo with all Files: Lib-FXML v0.3.0-PRERELEASE");
+        primaryStage.setTitle("Lib-FXML Demo with all files");
         
         final FXMLModel model = new FXMLModel();
         model.put("my.int",    12345);
         model.put("my.double", 3.145d);
         model.put("my.string", "Hello Lib-FXML from demo with all files!");
             
-        FXMLView view = FXMLView.create(DemoWithAllFilesController.class, model);
-        System.out.println(view.toString());
+        final FXMLView                             view     = FXMLView.create(DemoWithAllFilesController.class, model);
+        final Optional<DemoWithAllFilesController> optional = view.getController(DemoWithAllFilesController.class);
+        optional.ifPresent(controller -> {
+            controller.onActionShowFXMLViewInfos(view.toString());
+        });
         
-        final Scene scene = new Scene(view.getRoot().get(), 960, 360);
+        final Scene scene = new Scene(view.getRoot().get(), 1280, 720);
         primaryStage.setScene(scene);
         
         primaryStage.show();
