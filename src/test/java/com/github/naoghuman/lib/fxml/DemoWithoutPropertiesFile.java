@@ -14,8 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.lib.fxml.core;
+package com.github.naoghuman.lib.fxml;
 
+import com.github.naoghuman.lib.fxml.core.FXMLModel;
+import com.github.naoghuman.lib.fxml.core.FXMLView;
 import java.util.Optional;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -27,7 +29,7 @@ import javafx.stage.Stage;
  * @version 0.3.0-PRERELEASE
  * @author  Naoghuman
  */
-public class DemoWithAllFiles extends Application {
+public class DemoWithoutPropertiesFile extends Application {
     
     public static void main(String[] args) {
         launch(args);
@@ -35,15 +37,15 @@ public class DemoWithAllFiles extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Lib-FXML Demo with all files!");
+        primaryStage.setTitle("Lib-FXML Demo without .properties file!");
         
         final FXMLModel model = new FXMLModel();
         model.put("my.int",    12345);
         model.put("my.double", 3.145d);
-        model.put("my.string", "Hello Lib-FXML from demo with all files!");
+        model.put("my.string", "Hello Lib-FXML from demo without .properties file!");
             
-        final FXMLView                             view     = FXMLView.create(DemoWithAllFilesController.class, model);
-        final Optional<DemoWithAllFilesController> optional = view.getController(DemoWithAllFilesController.class);
+        final FXMLView                                      view     = FXMLView.create(DemoWithoutPropertiesFileController.class, model);
+        final Optional<DemoWithoutPropertiesFileController> optional = view.getController(DemoWithoutPropertiesFileController.class);
         optional.ifPresent(controller -> {
             controller.onActionShowFXMLViewInfos(view.toString());
         });

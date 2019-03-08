@@ -14,8 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.lib.fxml.core;
+package com.github.naoghuman.lib.fxml;
 
+import com.github.naoghuman.lib.fxml.core.FXMLModel;
+import com.github.naoghuman.lib.fxml.core.FXMLView;
 import java.util.Optional;
 import javafx.application.Application;
 import javafx.scene.Scene;

@@ -14,8 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.lib.fxml.core;
+package com.github.naoghuman.lib.fxml;
 
+import com.github.naoghuman.lib.fxml.core.FXMLController;
+import com.github.naoghuman.lib.fxml.core.FXMLModel;
 import com.github.naoghuman.lib.fxml.internal.DefaultFXMLValidator;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -61,7 +63,7 @@ public class DemoWithoutPropertiesFileController extends FXMLController implemen
         sb.append(" - DemoWithAllFiles.java\n"); // NOI18N
         sb.append(" - DemoWithAllFilesController.java\n"); // NOI18N
         sb.append(" - demowithallfiles.css\n"); // NOI18N
-        sb.append(" - demowithallfiles.fxml\n"); // NOI18N
+        sb.append(" - demowithallfiles.fxml\n\n"); // NOI18N
         
         sb.append("================================================================================\n\n"); // NOI18N
         sb.append("Details:\n"); // NOI18N
