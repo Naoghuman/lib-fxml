@@ -60,11 +60,10 @@
                 <version>3.1.1</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/com/github/naoghuman/lib/fxml/core/MyFXMLTest.java</exclude>
-                        <exclude>**/com/github/naoghuman/lib/fxml/core/MyPresenter.java</exclude>
-                        <exclude>**/com/github/naoghuman/lib/fxml/core/*.fxml</exclude>
-                        <exclude>**/com/github/naoghuman/lib/fxml/core/*.css</exclude>
-                        <exclude>**/com/github/naoghuman/lib/fxml/core/*.properties</exclude>
+                        <exclude>**/com/github/naoghuman/lib/fxml/*.java</exclude>
+                        <exclude>**/com/github/naoghuman/lib/fxml/*.fxml</exclude>
+                        <exclude>**/com/github/naoghuman/lib/fxml/*.css</exclude>
+                        <exclude>**/com/github/naoghuman/lib/fxml/*.properties</exclude>
                         <exclude>**/*.xml</exclude>
                     </excludes>
                 </configuration>
