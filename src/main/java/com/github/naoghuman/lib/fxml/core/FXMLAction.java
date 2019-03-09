@@ -18,6 +18,7 @@ package com.github.naoghuman.lib.fxml.core;
 
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.TransferData;
+import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.fxml.internal.DefaultFXMLValidator;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -33,32 +34,50 @@ public final class FXMLAction {
     
     /**
      * 
-     * @param   identifier
+     * @param   actionId
+     * @param   model 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public static void handle(final String actionId, final FXMLModel model) {
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
+        DefaultFXMLValidator.requireNonNull(model);
+        
+        ActionHandlerFacade.getDefault().handle(TransferDataBuilder.create()
+                .actionId(actionId)
+                .objectValue(model)
+                .build());
+    }
+    
+    /**
+     * 
+     * @param   actionId
      * @return 
      * @since   0.3.0-PRERELEASE
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static boolean isRegistered(final String identifier) {
-        DefaultFXMLValidator.requireNonNullAndNotEmpty(identifier);
+    public static boolean isRegistered(final String actionId) {
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         
-        return ActionHandlerFacade.getDefault().isRegistered(identifier);
+        return ActionHandlerFacade.getDefault().isRegistered(actionId);
     }
     
     /**
      * 
-     * @param   identifier
+     * @param   actionId
      * @param   consumer
      * @since   0.3.0-PRERELEASE
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static void register(final String identifier, final Consumer<FXMLModel> consumer) {
-        DefaultFXMLValidator.requireNonNullAndNotEmpty(identifier);
+    public static void register(final String actionId, final Consumer<FXMLModel> consumer) {
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         DefaultFXMLValidator.requireNonNull(consumer);
         
         ActionHandlerFacade.getDefault().register(
-                identifier,
+                actionId,
                 (ActionEvent event) -> {
                     final TransferData     transferData = (TransferData) event.getSource();
                     final Optional<Object> optional     = transferData.getObject();
@@ -73,15 +92,15 @@ public final class FXMLAction {
     
     /**
      * 
-     * @param   identifier 
+     * @param   actionId 
      * @since   0.3.0-PRERELEASE
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static void remove(final String identifier) {
-        DefaultFXMLValidator.requireNonNullAndNotEmpty(identifier);
+    public static void remove(final String actionId) {
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         
-        ActionHandlerFacade.getDefault().remove(identifier);
+        ActionHandlerFacade.getDefault().remove(actionId);
     }
     
 }

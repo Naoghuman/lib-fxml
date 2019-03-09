@@ -16,8 +16,6 @@
  */
 package com.github.naoghuman.lib.fxml;
 
-import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
-import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.fxml.core.FXMLAction;
 import com.github.naoghuman.lib.fxml.core.FXMLModel;
 
@@ -38,16 +36,11 @@ public class DemoFXMLAction {
         final DemoFXMLAction demo = new DemoFXMLAction();
         FXMLAction.register(ON_ACTION_PRINT, demo::onActionPrint);
     
-        // Test test test :)
-        final FXMLModel model = new FXMLModel();
-        model.put("my.int", 12345); // NOI18N
-        
         // Execute the registered action ON_ACTION_PRINT
         // which will then execute the registerd function :)). 
-        ActionHandlerFacade.getDefault().handle(TransferDataBuilder.create()
-                .actionId(ON_ACTION_PRINT)
-                .objectValue(model)
-                .build());
+        final FXMLModel model = new FXMLModel();
+        model.put("my.int", 12345); // NOI18N
+        FXMLAction.handle(ON_ACTION_PRINT, model);
         
         // Now remove the previous registerd action
         FXMLAction.remove(ON_ACTION_PRINT);
