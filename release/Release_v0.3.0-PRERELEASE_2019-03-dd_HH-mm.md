@@ -18,6 +18,7 @@ and connect them to a controller (called the presenter).
 
 
 #### Enhancement
+#60 [api] Extend FXMLModel with new method 'registerOnAction(String, Consumer'T').
 #55 [api] Add new method getController(Class'T') to FXMLView.
 #50 [api] Enhance FXMLModel.get(Class'T', String) to return an Optional'T'.
 #48 [test] Enhance the method DefaultFXMLValidator.requireEndsWith(...).

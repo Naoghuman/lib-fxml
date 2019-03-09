@@ -16,12 +16,16 @@
  */
 package com.github.naoghuman.lib.fxml.core;
 
+import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
+import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.fxml.internal.DefaultFXMLValidator;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
+import javafx.event.ActionEvent;
 
 /**
  *
@@ -38,6 +42,32 @@ public final class FXMLModel {
      * @author  Naoghuman
      */
     public static final FXMLModel EMPTY = new FXMLModel();
+    
+    /**
+     * 
+     * @param   identifier
+     * @param   consumer
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public static void registerOnAction(final String identifier, final Consumer<FXMLModel> consumer) {
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(identifier);
+        DefaultFXMLValidator.requireNonNull(consumer);
+        
+        ActionHandlerFacade.getDefault().register(
+                identifier,
+                (ActionEvent event) -> {
+                    final TransferData     transferData = (TransferData) event.getSource();
+                    final Optional<Object> optional     = transferData.getObject();
+                    optional.ifPresent(object -> {
+                        if (object instanceof FXMLModel) {
+                            final FXMLModel model = (FXMLModel) object;
+                            consumer.accept(model);
+                        }
+                    });
+                });
+    }
     
     private final HashMap<String, Object> model = new HashMap<>();
     
@@ -72,7 +102,7 @@ public final class FXMLModel {
         } catch (Exception ex) {
             LoggerFacade.getDefault().warn(this.getClass(), 
                     String.format(
-                            "Can't cast the 'value' from 'key=%s' to 'Optional<T>=%s'. Return Optional.empty().",
+                            "Can't cast the 'value' from 'key=%s' to 'Optional<T>=%s'. Return Optional.empty().", // NOI18N
                             key, type.getName()), 
                     ex);
         }
