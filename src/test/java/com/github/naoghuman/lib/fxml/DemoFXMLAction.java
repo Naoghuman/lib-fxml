@@ -18,6 +18,7 @@ package com.github.naoghuman.lib.fxml;
 
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.TransferDataBuilder;
+import com.github.naoghuman.lib.fxml.core.FXMLAction;
 import com.github.naoghuman.lib.fxml.core.FXMLModel;
 
 /**
@@ -26,16 +27,16 @@ import com.github.naoghuman.lib.fxml.core.FXMLModel;
  * @version 0.3.0-PRERELEASE
  * @author  Naoghuman
  */
-public class DemoFXMLModelRegisterOnAction {
+public class DemoFXMLAction {
     
     private static final String ON_ACTION_PRINT = "ON_ACTION_PRINT"; // NOI18N
     
     public static void main(String[] args) {
         
         // Register the function 'onActionPrint(FXMLModel)'
-        // with the action-id ON_ACTION_PRINT.
-        final DemoFXMLModelRegisterOnAction demo = new DemoFXMLModelRegisterOnAction();
-        FXMLModel.registerOnAction(ON_ACTION_PRINT, demo::onActionPrint);
+        // with the action-id 'ON_ACTION_PRINT'.
+        final DemoFXMLAction demo = new DemoFXMLAction();
+        FXMLAction.register(ON_ACTION_PRINT, demo::onActionPrint);
     
         // Test test test :)
         final FXMLModel model = new FXMLModel();
@@ -47,10 +48,18 @@ public class DemoFXMLModelRegisterOnAction {
                 .actionId(ON_ACTION_PRINT)
                 .objectValue(model)
                 .build());
+        
+        // Now remove the previous registerd action
+        FXMLAction.remove(ON_ACTION_PRINT);
+        
+        // and check it
+        System.out.println(
+                "The action 'ON_ACTION_PRINT' is registerd: " // NOI18N
+                + FXMLAction.isRegistered(ON_ACTION_PRINT));
     }
     
     public void onActionPrint(FXMLModel model) {
-        System.out.println("\nDemoFXMLModelRegisterOnAction.onActionPrint(FXMLModel)"); // NOI18N
+        System.out.println("\nDemoFXMLAction.onActionPrint(FXMLModel)"); // NOI18N
         System.out.println(model.toString());
     }
     

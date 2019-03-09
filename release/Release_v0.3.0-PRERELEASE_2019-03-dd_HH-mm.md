@@ -12,6 +12,7 @@ and connect them to a controller (called the presenter).
 
 
 #### Feature
+#61 [api] Create new class FXMLAction which hide functionalities from Lib-Action.
 #56 [api] Add new interface 'FXMLRegisterable'.
 #45 [api] Create new interface FXMLModelable.
 
