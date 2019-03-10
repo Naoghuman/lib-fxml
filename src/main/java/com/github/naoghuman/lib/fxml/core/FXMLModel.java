@@ -21,6 +21,7 @@ import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -64,20 +65,38 @@ public final class FXMLModel {
     
     /**
      * 
+     * @param entityId
+     * @return 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public boolean isSameEntityId(final Long entityId) {
+        DefaultFXMLValidator.requireNonNull(entityId);
+        
+        if (!this.getEntityId().isPresent()) {
+            return Boolean.FALSE;
+        }
+        
+        return Objects.equals(this.getEntityId().get(), entityId);
+    }
+    
+    /**
+     * 
      * @param   type
      * @return 
      * @since   0.3.0-PRERELEASE
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public boolean isEntityFromType(final Class type) {
+    public boolean isSameEntityType(final Class type) {
         DefaultFXMLValidator.requireNonNull(type);
         
-        if (!entity.isPresent()) {
+        if (!this.getEntity().isPresent()) {
             return Boolean.FALSE;
         }
         
-        return  entity.get().getName().equals(type.getName());
+        return getEntity().get().getName().equals(type.getName());
     }
     
     /**
