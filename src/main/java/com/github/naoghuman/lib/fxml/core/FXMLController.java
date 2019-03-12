@@ -34,16 +34,6 @@ public abstract class FXMLController {
     
     /**
      * 
-     * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
-     * @author  Naoghuman
-     */
-    public void clear() {
-        this.getModels().clear();
-    }
-    
-    /**
-     * 
      * @param   model 
      * @since   0.1.0-PRERELEASE
      * @version 0.3.0-PRERELEASE
@@ -52,32 +42,40 @@ public abstract class FXMLController {
     public void configure(final FXMLModel model) {
         DefaultFXMLValidator.requireNonNull(model);
         
+        this.getModels().clear();
         this.getModels().add(model);
     }
     
+    /**
+     * 
+     * @param models 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
     public void configure(final List<FXMLModel> models) {
         DefaultFXMLValidator.requireNonNull(models);
         
+        this.getModels().clear();
         this.getModels().addAll(models);
     }
     
     /**
      * 
-     * @param   entityType
+     * @param   entity
      * @param   entityId
      * @return 
      * @since   0.1.0-PRERELEASE
      * @version 0.2.0-PRERELEASE
      * @author  Naoghuman
      */
-    public Optional<FXMLModel> getModel(final Class entityType, final Long entityId) {
-        DefaultFXMLValidator.requireNonNull(entityType);
+    public Optional<FXMLModel> getModel(final Class entity, final Long entityId) {
+        DefaultFXMLValidator.requireNonNull(entity);
         DefaultFXMLValidator.requireNonNull(entityId);
         
         final Optional<FXMLModel> fxmlModel = models.stream()
-                .filter(model ->
-                        model.isSameEntityType(entityType)
-                        && model.isSameEntityId(entityId)
+                .filter(
+                        model -> model.isSameEntity(entity, entityId)
                 )
                 .findFirst();
         

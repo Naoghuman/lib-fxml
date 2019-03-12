@@ -40,6 +40,7 @@ and connect them to a controller (called the presenter).
 
 
 #### Refactoring
+#64 [cleanup] Refactore the methods in 'FXMLModel'.
 #59 [Cleanup] Move all demos into the 'fxml' package.
 #54 [cleanup] Rewrite the 'toString()' method from FXMLModel, -View.
 #51 [cleanup] Rename the class FXMLPresenter to FXMLController.

@@ -39,7 +39,7 @@ public class DemoFXMLAction {
         // Execute the registered action ON_ACTION_PRINT
         // which will then execute the registerd function :)). 
         final FXMLModel model = new FXMLModel();
-        model.put("my.int", 12345); // NOI18N
+        model.putData("my.int", 12345); // NOI18N
         FXMLAction.handle(ON_ACTION_PRINT, model);
         
         // Now remove the previous registerd action

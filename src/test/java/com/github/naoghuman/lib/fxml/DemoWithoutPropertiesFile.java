@@ -40,9 +40,9 @@ public class DemoWithoutPropertiesFile extends Application {
         primaryStage.setTitle("Lib-FXML Demo without .properties file!");
         
         final FXMLModel model = new FXMLModel();
-        model.put("my.int",    12345);
-        model.put("my.double", 3.145d);
-        model.put("my.string", "Hello Lib-FXML from demo without .properties file!");
+        model.putData("my.int",    12345);
+        model.putData("my.double", 3.145d);
+        model.putData("my.string", "Hello Lib-FXML from demo without .properties file!");
             
         final FXMLView                                      view     = FXMLView.create(DemoWithoutPropertiesFileController.class, model);
         final Optional<DemoWithoutPropertiesFileController> optional = view.getController(DemoWithoutPropertiesFileController.class);

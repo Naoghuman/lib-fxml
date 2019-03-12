@@ -33,7 +33,7 @@ public class DemoFXMLModelMetadata {
         final FXMLModel model = new FXMLModel();
 //        model.setEntity(FXMLModel.class);
 //        model.setEntityId(System.currentTimeMillis());
-        model.put("string.property", new SimpleStringProperty("string.property")); // NOI18N
+        model.putData("string.property", new SimpleStringProperty("string.property")); // NOI18N
         
         System.out.println(model);
     }

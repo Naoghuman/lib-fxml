@@ -48,10 +48,25 @@ public final class FXMLModel {
      */
     public static final FXMLModel EMPTY = new FXMLModel();
     
-    private final HashMap<String, Object> model = new HashMap<>();
+    private final HashMap<String, Object> data = new HashMap<>();
     
-    private Optional<Long>  entityId = Optional.empty();
-    private Optional<Class> entity   = Optional.empty();
+    private Optional<Class>  entity     = Optional.empty();
+    private Optional<Long>   entityId   = Optional.empty();
+    private Optional<String> entityType = Optional.empty();
+    
+    /**
+     * 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public void clearAll() {
+        entity     = Optional.empty();
+        entityId   = Optional.empty();
+        entityType = Optional.empty();
+    
+        data.clear();
+    }
     
     /**
      * 
@@ -59,44 +74,60 @@ public final class FXMLModel {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public void clear() {
-        model.clear();
+    public void clearData() {
+        data.clear();
     }
     
     /**
      * 
+     * @param entity
      * @param entityId
      * @return 
      * @since   0.3.0-PRERELEASE
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public boolean isSameEntityId(final Long entityId) {
+    public boolean isSameEntity(final Class entity, final Long entityId) {
+        DefaultFXMLValidator.requireNonNull(entity);
         DefaultFXMLValidator.requireNonNull(entityId);
         
-        if (!this.getEntityId().isPresent()) {
-            return Boolean.FALSE;
+        if (
+                this.entity.isPresent()
+                && this.entityId.isPresent()
+        ) {
+            return this.entity.get().getName().equals(entity.getName())
+                    && Objects.equals(this.getEntityId().get(), entityId);
         }
         
-        return Objects.equals(this.getEntityId().get(), entityId);
+        return Boolean.FALSE;
     }
     
     /**
      * 
-     * @param   type
+     * @param entity
+     * @param entityId
+     * @param entityType
      * @return 
      * @since   0.3.0-PRERELEASE
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public boolean isSameEntityType(final Class type) {
-        DefaultFXMLValidator.requireNonNull(type);
+    public boolean isSameEntity(final Class entity, final Long entityId, final String entityType) {
+        DefaultFXMLValidator.requireNonNull(entity);
+        DefaultFXMLValidator.requireNonNull(entityId);
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(entityType);
         
-        if (!this.getEntity().isPresent()) {
-            return Boolean.FALSE;
+        if (
+                this.entity.isPresent()
+                && this.entityId.isPresent()
+                && this.entityType.isPresent()
+        ) {
+            return this.entity.get().getName().equals(entity.getName())
+                    && Objects.equals(this.getEntityId().get(), entityId)
+                    && this.entityType.get().equals(entityType);
         }
         
-        return getEntity().get().getName().equals(type.getName());
+        return Boolean.FALSE;
     }
     
     /**
@@ -109,13 +140,13 @@ public final class FXMLModel {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public <T> Optional<T> get(final Class<T> type, final String key) {
+    public <T> Optional<T> getData(final Class<T> type, final String key) {
         DefaultFXMLValidator.requireNonNullAndNotEmpty(key);
         DefaultFXMLValidator.requireNonNull(type);
         
         Optional<T> value = Optional.empty();
         try {
-            value = Optional.ofNullable(type.cast(model.get(key)));
+            value = Optional.ofNullable(type.cast(data.get(key)));
         } catch (Exception ex) {
             LoggerFacade.getDefault().warn(this.getClass(), 
                     String.format(
@@ -134,8 +165,8 @@ public final class FXMLModel {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public HashMap<String, Object> getAll() {
-        return model;
+    public HashMap<String, Object> getAllData() {
+        return data;
     }
     
     /**
@@ -163,12 +194,23 @@ public final class FXMLModel {
     /**
      * 
      * @return 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public Optional<String> getEntityType() {
+        return entityType;
+    }
+    
+    /**
+     * 
+     * @return 
      * @since   0.1.0-PRERELEASE
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public boolean isEmpty() {
-        return model.isEmpty();
+    public boolean isDataEmpty() {
+        return data.isEmpty();
     }
     
     /**
@@ -179,37 +221,46 @@ public final class FXMLModel {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public void put(final String key, final Object value) {
+    public void putData(final String key, final Object value) {
         DefaultFXMLValidator.requireNonNullAndNotEmpty(key);
         DefaultFXMLValidator.requireNonNull(value);
         
-        model.put(key, value);
+        data.put(key, value);
     }
     
     /**
      * 
      * @param   entity 
-     * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
-     * @author  Naoghuman
-     */
-    public void setEntity(final Class entity) {
-        DefaultFXMLValidator.requireNonNull(entity);
-        
-        this.entity = Optional.of(entity);
-    }
-    
-    /**
-     * 
      * @param   entityId 
      * @since   0.3.0-PRERELEASE
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public void setEntityId(final Long entityId) {
+    public void setEntity(final Class entity, final Long entityId) {
+        DefaultFXMLValidator.requireNonNull(entity);
         DefaultFXMLValidator.requireNonNull(entityId);
         
+        this.entity   = Optional.of(entity);
         this.entityId = Optional.of(entityId);
+    }
+    
+    /**
+     * 
+     * @param   entity 
+     * @param   entityId 
+     * @param   entityType 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public void setEntityId(final Class entity, final Long entityId, final String entityType) {
+        DefaultFXMLValidator.requireNonNull(entity);
+        DefaultFXMLValidator.requireNonNull(entityId);
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(entityType);
+        
+        this.entity     = Optional.of(entity);
+        this.entityId   = Optional.of(entityId);
+        this.entityType = Optional.of(entityType);
     }
     
     @Override
@@ -217,21 +268,22 @@ public final class FXMLModel {
         final StringBuilder sb = new StringBuilder();
         sb.append("FXMLModel [\n"); // NOI18N
         
-        sb.append("  entity   = ").append((entity.isPresent())   ? entity.get().getName() : "<not-defined>").append(",\n"); // NOI18N
-        sb.append("  entityId = ").append((entityId.isPresent()) ? entityId.get()         : "<not-defined>").append(",\n"); // NOI18N
+        sb.append("  entity     = ").append((entity.isPresent())     ? entity.get().getName() : "<not-defined>").append(",\n"); // NOI18N
+        sb.append("  entityId   = ").append((entityId.isPresent())   ? entityId.get()         : "<not-defined>").append(",\n"); // NOI18N
+        sb.append("  entityType = ").append((entityType.isPresent()) ? entityType.get()       : "<not-defined>").append(",\n"); // NOI18N
         
-        sb.append("  model [\n"); // NOI18N
-        final Iterator<Map.Entry<String, Object>> iterator = model.entrySet().iterator();
+        sb.append("  data [\n"); // NOI18N
+        final Iterator<Map.Entry<String, Object>> iterator = data.entrySet().iterator();
         if (!iterator.hasNext()) {
             sb.append("    <not-defined>\n"); // NOI18N
         }
         
         int maxLength = 0;
-        for(final String key : model.keySet()) {
+        for(final String key : data.keySet()) {
             maxLength = Math.max(maxLength, key.length());
         }
         
-        final int elements = model.size();
+        final int elements = data.size();
         int counter = 0;
         while (iterator.hasNext()) {
             final Map.Entry<String, Object> next = iterator.next();

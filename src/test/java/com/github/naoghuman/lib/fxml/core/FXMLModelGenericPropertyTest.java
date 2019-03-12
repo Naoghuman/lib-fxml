@@ -34,19 +34,19 @@ public class FXMLModelGenericPropertyTest {
         FXMLModel model = new FXMLModel();
         
         StringProperty ssp = new SimpleStringProperty("hello");
-        model.put("simple-string-property",  ssp);
-        model.put("simple-boolean-property", new SimpleBooleanProperty(true));
+        model.putData("simple-string-property",  ssp);
+        model.putData("simple-boolean-property", new SimpleBooleanProperty(true));
         
-        Optional<StringProperty> o = model.get(StringProperty.class, "simple-string-property");
+        Optional<StringProperty> o = model.getData(StringProperty.class, "simple-string-property");
         System.out.println("simple-string-property is present                  : " + o.isPresent());
         System.out.println("                       is instanceOf StringProperty: " + (o.get() instanceof StringProperty));
         
         System.out.println("                       -> " + o.get().get());
         ssp.set("hello world");
-        o = model.get(StringProperty.class, "simple-string-property");
+        o = model.getData(StringProperty.class, "simple-string-property");
         System.out.println("                       -> " + o.get().get());
         
-        Optional<BooleanProperty> o2 = model.get(BooleanProperty.class, "simple-boolean-property");
+        Optional<BooleanProperty> o2 = model.getData(BooleanProperty.class, "simple-boolean-property");
         System.out.println("simple-boolean-property is present                   : " + o2.isPresent());
         System.out.println("                        is instanceOf BooleanProperty: " + (o2.get() instanceof BooleanProperty));
         
