@@ -27,33 +27,62 @@ import com.github.naoghuman.lib.fxml.core.FXMLModel;
  */
 public class DemoFXMLAction {
     
-    private static final String ON_ACTION_PRINT = "ON_ACTION_PRINT"; // NOI18N
+    private static final String ON_ACTION__LOAD_ENTITY_FROM_DATABASE = "ON_ACTION__LOAD_ENTITY_FROM_DATABASE"; // NOI18N
+    private static final String ON_ACTION__SAVE_ENTITY_TO_DATABASE   = "ON_ACTION__SAVE_ENTITY_TO_DATABASE";   // NOI18N
     
     public static void main(String[] args) {
         
-        // Register the function 'onActionPrint(FXMLModel)'
-        // with the action-id 'ON_ACTION_PRINT'.
+        // DemoFXMLAction have the methods which we will registered and handled
+        // with FXMLAction!
         final DemoFXMLAction demo = new DemoFXMLAction();
-        FXMLAction.register(ON_ACTION_PRINT, demo::onActionPrint);
+        
+        /*
+         * DEMO -> TO DATABASE
+         *  - Register the method #onActionSaveEntityToDatabase(FXMLModel) with the 
+         *    action-id 'ON_ACTION__SAVE_ENTITY_TO_DATABASE'.
+         *  - Because the method have a parameter from type 'FXMLModel' the #register(...)
+         *    method with the parameter Consumer<FXMLModel> will be used.
+         */
+        FXMLAction.register(ON_ACTION__SAVE_ENTITY_TO_DATABASE, demo::onActionSaveEntityToDatabase);
     
-        // Execute the registered action ON_ACTION_PRINT
-        // which will then execute the registerd function :)). 
-        final FXMLModel model = new FXMLModel();
-        model.putData("my.int", 12345); // NOI18N
-        FXMLAction.handle(ON_ACTION_PRINT, model);
+        // Execute the registered action ON_ACTION_PRINT which will then execute the 
+        // registerd method :)) here in DemoFXMLAction.
+        final FXMLModel modelToDatabase = new FXMLModel();
+        modelToDatabase.putData("int", 12345); // NOI18N
+        modelToDatabase.putData("msg", "hello from #onActionSaveEntityToDatabase(FXMLModel)!"); // NOI18N
         
-        // Now remove the previous registerd action
-        FXMLAction.remove(ON_ACTION_PRINT);
+        FXMLAction.handle(ON_ACTION__SAVE_ENTITY_TO_DATABASE, modelToDatabase);
         
-        // and check it
-        System.out.println(
-                "The action 'ON_ACTION_PRINT' is registerd: " // NOI18N
-                + FXMLAction.isRegistered(ON_ACTION_PRINT));
+        /*
+         * DEMO <- FROM DATABASE
+         *  - Register the method #onActionLoadEntityFromDatabase(Long) with the 
+         *    action-id 'ON_ACTION__LOAD_ENTITY_FROM_DATABASE'.
+         *  - Because the method have a parameter from type 'Long' the #register(...)
+         *    method with the parameter Function<Long, FXMLModel> will be used 
+         *    where 'Long' is the input type and 'FXMLModel' the type of the result.
+         */
+        FXMLAction.register(ON_ACTION__LOAD_ENTITY_FROM_DATABASE, demo::onActionLoadEntityFromDatabase);
+        
+        // Execute the registered action ON_ACTION__LOAD_ENTITY_FROM_DATABASE which 
+        // will then execute the registerd method :)) here in DemoFXMLAction.
+        final FXMLModel modelFromDatabase = FXMLAction.handle(ON_ACTION__LOAD_ENTITY_FROM_DATABASE, 987654321L);
+        System.out.println(modelFromDatabase.toString());
     }
     
-    public void onActionPrint(FXMLModel model) {
-        System.out.println("\nDemoFXMLAction.onActionPrint(FXMLModel)"); // NOI18N
+    public void onActionSaveEntityToDatabase(final FXMLModel model) {
+        System.out.println("\nDemoFXMLAction.onActionSaveEntityToDatabase(FXMLModel)"); // NOI18N
         System.out.println(model.toString());
+    }
+    
+    public FXMLModel onActionLoadEntityFromDatabase(final Long id) {
+        System.out.println("\nDemoFXMLAction.onActionLoadEntityFromDatabase(Long)"); // NOI18N
+        
+        // TODO Search here the model in DB and return it.
+        final FXMLModel model = new FXMLModel();
+        model.putData("id",  id); // NOI18N
+        model.putData("msg", "hello from #onActionLoadEntityFromDatabase(Long)!"); // NOI18N
+        
+        return model;
     }
     
 }
