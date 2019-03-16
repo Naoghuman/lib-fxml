@@ -18,6 +18,7 @@ package com.github.naoghuman.lib.fxml;
 
 import com.github.naoghuman.lib.fxml.core.FXMLModel;
 import com.github.naoghuman.lib.fxml.core.FXMLView;
+import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import java.util.Optional;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -37,6 +38,8 @@ public class DemoWithAllFiles extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        LoggerFacade.getDefault().info(DemoFXMLAction.class, "DemoWithAllFiles#main(String[])"); // NOI18N
+    
         primaryStage.setTitle("Lib-FXML Demo with all files!");
         
         final FXMLModel model = new FXMLModel();

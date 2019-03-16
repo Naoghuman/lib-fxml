@@ -17,6 +17,7 @@
 package com.github.naoghuman.lib.fxml;
 
 import com.github.naoghuman.lib.fxml.core.FXMLModel;
+import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -28,11 +29,11 @@ import javafx.beans.property.SimpleStringProperty;
 public class DemoFXMLModelMetadata {
     
     public static void main(String[] args) {
-        
-        // 
+        LoggerFacade.getDefault().info(DemoFXMLAction.class, "DemoFXMLModelMetadata#main(String[])"); // NOI18N
+    
         final FXMLModel model = new FXMLModel();
 //        model.setEntity(FXMLModel.class);
-//        model.setEntityId(System.currentTimeMillis());
+//        model.setEntity(System.currentTimeMillis());
         model.putData("string.property", new SimpleStringProperty("string.property")); // NOI18N
         
         System.out.println(model);

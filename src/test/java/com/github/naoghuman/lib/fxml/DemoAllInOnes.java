@@ -26,29 +26,37 @@ import javafx.stage.Stage;
 
 /**
  *
- * @since   0.1.0-PRERELEASE
+ * @since   0.3.0-PRERELEASE
  * @version 0.3.0-PRERELEASE
  * @author  Naoghuman
  */
-public class DemoWithoutCssFile extends Application {
+public class DemoAllInOnes extends Application {
     
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        LoggerFacade.getDefault().info(DemoWithoutCssFile.class, "DemoWithoutCssFile#start(Stage)"); // NOI18N
-    
-        primaryStage.setTitle("Lib-FXML Demo without .css file!");
+    public void init() throws Exception {
+        super.init();
         
-        final FXMLModel model = new FXMLModel();
-        model.putData("my.int",    12345);
-        model.putData("my.double", 3.145d);
-        model.putData("my.string", "Hello Lib-FXML from demo without .css file!");
+        LoggerFacade.getDefault().info(this.getClass(), "DemoAllInOnes#init()"); // NOI18N
+    
+        // Register all managed actions
+        DemoAllInOnesSqlProvider.getDefault().register();
+    }
+    
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnes#start(Stage)"); // NOI18N
+    
+        primaryStage.setTitle("Lib-FXML Demo all in ones!");
+        
+        final DemoAllInOnesEntityA entity = new DemoAllInOnesEntityA();
+        final FXMLModel            model  = entity.writeToFXMLModel();
             
-        final FXMLView                               view     = FXMLView.create(DemoWithoutCssFileController.class, model);
-        final Optional<DemoWithoutCssFileController> optional = view.getController(DemoWithoutCssFileController.class);
+        final FXMLView                          view     = FXMLView.create(DemoAllInOnesController.class, model);
+        final Optional<DemoAllInOnesController> optional = view.getController(DemoAllInOnesController.class);
         optional.ifPresent(controller -> {
             controller.onActionShowFXMLViewInfos(view.toString());
         });

@@ -17,6 +17,7 @@
 package com.github.naoghuman.lib.fxml.core;
 
 import com.github.naoghuman.lib.fxml.internal.DefaultFXMLValidator;
+import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import java.util.HashMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -32,7 +33,8 @@ public final class FXMLAction {
     private final static HashMap<String, Consumer<FXMLModel>>       consumers = new HashMap();
     private final static HashMap<String, Function<Long, FXMLModel>> functions = new HashMap();
     
-    private final static String ERROR_MSG__ACTION_ID_ISNT_REGISTERED = "The [actionId=%s] isn't registerd!"; // NOI18N
+    private final static String ERROR_MSG__ACTION_ID_ISNT_REGISTERED = "Error: The [actionId=%s] isn't registerd!"; // NOI18N
+    
     /**
      * 
      * @param   actionId
@@ -43,6 +45,8 @@ public final class FXMLAction {
      * @author  Naoghuman
      */
     public static FXMLModel handle(final String actionId, final Long entityId) {
+        LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#handle(String, Long)"); // NOI18N
+        
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         DefaultFXMLValidator.requireNonNull(entityId);
         
@@ -64,6 +68,8 @@ public final class FXMLAction {
      * @author  Naoghuman
      */
     public static void handle(final String actionId, final FXMLModel model) {
+        LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#handle(String, FXMLModel)"); // NOI18N
+        
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         DefaultFXMLValidator.requireNonNull(model);
         
@@ -84,6 +90,8 @@ public final class FXMLAction {
      * @author  Naoghuman
      */
     public static boolean isRegistered(final String actionId) {
+        LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#isRegistered(String)"); // NOI18N
+        
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         
         return consumers.containsKey(actionId)
@@ -99,6 +107,8 @@ public final class FXMLAction {
      * @author  Naoghuman
      */
     public static void register(final String actionId, final Function<Long, FXMLModel> function) {
+        LoggerFacade.getDefault().info(FXMLAction.class, "FXMLAction#register(String, Function<Long, FXMLModel>)"); // NOI18N
+        
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         DefaultFXMLValidator.requireNonNull(function);
         
@@ -114,6 +124,8 @@ public final class FXMLAction {
      * @author  Naoghuman
      */
     public static void register(final String actionId, final Consumer<FXMLModel> consumer) {
+        LoggerFacade.getDefault().info(FXMLAction.class, "FXMLAction#register(String, Consumer<FXMLModel>)"); // NOI18N
+        
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         DefaultFXMLValidator.requireNonNull(consumer);
         
@@ -128,6 +140,8 @@ public final class FXMLAction {
      * @author  Naoghuman
      */
     public static void remove(final String actionId) {
+        LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#remove(String)"); // NOI18N
+        
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         
         if (consumers.containsKey(actionId)) {

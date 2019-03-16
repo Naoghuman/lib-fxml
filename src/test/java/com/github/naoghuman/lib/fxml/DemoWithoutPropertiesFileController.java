@@ -19,6 +19,7 @@ package com.github.naoghuman.lib.fxml;
 import com.github.naoghuman.lib.fxml.core.FXMLController;
 import com.github.naoghuman.lib.fxml.core.FXMLModel;
 import com.github.naoghuman.lib.fxml.internal.DefaultFXMLValidator;
+import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -41,6 +42,8 @@ public class DemoWithoutPropertiesFileController extends FXMLController implemen
 
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
+        LoggerFacade.getDefault().info(this.getClass(), "DemoWithoutPropertiesFileController#initialize(URL, ResourceBundle)"); // NOI18N
+    
         this.location        = (location  != null ? location.toString()                      : "<not-defined>"); // NOI18N
         this.resources       = (resources != null ? resources.getBaseBundleName()            : "<not-defined>"); // NOI18N
         this.keyHelloLibFXML = (resources != null ? resources.getString("key.hello.libfxml") : "<not-defined>"); // NOI18N
@@ -49,6 +52,8 @@ public class DemoWithoutPropertiesFileController extends FXMLController implemen
     }
     
     private String initializeDemoInfos() {
+        LoggerFacade.getDefault().info(this.getClass(), "DemoWithoutPropertiesFileController#initializeDemoInfos()"); // NOI18N
+    
         final StringBuilder sb = new StringBuilder();
         sb.append("================================================================================\n\n"); // NOI18N
         sb.append("This demo shows how to load the following files with the library 'Lib-FXML' in v0.3.0-PRERELEASE.\n"); // NOI18N
@@ -73,6 +78,8 @@ public class DemoWithoutPropertiesFileController extends FXMLController implemen
     
     @Override
     public void configure(final FXMLModel model) {
+        LoggerFacade.getDefault().debug(this.getClass(), "DemoWithoutPropertiesFileController#configure(FXMLModel)"); // NOI18N
+    
         DefaultFXMLValidator.requireNonNull(model);
         
         super.configure(model);
@@ -91,11 +98,15 @@ public class DemoWithoutPropertiesFileController extends FXMLController implemen
      * @author  Naoghuman
      */
     public void onActionShowFXMLViewInfos(final String fxmlViewInfos) {
+        LoggerFacade.getDefault().debug(this.getClass(), "DemoWithoutPropertiesFileController#onActionShowFXMLViewInfos(String)"); // NOI18N
+    
         DefaultFXMLValidator.requireNonNullAndNotEmpty(fxmlViewInfos);
         
         taDemoInfos.appendText(fxmlViewInfos);
         taDemoInfos.appendText("\n\n"); // NOI18N
         taDemoInfos.appendText("================================================================================\n"); // NOI18N
+    
+        taDemoInfos.positionCaret(0);
     }
 
     @Override

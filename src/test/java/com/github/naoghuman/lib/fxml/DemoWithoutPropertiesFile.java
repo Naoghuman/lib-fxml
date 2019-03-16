@@ -18,6 +18,7 @@ package com.github.naoghuman.lib.fxml;
 
 import com.github.naoghuman.lib.fxml.core.FXMLModel;
 import com.github.naoghuman.lib.fxml.core.FXMLView;
+import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import java.util.Optional;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -37,6 +38,8 @@ public class DemoWithoutPropertiesFile extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        LoggerFacade.getDefault().info(DemoWithoutCssFile.class, "DemoWithoutPropertiesFile#start(Stage)"); // NOI18N
+    
         primaryStage.setTitle("Lib-FXML Demo without .properties file!");
         
         final FXMLModel model = new FXMLModel();

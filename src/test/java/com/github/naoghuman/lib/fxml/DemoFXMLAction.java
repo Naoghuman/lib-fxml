@@ -18,6 +18,7 @@ package com.github.naoghuman.lib.fxml;
 
 import com.github.naoghuman.lib.fxml.core.FXMLAction;
 import com.github.naoghuman.lib.fxml.core.FXMLModel;
+import com.github.naoghuman.lib.logger.core.LoggerFacade;
 
 /**
  *
@@ -31,7 +32,8 @@ public class DemoFXMLAction {
     private static final String ON_ACTION__SAVE_ENTITY_TO_DATABASE   = "ON_ACTION__SAVE_ENTITY_TO_DATABASE";   // NOI18N
     
     public static void main(String[] args) {
-        
+        LoggerFacade.getDefault().info(DemoFXMLAction.class, "DemoFXMLAction#main(String[])"); // NOI18N
+    
         // DemoFXMLAction have the methods which we will registered and handled
         // with FXMLAction!
         final DemoFXMLAction demo = new DemoFXMLAction();
@@ -70,16 +72,17 @@ public class DemoFXMLAction {
     }
     
     public void onActionSaveEntityToDatabase(final FXMLModel model) {
-        System.out.println("\nDemoFXMLAction.onActionSaveEntityToDatabase(FXMLModel)"); // NOI18N
+        LoggerFacade.getDefault().debug(DemoFXMLAction.class, "DemoFXMLAction#onActionSaveEntityToDatabase(FXMLModel)"); // NOI18N
+    
         System.out.println(model.toString());
     }
     
-    public FXMLModel onActionLoadEntityFromDatabase(final Long id) {
-        System.out.println("\nDemoFXMLAction.onActionLoadEntityFromDatabase(Long)"); // NOI18N
-        
+    public FXMLModel onActionLoadEntityFromDatabase(final Long entityId) {
+        LoggerFacade.getDefault().debug(DemoFXMLAction.class, "DemoFXMLAction#onActionLoadEntityFromDatabase(Long)"); // NOI18N
+    
         // TODO Search here the model in DB and return it.
         final FXMLModel model = new FXMLModel();
-        model.putData("id",  id); // NOI18N
+        model.putData("id",  entityId); // NOI18N
         model.putData("msg", "hello from #onActionLoadEntityFromDatabase(Long)!"); // NOI18N
         
         return model;

@@ -14,6 +14,7 @@ and connect them to a controller (called the presenter).
 #### Feature
 #61 [api] Create new class FXMLAction which hide functionalities from Lib-Action.
 #56 [api] Add new interface 'FXMLRegisterable'.
+#52 [test] Add new demo 'DemoAllInOnes'.
 #45 [api] Create new interface FXMLModelable.
 
 
@@ -61,7 +62,6 @@ Naoghuman
 
 
 [//]: # (Issues which will be integrated in this release)
-#52 [test] Add new demo 'DemoAllInOnes'. // Feature
 
 
 

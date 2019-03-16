@@ -50,9 +50,9 @@ public final class FXMLModel {
     
     private final HashMap<String, Object> data = new HashMap<>();
     
-    private Optional<Class>  entity     = Optional.empty();
-    private Optional<Long>   entityId   = Optional.empty();
-    private Optional<String> entityType = Optional.empty();
+    private Optional<Class>  entity    = Optional.empty();
+    private Optional<Long>   entityId  = Optional.empty();
+    private Optional<String> modelType = Optional.empty();
     
     /**
      * 
@@ -61,9 +61,9 @@ public final class FXMLModel {
      * @author  Naoghuman
      */
     public void clearAll() {
-        entity     = Optional.empty();
-        entityId   = Optional.empty();
-        entityType = Optional.empty();
+        entity    = Optional.empty();
+        entityId  = Optional.empty();
+        modelType = Optional.empty();
     
         data.clear();
     }
@@ -104,27 +104,27 @@ public final class FXMLModel {
     
     /**
      * 
-     * @param entity
-     * @param entityId
-     * @param entityType
+     * @param   entity
+     * @param   entityId
+     * @param   modelType
      * @return 
      * @since   0.3.0-PRERELEASE
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public boolean isSameEntity(final Class entity, final Long entityId, final String entityType) {
+    public boolean isSameEntity(final Class entity, final Long entityId, final String modelType) {
         DefaultFXMLValidator.requireNonNull(entity);
         DefaultFXMLValidator.requireNonNull(entityId);
-        DefaultFXMLValidator.requireNonNullAndNotEmpty(entityType);
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(modelType);
         
         if (
                 this.entity.isPresent()
                 && this.entityId.isPresent()
-                && this.entityType.isPresent()
+                && this.modelType.isPresent()
         ) {
             return this.entity.get().getName().equals(entity.getName())
                     && Objects.equals(this.getEntityId().get(), entityId)
-                    && this.entityType.get().equals(entityType);
+                    && this.modelType.get().equals(modelType);
         }
         
         return Boolean.FALSE;
@@ -198,8 +198,8 @@ public final class FXMLModel {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public Optional<String> getEntityType() {
-        return entityType;
+    public Optional<String> getModelType() {
+        return modelType;
     }
     
     /**
@@ -248,19 +248,19 @@ public final class FXMLModel {
      * 
      * @param   entity 
      * @param   entityId 
-     * @param   entityType 
+     * @param   modelType 
      * @since   0.3.0-PRERELEASE
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public void setEntityId(final Class entity, final Long entityId, final String entityType) {
+    public void setEntity(final Class entity, final Long entityId, final String modelType) {
         DefaultFXMLValidator.requireNonNull(entity);
         DefaultFXMLValidator.requireNonNull(entityId);
-        DefaultFXMLValidator.requireNonNullAndNotEmpty(entityType);
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(modelType);
         
-        this.entity     = Optional.of(entity);
-        this.entityId   = Optional.of(entityId);
-        this.entityType = Optional.of(entityType);
+        this.entity    = Optional.of(entity);
+        this.entityId  = Optional.of(entityId);
+        this.modelType = Optional.of(modelType);
     }
     
     @Override
@@ -268,9 +268,9 @@ public final class FXMLModel {
         final StringBuilder sb = new StringBuilder();
         sb.append("FXMLModel [\n"); // NOI18N
         
-        sb.append("  entity     = ").append((entity.isPresent())     ? entity.get().getName() : "<not-defined>").append(",\n"); // NOI18N
-        sb.append("  entityId   = ").append((entityId.isPresent())   ? entityId.get()         : "<not-defined>").append(",\n"); // NOI18N
-        sb.append("  entityType = ").append((entityType.isPresent()) ? entityType.get()       : "<not-defined>").append(",\n"); // NOI18N
+        sb.append("  entity    = ").append((entity.isPresent())    ? entity.get().getName() : "<not-defined>").append(",\n"); // NOI18N
+        sb.append("  entityId  = ").append((entityId.isPresent())  ? entityId.get()         : "<not-defined>").append(",\n"); // NOI18N
+        sb.append("  modelType = ").append((modelType.isPresent()) ? modelType.get()        : "<not-defined>").append(",\n"); // NOI18N
         
         sb.append("  data [\n"); // NOI18N
         final Iterator<Map.Entry<String, Object>> iterator = data.entrySet().iterator();

@@ -16,15 +16,21 @@
  */
 package com.github.naoghuman.lib.fxml;
 
+import com.github.naoghuman.lib.fxml.core.FXMLAction;
 import com.github.naoghuman.lib.fxml.core.FXMLController;
 import com.github.naoghuman.lib.fxml.core.FXMLModel;
 import com.github.naoghuman.lib.fxml.internal.DefaultFXMLValidator;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.util.StringConverter;
 
 /**
  *
@@ -32,17 +38,21 @@ import javafx.scene.control.TextArea;
  * @version 0.3.0-PRERELEASE
  * @author  Naoghuman
  */
-public class DemoWithAllFilesController extends FXMLController implements Initializable {
+public class DemoAllInOnesController extends FXMLController implements Initializable {
     
-    @FXML private TextArea taDemoInfos;
+    @FXML private TextArea  taDemoInfos;
+    @FXML private TextField tfEntityId;
+    @FXML private TextField tfEntityTitle;
     
     private String keyHelloLibFXML;
     private String resources;
     private String location;
+    
+    private boolean initialize = Boolean.FALSE;
 
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        LoggerFacade.getDefault().info(this.getClass(), "DemoWithAllFilesController#initialize(URL, ResourceBundle)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DemoAllInOnesController#initialize(URL, ResourceBundle)"); // NOI18N
     
         this.location        = (location  != null ? location.toString()                      : "<not-defined>"); // NOI18N
         this.resources       = (resources != null ? resources.getBaseBundleName()            : "<not-defined>"); // NOI18N
@@ -52,7 +62,7 @@ public class DemoWithAllFilesController extends FXMLController implements Initia
     }
     
     private String initializeDemoInfos() {
-        LoggerFacade.getDefault().info(this.getClass(), "DemoWithAllFilesController#initializeDemoInfos()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DemoAllInOnesController#initializeDemoInfos()"); // NOI18N
     
         final StringBuilder sb = new StringBuilder();
         sb.append("================================================================================\n\n"); // NOI18N
@@ -64,12 +74,15 @@ public class DemoWithAllFilesController extends FXMLController implements Initia
         sb.append("   with the 'conventional name' (controller name in lower case without the suffix controller).\n\n"); // NOI18N
         
         sb.append("================================================================================\n\n"); // NOI18N
-        sb.append("Demo files:\n"); // NOI18N
-        sb.append(" - DemoWithAllFiles.java\n"); // NOI18N
-        sb.append(" - DemoWithAllFilesController.java\n"); // NOI18N
-        sb.append(" - demowithallfiles.css\n"); // NOI18N
-        sb.append(" - demowithallfiles.fxml\n"); // NOI18N
-        sb.append(" - demowithallfiles.properties\n\n"); // NOI18N
+        sb.append("Demo files:\n");                       // NOI18N
+        sb.append(" - DemoAllInOnes.java\n");             // NOI18N
+        sb.append(" - DemoAllInOnesController.java\n");   // NOI18N
+        sb.append(" - DemoAllInOnesEntityA.java\n");      // NOI18N
+        sb.append(" - DemoAllInOnesSqlEntityA.java\n");   // NOI18N
+        sb.append(" - DemoAllInOnesSqlProvider.java\n");  // NOI18N
+        sb.append(" - demoallinones.css\n");              // NOI18N
+        sb.append(" - demoallinones.fxml\n");             // NOI18N
+        sb.append(" - demoallinones.properties\n\n");     // NOI18N
         
         sb.append("================================================================================\n\n"); // NOI18N
         sb.append("Details:\n"); // NOI18N
@@ -79,16 +92,69 @@ public class DemoWithAllFilesController extends FXMLController implements Initia
     
     @Override
     public void configure(final FXMLModel model) {
-        LoggerFacade.getDefault().debug(this.getClass(), "DemoWithAllFilesController#configure(FXMLModel)"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesController#configure(FXMLModel)"); // NOI18N
     
         DefaultFXMLValidator.requireNonNull(model);
         
         super.configure(model);
         
-        taDemoInfos.appendText(model.toString());
-        taDemoInfos.appendText("\n\n"); // NOI18N
-        taDemoInfos.appendText(this.toString());
-        taDemoInfos.appendText("\n\n"); // NOI18N
+        if (!initialize) {
+            taDemoInfos.appendText(model.toString());
+            taDemoInfos.appendText("\n\n"); // NOI18N
+            taDemoInfos.appendText(this.toString());
+            taDemoInfos.appendText("\n\n"); // NOI18N
+
+            initialize = Boolean.TRUE;
+        }
+        
+        final Optional<StringProperty> optionalTitle = model.getData(StringProperty.class, DemoAllInOnesEntityA.TITLE);
+        optionalTitle.ifPresent(title -> {
+            tfEntityTitle.textProperty().bindBidirectional(title);
+        });
+        
+        final Optional<LongProperty> optionalId = model.getData(LongProperty.class, DemoAllInOnesEntityA.ID);
+        optionalId.ifPresent(entityId -> {
+            final StringConverter stringConverter = new StringConverter<Long>() {
+                @Override
+                public String toString(final Long number) {
+                    return number == null ? "0" : number.toString(); // NOI18N
+                }
+
+                @Override
+                public Long fromString(final String string) {
+                    long number = 0;
+                    if (string != null && !string.equals("") && !string.equals("-")) { // NOI18N
+                        number = Long.valueOf(string);
+                    }
+                        
+                    return number;
+                }
+            };
+            
+            tfEntityId.textProperty().bindBidirectional(entityId, stringConverter);
+        });
+    }
+    
+    public void onActionEntityLoad() {
+        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesController#onActionEntityLoad()"); // NOI18N
+        
+        Long   entityId = DemoAllInOnesSqlProvider.DEFAULT_ID;
+        String strId    = tfEntityId.getText();
+        if (!strId.equals("") && !strId.equals("-")) { // NOI18N
+            entityId = Long.parseLong(strId);
+        }
+        
+        final FXMLModel modelFromDatabase = FXMLAction.handle(DemoAllInOnesSqlProvider.ON_ACTION__ENTITY_A__LOAD, entityId);
+        this.configure(modelFromDatabase);
+    }
+    
+    public void onActionEntitySave() {
+        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesController#onActionEntitySave()"); // NOI18N
+        
+        final Optional<FXMLModel> optionalModel = super.getModel(DemoAllInOnesEntityA.class, Long.parseLong(tfEntityId.getText()));
+        optionalModel.ifPresent(model -> {
+            FXMLAction.handle(DemoAllInOnesSqlProvider.ON_ACTION__ENTITY_A__SAVE, model);
+        });
     }
     
     /**
@@ -99,7 +165,7 @@ public class DemoWithAllFilesController extends FXMLController implements Initia
      * @author  Naoghuman
      */
     public void onActionShowFXMLViewInfos(final String fxmlViewInfos) {
-        LoggerFacade.getDefault().debug(this.getClass(), "DemoWithAllFilesController#onActionShowFXMLViewInfos(String)"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesController#onActionShowFXMLViewInfos(String)"); // NOI18N
     
         DefaultFXMLValidator.requireNonNullAndNotEmpty(fxmlViewInfos);
         
