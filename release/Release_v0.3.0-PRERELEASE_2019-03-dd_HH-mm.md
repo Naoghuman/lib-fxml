@@ -21,6 +21,7 @@ and connect them to a controller (called the presenter).
 
 #### Enhancement
 #65 [api] Extend FXMLAction with new method for Function'T,R'.
+#62 [test] add 'css' styling for the JavaFX components in the demos.
 #60 [api] Extend FXMLModel with new method 'registerOnAction(String, Consumer'T').
 #58 [api] Extend FXMLModel with metadata.
 #57 [api] Extend FXMLController 'configure' feature.

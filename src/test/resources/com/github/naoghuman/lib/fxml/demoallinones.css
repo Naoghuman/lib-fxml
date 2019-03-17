@@ -17,5 +17,61 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* 
     Created on : 19.12.2018, 10:33:35
     Author     : Naoghuman
+
+.5
+
+2
+2
+
+7
+7
+
+9
 */
+.anchor-pane {
+    -fx-background-color:#FAFAFA;
+}
+
+.button {
+    -fx-background-color:derive(#EEEEEE, 20%);
+}
+.button:hover {
+    -fx-background-color:derive(#616161, 55%);
+}
+.button:pressed {
+    -fx-background-color:derive(#212121, 80%);
+}
+
+
+.text-area .scroll-bar:horizontal {
+    -fx-background-color:derive(#EEEEEE, 20%);
+}
+.text-area .scroll-bar:vertical {
+    -fx-background-color:derive(#EEEEEE, 20%);
+}
+.text-area .scroll-bar .thumb {
+    -fx-background-color:derive(#616161, 60%);
+}
+.text-area .scroll-bar .thumb:hover {
+    -fx-background-color:derive(#616161, 55%);
+}
+.text-area .scroll-bar .thumb:pressed {
+    -fx-background-color:derive(#212121, 80%);
+}
+.text-area .scroll-pane .corner {    
+    -fx-background-color:transparent;
+}
+.text-area, .text-area .viewport, .text-area .content {
+    -fx-background-color:transparent;
+}
+
+.text-field {
+    -fx-background-color:derive(#EEEEEE, 20%);
+}
+.text-field:hover {
+    -fx-background-color:derive(#616161, 55%);
+}
+.text-field:focused {
+    -fx-background-color:derive(#212121, 80%);
+}
 

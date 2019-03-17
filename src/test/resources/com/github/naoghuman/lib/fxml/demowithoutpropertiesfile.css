@@ -19,3 +19,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     Author     : Naoghuman
 */
 
+.anchor-pane {
+    -fx-background-color:#E1F5FE;
+}
+
+.text-area .scroll-bar:horizontal {
+    -fx-background-color:derive(#81D4FA, 45%);
+}
+
+.text-area .scroll-bar:vertical {
+    -fx-background-color:derive(#81D4FA, 45%);
+}
+
+.text-area .scroll-bar .thumb {
+    -fx-background-color:derive(#0288D1, 55%);
+}
+
+.text-area .scroll-bar .thumb:hover {
+    -fx-background-color:derive(#0288D1, 40%);
+}
+
+.text-area .scroll-bar .thumb:pressed {
+    -fx-background-color:derive(#01579B, 65%);
+}
+
+.text-area .scroll-pane .corner {    
+    -fx-background-color:transparent;
+}
+
+.text-area, .text-area .viewport, .text-area .content {
+    -fx-background-color:transparent;
+}

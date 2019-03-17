@@ -54,6 +54,7 @@ public class DemoWithoutPropertiesFile extends Application {
         });
         
         final Scene scene = new Scene(view.getRoot().get(), 1280, 720);
+        scene.getStylesheets().add("/com/github/naoghuman/lib/fxml/demowithoutpropertiesfile.css"); // NOI18N
         primaryStage.setScene(scene);
         
         primaryStage.show();

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: LIGHTGREEN;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="anchor-pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <HBox layoutX="14.0" layoutY="14.0" spacing="7.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
             <children>
@@ -55,7 +55,7 @@
                         <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onActionEntityLoad" text="Load" />
                         <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onActionEntitySave" text="Save">
                             <VBox.margin>
-                                <Insets top="2.0" />
+                                <Insets top="5.0" />
                             </VBox.margin>
                         </Button>
                     </children>

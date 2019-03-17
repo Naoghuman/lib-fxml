@@ -18,4 +18,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     Created on : 19.12.2018, 10:33:35
     Author     : Naoghuman
 */
+.anchor-pane {
+    -fx-background-color:#FFFDE7;
+}
 
+.text-area .scroll-bar:horizontal {
+    -fx-background-color:derive(#FFF59D, 25%);
+}
+
+.text-area .scroll-bar:vertical {
+    -fx-background-color:derive(#FFF59D, 25%);
+}
+
+.text-area .scroll-bar .thumb {
+    -fx-background-color:derive(#FBC02D, 55%);
+}
+
+.text-area .scroll-bar .thumb:hover {
+    -fx-background-color:derive(#FBC02D, 40%);
+}
+
+.text-area .scroll-bar .thumb:pressed {
+    -fx-background-color:derive(#F57F17, 50%);
+}
+
+.text-area .scroll-pane .corner {    
+    -fx-background-color:transparent;
+}
+
+.text-area, .text-area .viewport, .text-area .content {
+    -fx-background-color:transparent;
+}

@@ -5,15 +5,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: LIGHTGREEN;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <VBox layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
-         <children>
-            <TextArea fx:id="taDemoInfos" editable="false" wrapText="true" VBox.vgrow="ALWAYS">
-               <font>
-                  <Font name="Monospaced Regular" size="12.0" />
-               </font></TextArea>
-         </children>
-      </VBox>
-   </children>
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="anchor-pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+            <children>
+                <TextArea fx:id="taDemoInfos" editable="false" wrapText="true" VBox.vgrow="ALWAYS">
+                    <font>
+                        <Font name="Monospaced Regular" size="12.0" />
+                    </font>
+                </TextArea>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>
