@@ -46,12 +46,12 @@ public final class DemoAllInOnesEntityA implements FXMLModelable {
     }
 
     @Override
-    public void readFromFXMLModel(final FXMLModel model) {
+    public void readFrom(final FXMLModel model) {
         
     }
 
     @Override
-    public FXMLModel writeToFXMLModel() {
+    public FXMLModel writeTo() {
         final FXMLModel model = new FXMLModel();
         model.setEntity(this.getClass(), this.idProperty().get());
         

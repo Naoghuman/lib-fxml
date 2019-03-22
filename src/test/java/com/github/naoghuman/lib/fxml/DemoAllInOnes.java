@@ -53,7 +53,7 @@ public class DemoAllInOnes extends Application {
         primaryStage.setTitle("Lib-FXML Demo all in ones!");
         
         final DemoAllInOnesEntityA entity = new DemoAllInOnesEntityA();
-        final FXMLModel            model  = entity.writeToFXMLModel();
+        final FXMLModel            model  = entity.writeTo();
             
         final FXMLView                          view     = FXMLView.create(DemoAllInOnesController.class, model);
         final Optional<DemoAllInOnesController> optional = view.getController(DemoAllInOnesController.class);

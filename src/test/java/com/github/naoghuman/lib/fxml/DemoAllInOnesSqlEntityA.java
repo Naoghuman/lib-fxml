@@ -58,7 +58,7 @@ final class DemoAllInOnesSqlEntityA implements FXMLRegisterable {
             entity.titleProperty().set(String.format("Create new FXMLModel with Id#%s!", entityId)); // NOI18N
         }
         
-        return entity.writeToFXMLModel();
+        return entity.writeTo();
     }
     
     public void onActionEntityASave(final FXMLModel model) {

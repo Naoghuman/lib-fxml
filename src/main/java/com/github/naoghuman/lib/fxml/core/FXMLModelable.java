@@ -31,7 +31,7 @@ public interface FXMLModelable {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public void readFromFXMLModel(final FXMLModel model);
+    public void readFrom(final FXMLModel model);
     
     /**
      * 
@@ -40,6 +40,6 @@ public interface FXMLModelable {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public FXMLModel writeToFXMLModel();
+    public FXMLModel writeTo();
     
 }
