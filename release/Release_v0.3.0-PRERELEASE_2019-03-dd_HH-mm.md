@@ -40,6 +40,7 @@ and connect them to a controller (called the presenter).
 
 #### Documentation
 #49 [doc] Write new concept 'SaveToDatabase'.
+#41 [doc] Update section 'Intention' in ReadMe.
 
 
 
@@ -65,7 +66,6 @@ Naoghuman
 
 
 [//]: # (Issues which will be integrated in this release)
-#41 [doc] Update section 'Intention' in ReadMe. documentation
 
 
 

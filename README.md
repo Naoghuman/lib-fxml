@@ -10,18 +10,18 @@ Lib-FXML
 Intention
 ---
 
-`Lib-FXML` allows the developer to load [JavaFX] relevant files (.fxml, .css, .properties) 
-and connect them to a controller (called the presenter).
+The `Lib-FXML` library simplifies the loading of [JavaFX] relevant files (model, 
+view, controller, .fxml, .css, .properties) and enables a standardized handling 
+of the data flow to (from) the gui.
 
-[Adam Bien]'s GitHub project [afterburner.fx] has not been developed for over 3 years (in 2018).  
-So I'm going to develop my own lightweight implementation of afterburner.fx for my own 
-`libraries`, `frameworks` and `applications`.
+Inspired by [Adam Bien]'s library [afterburner.fx], which unfortunately hasn't been 
+developed since 2015, the library `Lib-FXML` simplifies the daily developer tasks 
+in context from the aboved mentioned two main points:
+ * Simplifying the loading of `JavaFX` relevant files and
+ * offering a standardized data flow to (from) the gui.
 
-Finally, I want to make it clear that I did not just copy the source code from Adam, 
-but used the conventions, ideas of afterburner.fx for my own implementation.
-
-_Image:_ Overview basic concept from `Lib-FXML` 
-![Overview_Lib-FXML_MVP_v0.1.0-PRERELEASE_2018-12-20.png][Overview_Lib-FXML_MVP_v0.1.0-PRERELEASE_2018-12-20]
+_Image:_ Overview UML `Lib-FXML v0.3.0-PRERELEASE` 
+![Overview-UML_Lib-FXML_v0.3.0-PRERELEASE_2019-03-24_17-48.png][Overview-UML_Lib-FXML_v0.3.0-PRERELEASE_2019-03-24_17-48]
 
 
 
@@ -143,7 +143,7 @@ You can reach me under <peter.rogge@yahoo.de>.
 
 
 [//]: # (Images)
-[Overview_Lib-FXML_MVP_v0.1.0-PRERELEASE_2018-12-20]:https://user-images.githubusercontent.com/8161815/50287987-e8c55d00-0464-11e9-879e-9942a9eaf765.png
+[Overview-UML_Lib-FXML_v0.3.0-PRERELEASE_2019-03-24_17-48]:https://user-images.githubusercontent.com/8161815/54882728-5ebed300-4e5d-11e9-9592-ca0680293108.png
 
 
 
