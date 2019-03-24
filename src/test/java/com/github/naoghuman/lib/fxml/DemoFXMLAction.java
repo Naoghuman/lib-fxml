@@ -18,7 +18,10 @@ package com.github.naoghuman.lib.fxml;
 
 import com.github.naoghuman.lib.fxml.core.FXMLAction;
 import com.github.naoghuman.lib.fxml.core.FXMLModel;
+import com.github.naoghuman.lib.fxml.core.FXMLRegisterable;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
+import java.util.List;
+import javafx.collections.FXCollections;
 
 /**
  *
@@ -26,18 +29,41 @@ import com.github.naoghuman.lib.logger.core.LoggerFacade;
  * @version 0.3.0-PRERELEASE
  * @author  Naoghuman
  */
-public class DemoFXMLAction {
+public class DemoFXMLAction implements FXMLRegisterable {
     
-    private static final String ON_ACTION__LOAD_ENTITY_FROM_DATABASE = "ON_ACTION__LOAD_ENTITY_FROM_DATABASE"; // NOI18N
-    private static final String ON_ACTION__SAVE_ENTITY_TO_DATABASE   = "ON_ACTION__SAVE_ENTITY_TO_DATABASE";   // NOI18N
+    private static final String ON_ACTION__LOAD_ENTITIES_FROM_DATABASE = "ON_ACTION__LOAD_ENTITIES_FROM_DATABASE"; // NOI18N
+    private static final String ON_ACTION__LOAD_ENTITY_FROM_DATABASE   = "ON_ACTION__LOAD_ENTITY_FROM_DATABASE"; // NOI18N
+    private static final String ON_ACTION__SAVE_ENTITY_TO_DATABASE     = "ON_ACTION__SAVE_ENTITY_TO_DATABASE";   // NOI18N
     
     public static void main(String[] args) {
         LoggerFacade.getDefault().info(DemoFXMLAction.class, "DemoFXMLAction#main(String[])"); // NOI18N
     
-        // DemoFXMLAction have the methods which we will registered and handled
-        // with FXMLAction!
-        final DemoFXMLAction demo = new DemoFXMLAction();
+        final DemoFXMLAction demoFXMLAction = new DemoFXMLAction();
+        demoFXMLAction.register();
         
+        demoFXMLAction.onActionSaveEntityToDatabase();
+        demoFXMLAction.onActionLoadEntityFromDatabase();
+        demoFXMLAction.onActionLoadEntitiesFromDatabase();
+    }
+
+    @Override
+    public void register() {
+        LoggerFacade.getDefault().info(DemoFXMLAction.class, "DemoFXMLAction#register()"); // NOI18N
+    
+        FXMLAction.register(ON_ACTION__SAVE_ENTITY_TO_DATABASE,     SqlProvider::onActionSaveEntityToDatabase);
+        FXMLAction.register(ON_ACTION__LOAD_ENTITY_FROM_DATABASE,   SqlProvider::onActionLoadEntityFromDatabase);
+        FXMLAction.register(ON_ACTION__LOAD_ENTITIES_FROM_DATABASE, SqlProvider::onActionLoadEntitiesFromDatabase);
+    }
+    
+    /**
+     * 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    void onActionSaveEntityToDatabase() {
+        LoggerFacade.getDefault().debug(DemoFXMLAction.class, "DemoFXMLAction#onActionSaveEntityToDatabase()"); // NOI18N
+
         /*
          * DEMO -> TO DATABASE
          *  - Register the method #onActionSaveEntityToDatabase(FXMLModel) with the 
@@ -45,16 +71,25 @@ public class DemoFXMLAction {
          *  - Because the method have a parameter from type 'FXMLModel' the #register(...)
          *    method with the parameter Consumer<FXMLModel> will be used.
          */
-        FXMLAction.register(ON_ACTION__SAVE_ENTITY_TO_DATABASE, demo::onActionSaveEntityToDatabase);
-    
+        
         // Execute the registered action ON_ACTION_PRINT which will then execute the 
         // registerd method :)) here in DemoFXMLAction.
         final FXMLModel modelToDatabase = new FXMLModel();
         modelToDatabase.putData("int", 12345); // NOI18N
-        modelToDatabase.putData("msg", "hello from #onActionSaveEntityToDatabase(FXMLModel)!"); // NOI18N
+        modelToDatabase.putData("msg", "hello from #onActionSaveEntityToDatabase(FXMLModel)"); // NOI18N
         
         FXMLAction.handle(ON_ACTION__SAVE_ENTITY_TO_DATABASE, modelToDatabase);
-        
+    }
+    
+    /**
+     * 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    void onActionLoadEntityFromDatabase() {
+        LoggerFacade.getDefault().debug(DemoFXMLAction.class, "DemoFXMLAction#onActionLoadEntityFromDatabase()"); // NOI18N
+
         /*
          * DEMO <- FROM DATABASE
          *  - Register the method #onActionLoadEntityFromDatabase(Long) with the 
@@ -63,29 +98,96 @@ public class DemoFXMLAction {
          *    method with the parameter Function<Long, FXMLModel> will be used 
          *    where 'Long' is the input type and 'FXMLModel' the type of the result.
          */
-        FXMLAction.register(ON_ACTION__LOAD_ENTITY_FROM_DATABASE, demo::onActionLoadEntityFromDatabase);
         
         // Execute the registered action ON_ACTION__LOAD_ENTITY_FROM_DATABASE which 
         // will then execute the registerd method :)) here in DemoFXMLAction.
-        final FXMLModel modelFromDatabase = FXMLAction.handle(ON_ACTION__LOAD_ENTITY_FROM_DATABASE, 987654321L);
-        System.out.println(modelFromDatabase.toString());
-    }
-    
-    public void onActionSaveEntityToDatabase(final FXMLModel model) {
-        LoggerFacade.getDefault().debug(DemoFXMLAction.class, "DemoFXMLAction#onActionSaveEntityToDatabase(FXMLModel)"); // NOI18N
-    
-        System.out.println(model.toString());
-    }
-    
-    public FXMLModel onActionLoadEntityFromDatabase(final Long entityId) {
-        LoggerFacade.getDefault().debug(DemoFXMLAction.class, "DemoFXMLAction#onActionLoadEntityFromDatabase(Long)"); // NOI18N
-    
-        // TODO Search here the model in DB and return it.
-        final FXMLModel model = new FXMLModel();
-        model.putData("id",  entityId); // NOI18N
-        model.putData("msg", "hello from #onActionLoadEntityFromDatabase(Long)!"); // NOI18N
+        final FXMLModel entity = FXMLAction.handle(ON_ACTION__LOAD_ENTITY_FROM_DATABASE, 987654321L);
+        System.out.println(entity.toString());
         
-        return model;
+    }
+    
+    /**
+     * 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    void onActionLoadEntitiesFromDatabase() {
+        LoggerFacade.getDefault().debug(DemoFXMLAction.class, "DemoFXMLAction#onActionLoadEntitiesFromDatabase()"); // NOI18N
+
+        final List<FXMLModel> entities = FXMLAction.handle(ON_ACTION__LOAD_ENTITIES_FROM_DATABASE);
+        entities.stream()
+                .forEach(entity -> {
+                    System.out.println(entity.toString());
+                });
+    }
+    
+    /**
+     * 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    static class SqlProvider {
+        
+        /**
+         * 
+         * @param   model 
+         * @since   0.3.0-PRERELEASE
+         * @version 0.3.0-PRERELEASE
+         * @author  Naoghuman
+         */
+        static void onActionSaveEntityToDatabase(final FXMLModel model) {
+            LoggerFacade.getDefault().debug(SqlProvider.class, "SqlProvider#onActionSaveEntityToDatabase(FXMLModel)"); // NOI18N
+
+            System.out.println(model.toString());
+        }
+
+        /**
+         * 
+         * @param   entityId
+         * @return 
+         * @since   0.3.0-PRERELEASE
+         * @version 0.3.0-PRERELEASE
+         * @author  Naoghuman
+         */
+        static FXMLModel onActionLoadEntityFromDatabase(final Long entityId) {
+            LoggerFacade.getDefault().debug(SqlProvider.class, "SqlProvider#onActionLoadEntityFromDatabase(Long)"); // NOI18N
+
+            // search entity in db and put data in FXMLModel
+            final FXMLModel model = new FXMLModel();
+            model.putData("id",  entityId); // NOI18N
+            model.putData("msg", "hello from #onActionLoadEntityFromDatabase(Long)"); // NOI18N
+
+            return model;
+        }
+        
+        /**
+         * 
+         * @return 
+         * @since   0.3.0-PRERELEASE
+         * @version 0.3.0-PRERELEASE
+         * @author  Naoghuman
+         */
+        static List<FXMLModel> onActionLoadEntitiesFromDatabase() {
+            LoggerFacade.getDefault().debug(SqlProvider.class, "SqlProvider#onActionLoadEntitiesFromDatabase()"); // NOI18N
+
+            final List<FXMLModel> entities = FXCollections.observableArrayList();
+            
+            // search entities in db and put data in FXMLModel
+            final FXMLModel model = new FXMLModel();
+            model.putData("id",  1111111111111111L); // NOI18N
+            model.putData("msg", "hello1 from #onActionLoadEntitiesFromDatabase()"); // NOI18N
+            entities.add(model);
+            
+            final FXMLModel model2 = new FXMLModel();
+            model2.putData("id",  2222222222222222L); // NOI18N
+            model2.putData("msg", "hello2 from #onActionLoadEntitiesFromDatabase()"); // NOI18N
+            entities.add(model2);
+            
+            return entities;
+        }
+    
     }
     
 }

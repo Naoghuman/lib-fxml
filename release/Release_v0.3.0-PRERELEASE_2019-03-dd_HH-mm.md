@@ -20,6 +20,7 @@ and connect them to a controller (called the presenter).
 
 
 #### Enhancement
+#67 [api] Extend the class FXMLAction with new method for handling a Supplier.
 #65 [api] Extend FXMLAction with new method for Function'T,R'.
 #62 [test] add 'css' styling for the JavaFX components in the demos.
 #60 [api] Extend FXMLModel with new method 'registerOnAction(String, Consumer'T').
@@ -64,6 +65,7 @@ Naoghuman
 
 
 [//]: # (Issues which will be integrated in this release)
+#41 [doc] Update section 'Intention' in ReadMe. documentation
 
 
 

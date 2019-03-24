@@ -19,8 +19,10 @@ package com.github.naoghuman.lib.fxml.core;
 import com.github.naoghuman.lib.fxml.internal.DefaultFXMLValidator;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import java.util.HashMap;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  *
@@ -32,8 +34,31 @@ public final class FXMLAction {
     
     private final static HashMap<String, Consumer<FXMLModel>>       consumers = new HashMap();
     private final static HashMap<String, Function<Long, FXMLModel>> functions = new HashMap();
+    private final static HashMap<String, Supplier<List<FXMLModel>>> suppliers = new HashMap();
     
     private final static String ERROR_MSG__ACTION_ID_ISNT_REGISTERED = "Error: The [actionId=%s] isn't registerd!"; // NOI18N
+    
+    /**
+     * 
+     * @param   actionId
+     * @return 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public static List<FXMLModel> handle(final String actionId) {
+        LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#handle(String)"); // NOI18N
+        
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
+        
+        if (!FXMLAction.isRegistered(actionId)) {
+            throw new IllegalArgumentException(String.format(ERROR_MSG__ACTION_ID_ISNT_REGISTERED, actionId));
+        }
+        
+        final Supplier<List<FXMLModel>> supplier = suppliers.get(actionId);
+        
+        return supplier.get();
+    }
     
     /**
      * 
@@ -95,7 +120,25 @@ public final class FXMLAction {
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         
         return consumers.containsKey(actionId)
-                || functions.containsKey(actionId);
+                || functions.containsKey(actionId)
+                || suppliers.containsKey(actionId);
+    }
+    
+    /**
+     * 
+     * @param   actionId
+     * @param   consumer
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public static void register(final String actionId, final Consumer<FXMLModel> consumer) {
+        LoggerFacade.getDefault().info(FXMLAction.class, "FXMLAction#register(String, Consumer<FXMLModel>)"); // NOI18N
+        
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
+        DefaultFXMLValidator.requireNonNull(consumer);
+        
+        consumers.put(actionId, consumer);
     }
 
     /**
@@ -114,22 +157,22 @@ public final class FXMLAction {
         
         functions.put(actionId, function);
     }
-    
+
     /**
      * 
      * @param   actionId
-     * @param   consumer
+     * @param   supplier
      * @since   0.3.0-PRERELEASE
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static void register(final String actionId, final Consumer<FXMLModel> consumer) {
-        LoggerFacade.getDefault().info(FXMLAction.class, "FXMLAction#register(String, Consumer<FXMLModel>)"); // NOI18N
+    public static void register(final String actionId, final Supplier<List<FXMLModel>> supplier) {
+        LoggerFacade.getDefault().info(FXMLAction.class, "FXMLAction#register(String, Supplier<List<FXMLModel>>)"); // NOI18N
         
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
-        DefaultFXMLValidator.requireNonNull(consumer);
+        DefaultFXMLValidator.requireNonNull(supplier);
         
-        consumers.put(actionId, consumer);
+        suppliers.put(actionId, supplier);
     }
     
     /**
@@ -150,6 +193,10 @@ public final class FXMLAction {
         
         if (functions.containsKey(actionId)) {
             functions.remove(actionId);
+        }
+        
+        if (suppliers.containsKey(actionId)) {
+            suppliers.remove(actionId);
         }
     }
     
