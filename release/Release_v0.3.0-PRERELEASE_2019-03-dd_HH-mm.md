@@ -20,6 +20,7 @@ and connect them to a controller (called the presenter).
 
 
 #### Enhancement
+#70 [api] Add new method 'configure()' to FXMLController.
 #67 [api] Extend the class FXMLAction with new method for handling a Supplier.
 #65 [api] Extend FXMLAction with new method for Function'T,R'.
 #62 [test] add 'css' styling for the JavaFX components in the demos.
@@ -66,6 +67,7 @@ Naoghuman
 
 
 [//]: # (Issues which will be integrated in this release)
+#63 [doc] Update the section 'Demos' in the ReadMe. // documentation
 
 
 
