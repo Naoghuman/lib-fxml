@@ -60,12 +60,11 @@ public final class FXMLModel {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public void clearAll() {
+    public void clearMetadata() {
+        // idea metadata is own hashmap
         entity    = Optional.empty();
         entityId  = Optional.empty();
         modelType = Optional.empty();
-    
-        data.clear();
     }
     
     /**
@@ -96,7 +95,7 @@ public final class FXMLModel {
                 && this.entityId.isPresent()
         ) {
             return this.entity.get().getName().equals(entity.getName())
-                    && Objects.equals(this.getEntityId().get(), entityId);
+                    && Objects.equals(this.getMetadataEntityId().get(), entityId);
         }
         
         return Boolean.FALSE;
@@ -123,7 +122,7 @@ public final class FXMLModel {
                 && this.modelType.isPresent()
         ) {
             return this.entity.get().getName().equals(entity.getName())
-                    && Objects.equals(this.getEntityId().get(), entityId)
+                    && Objects.equals(this.getMetadataEntityId().get(), entityId)
                     && this.modelType.get().equals(modelType);
         }
         
@@ -165,7 +164,7 @@ public final class FXMLModel {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public HashMap<String, Object> getAllData() {
+    public HashMap<String, Object> getData() {
         return data;
     }
     
@@ -176,7 +175,7 @@ public final class FXMLModel {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public Optional<Class> getEntity() {
+    public Optional<Class> getMetadataEntity() {
         return entity;
     }
     
@@ -187,7 +186,7 @@ public final class FXMLModel {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public Optional<Long> getEntityId() {
+    public Optional<Long> getMetadataEntityId() {
         return entityId;
     }
     
@@ -198,7 +197,7 @@ public final class FXMLModel {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public Optional<String> getModelType() {
+    public Optional<String> getMetadataModelType() {
         return modelType;
     }
     
@@ -236,7 +235,7 @@ public final class FXMLModel {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public void setEntity(final Class entity, final Long entityId) {
+    public void setMetadataEntity(final Class entity, final Long entityId) {
         DefaultFXMLValidator.requireNonNull(entity);
         DefaultFXMLValidator.requireNonNull(entityId);
         
@@ -253,7 +252,7 @@ public final class FXMLModel {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public void setEntity(final Class entity, final Long entityId, final String modelType) {
+    public void setMetadataEntity(final Class entity, final Long entityId, final String modelType) {
         DefaultFXMLValidator.requireNonNull(entity);
         DefaultFXMLValidator.requireNonNull(entityId);
         DefaultFXMLValidator.requireNonNullAndNotEmpty(modelType);
@@ -268,9 +267,11 @@ public final class FXMLModel {
         final StringBuilder sb = new StringBuilder();
         sb.append("FXMLModel [\n"); // NOI18N
         
-        sb.append("  entity    = ").append((entity.isPresent())    ? entity.get().getName() : "<not-defined>").append(",\n"); // NOI18N
-        sb.append("  entityId  = ").append((entityId.isPresent())  ? entityId.get()         : "<not-defined>").append(",\n"); // NOI18N
-        sb.append("  modelType = ").append((modelType.isPresent()) ? modelType.get()        : "<not-defined>").append(",\n"); // NOI18N
+        sb.append("  metadata [\n"); // NOI18N
+        sb.append("    entity    = ").append((entity.isPresent())    ? entity.get().getName() : "<not-defined>").append(",\n"); // NOI18N
+        sb.append("    entityId  = ").append((entityId.isPresent())  ? entityId.get()         : "<not-defined>").append(",\n"); // NOI18N
+        sb.append("    modelType = ").append((modelType.isPresent()) ? modelType.get()        : "<not-defined>").append(",\n"); // NOI18N
+        sb.append("  ],\n"); // NOI18N
         
         sb.append("  data [\n"); // NOI18N
         final Iterator<Map.Entry<String, Object>> iterator = data.entrySet().iterator();

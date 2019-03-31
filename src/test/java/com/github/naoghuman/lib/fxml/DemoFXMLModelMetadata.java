@@ -32,8 +32,7 @@ public class DemoFXMLModelMetadata {
         LoggerFacade.getDefault().info(DemoFXMLAction.class, "DemoFXMLModelMetadata#main(String[])"); // NOI18N
     
         final FXMLModel model = new FXMLModel();
-//        model.setEntity(FXMLModel.class);
-//        model.setEntity(System.currentTimeMillis());
+        model.setMetadataEntity(FXMLModel.class, System.currentTimeMillis());
         model.putData("string.property", new SimpleStringProperty("string.property")); // NOI18N
         
         System.out.println(model);
