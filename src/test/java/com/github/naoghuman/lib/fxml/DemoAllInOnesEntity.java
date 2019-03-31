@@ -29,18 +29,45 @@ import javafx.beans.property.StringProperty;
  * @version 0.3.0-PRERELEASE
  * @author  Naoghuman
  */
-public final class DemoAllInOnesEntityA implements FXMLModelable {
+public final class DemoAllInOnesEntity implements FXMLModelable {
     
-    public static final String ID = "DemoAllInOnesEntityA#idProperty";
-    public static final String TITLE = "DemoAllInOnesEntityA#titleProperty"; 
+    /**
+     *
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public static final String ID = "DemoAllInOnesEntity#idProperty";
+    
+    /**
+     *
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public static final String TITLE = "DemoAllInOnesEntity#titleProperty"; 
     
     private final LongProperty   idProperty    = new SimpleLongProperty(123456789L);
     private final StringProperty titleProperty = new SimpleStringProperty("Hi title!");
     
+    /**
+     * 
+     * @return 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
     public LongProperty idProperty() {
         return idProperty;
     }
     
+    /**
+     * 
+     * @return 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
     public StringProperty titleProperty() {
         return titleProperty;
     }
@@ -53,13 +80,12 @@ public final class DemoAllInOnesEntityA implements FXMLModelable {
     @Override
     public FXMLModel writeTo() {
         final FXMLModel model = new FXMLModel();
-        model.setEntity(this.getClass(), this.idProperty().get());
+        model.setMetadataEntity(this.getClass(), this.idProperty().get());
         
         model.putData(ID,    this.idProperty());
         model.putData(TITLE, this.titleProperty());
         
         return model;
     }
-    
     
 }

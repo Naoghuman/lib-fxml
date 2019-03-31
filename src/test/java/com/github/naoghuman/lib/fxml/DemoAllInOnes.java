@@ -43,16 +43,16 @@ public class DemoAllInOnes extends Application {
         LoggerFacade.getDefault().info(this.getClass(), "DemoAllInOnes#init()"); // NOI18N
     
         // Register all managed actions
-        DemoAllInOnesSqlProvider.getDefault().register();
+        DemoAllInOnesSqlEntity.getDefault().register();
     }
     
     @Override
     public void start(Stage primaryStage) throws Exception {
         LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnes#start(Stage)"); // NOI18N
     
-        primaryStage.setTitle("Lib-FXML Demo all in ones!");
+        primaryStage.setTitle("Demo Lib-FXML: 'All in Ones'"); // NOI18N
         
-        final DemoAllInOnesEntityA entity = new DemoAllInOnesEntityA();
+        final DemoAllInOnesEntity entity = new DemoAllInOnesEntity();
         final FXMLModel            model  = entity.writeTo();
             
         final FXMLView                          view     = FXMLView.create(DemoAllInOnesController.class, model);

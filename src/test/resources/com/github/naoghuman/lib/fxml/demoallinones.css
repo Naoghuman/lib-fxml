@@ -17,37 +17,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* 
     Created on : 19.12.2018, 10:33:35
     Author     : Naoghuman
-
-.5
-
-2
-2
-
-7
-7
-
-9
 */
 .anchor-pane {
-    -fx-background-color:#FAFAFA;
+    -fx-background-color:#EAEAEA;
 }
 
+
 .button {
-    -fx-background-color:derive(#EEEEEE, 20%);
+    -fx-background-color:derive(#EEEEEE, 40%);
 }
 .button:hover {
     -fx-background-color:derive(#616161, 55%);
+    -fx-text-fill:derive(#FFFFFF, 40%);
 }
 .button:pressed {
-    -fx-background-color:derive(#212121, 80%);
+    -fx-background-color:derive(#212121, 70%);
+    -fx-text-fill:#FFFFFF;
 }
 
 
 .text-area .scroll-bar:horizontal {
-    -fx-background-color:derive(#EEEEEE, 20%);
+    -fx-background-color:derive(#EEEEEE, 40%);
 }
 .text-area .scroll-bar:vertical {
-    -fx-background-color:derive(#EEEEEE, 20%);
+    -fx-background-color:derive(#EEEEEE, 40%);
 }
 .text-area .scroll-bar .thumb {
     -fx-background-color:derive(#616161, 60%);
@@ -65,13 +58,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     -fx-background-color:transparent;
 }
 
+
 .text-field {
-    -fx-background-color:derive(#EEEEEE, 20%);
+    -fx-background-color:derive(#EEEEEE, 40%);
 }
 .text-field:hover {
     -fx-background-color:derive(#616161, 55%);
+    -fx-text-fill:derive(#FFFFFF, 40%);
 }
 .text-field:focused {
-    -fx-background-color:derive(#212121, 80%);
+    -fx-background-color:derive(#212121, 75%);
+    -fx-text-fill:#FFFFFF;
 }
 

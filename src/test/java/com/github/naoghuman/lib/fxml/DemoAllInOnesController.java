@@ -107,12 +107,12 @@ public class DemoAllInOnesController extends FXMLController implements Initializ
             initialize = Boolean.TRUE;
         }
         
-        final Optional<StringProperty> optionalTitle = model.getData(StringProperty.class, DemoAllInOnesEntityA.TITLE);
+        final Optional<StringProperty> optionalTitle = model.getData(StringProperty.class, DemoAllInOnesEntity.TITLE);
         optionalTitle.ifPresent(title -> {
             tfEntityTitle.textProperty().bindBidirectional(title);
         });
         
-        final Optional<LongProperty> optionalId = model.getData(LongProperty.class, DemoAllInOnesEntityA.ID);
+        final Optional<LongProperty> optionalId = model.getData(LongProperty.class, DemoAllInOnesEntity.ID);
         optionalId.ifPresent(entityId -> {
             final StringConverter stringConverter = new StringConverter<Long>() {
                 @Override
@@ -138,22 +138,22 @@ public class DemoAllInOnesController extends FXMLController implements Initializ
     public void onActionEntityLoad() {
         LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesController#onActionEntityLoad()"); // NOI18N
         
-        Long   entityId = DemoAllInOnesSqlProvider.DEFAULT_ID;
+        Long   entityId = DemoAllInOnesSqlEntity.DEFAULT_ID;
         String strId    = tfEntityId.getText();
         if (!strId.equals("") && !strId.equals("-")) { // NOI18N
             entityId = Long.parseLong(strId);
         }
         
-        final FXMLModel modelFromDatabase = FXMLAction.handle(DemoAllInOnesSqlProvider.ON_ACTION__ENTITY_A__LOAD, entityId);
+        final FXMLModel modelFromDatabase = FXMLAction.handle(DemoAllInOnesSqlEntity.ON_ACTION__ENTITY__LOAD, entityId);
         this.configure(modelFromDatabase);
     }
     
     public void onActionEntitySave() {
         LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesController#onActionEntitySave()"); // NOI18N
         
-        final Optional<FXMLModel> optionalModel = super.getModel(DemoAllInOnesEntityA.class, Long.parseLong(tfEntityId.getText()));
+        final Optional<FXMLModel> optionalModel = super.getModel(DemoAllInOnesEntity.class, Long.parseLong(tfEntityId.getText()));
         optionalModel.ifPresent(model -> {
-            FXMLAction.handle(DemoAllInOnesSqlProvider.ON_ACTION__ENTITY_A__SAVE, model);
+            FXMLAction.handle(DemoAllInOnesSqlEntity.ON_ACTION__ENTITY__SAVE, model);
         });
     }
     
