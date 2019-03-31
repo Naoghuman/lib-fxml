@@ -20,13 +20,19 @@ in context from the aboved mentioned two main points:
  * Simplifying the loading of `JavaFX` relevant files and
  * offering a standardized data flow to (from) the gui.
 
-_Image:_ Overview UML `Lib-FXML v0.3.0-PRERELEASE` 
+_Image:_ Overview UML `Lib-FXML v0.3.0-PRERELEASE`  
 ![Overview-UML_Lib-FXML_v0.3.0-PRERELEASE_2019-03-24_17-48.png][Overview-UML_Lib-FXML_v0.3.0-PRERELEASE_2019-03-24_17-48]
 
 
 
-* [Examples](#Examples)
-    * [Example 1](#Example1)
+Content
+---
+
+* [Demos](#Demos)
+    * [Demo 'All in Ones'](#DeAlInOn)
+    * [Demo 'With all files'](#DeWiAlFi)
+    * [Demo 'Without .css file'](#DeWiCsFi)
+    * [Demo 'Without .properties file'](#DeWiPrFi)
 * [Conventions](#Conventions)
 * [Features](#Features)
 * [JavaDoc](#JavaDoc)
@@ -40,10 +46,86 @@ _Image:_ Overview UML `Lib-FXML v0.3.0-PRERELEASE`
 
 
 
+Demos<a name="Demos" />
+---
+
+The various demo applications in this chapter shows specific aspects, conventions 
+and features of the library Lib-FXML.
+
+
+### Demo 'All in Ones'<a name="DeAlInOn" />
+
+___Intention___
+
+_Image:_ Demo 'All in Ones'  
+
+___Demo files___
+The following demo files are involved:
+* DemoAllInOnes.java
+* DemoAllInOnesController.java
+* DemoAllInOnesEntity.java
+* DemoAllInOnesSqlEntity.java
+* demoallinones.css
+* demoallinones.fxml
+* demoallinones.properties
+
+___How it works!___
+
+
+### Demo 'With all files'<a name="DeWiAlFi" />
+
+___Intention___
+
+_Image:_ Demo 'With all files'  
+
+___Demo files___
+The following demo files are involved:
+* DemoWithAllFiles.java
+* DemoWithAllFilesController.java
+* demowithallfiles.css
+* demowithallfiles.fxml
+* demowithallfiles.properties
+
+___How it works!___
+
+
+### Demo 'Without .css file'<a name="DeWiCsFi" />
+
+___Intention___
+
+_Image:_ Demo 'Without .css file'  
+
+___Demo files___
+The following demo files are involved:
+* DemoWithoutCssFile.java
+* DemoWithoutCssFileController.java
+* demowithoutcssfile.fxml
+* demowithoutcssfile.properties
+
+___How it works!___
+
+
+### Demo 'Without .properties file'<a name="DeWiPrFi" />
+
+___Intention___
+
+_Image:_ Demo 'Without .properties file'  
+
+___Demo files___
+The following demo files are involved:
+* DemoWithoutPropertiesFile.java
+* DemoWithoutPropertiesFileController.java
+* demowithoutpropertiesfile.css
+* demowithoutpropertiesfile.fxml
+
+___How it works!___
+
+
+
 Conventions<a name="Conventions" />
 ---
 
-In this chapter, the interested developer can find out about all the conventions 
+In this chapter, the interested developer can find out all about the conventions 
 in the library `Lib-FXML`.
 * ...
 * ...
