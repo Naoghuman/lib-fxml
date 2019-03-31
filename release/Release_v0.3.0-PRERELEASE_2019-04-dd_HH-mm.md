@@ -1,7 +1,8 @@
 Welcome to `Lib-FXML` with the new release `v0.3.0-PRERELEASE`.
 
-`Lib-FXML` allows the developer to load [JavaFX] relevant files (.fxml, .css, .properties) 
-and connect them to a controller (called the presenter).
+The `Lib-FXML` library simplifies the loading of [JavaFX] relevant files (model, 
+view, controller, .fxml, .css, .properties) and enables a standardized handling 
+of the data flow to (from) the gui.
 
 
 
@@ -40,6 +41,7 @@ and connect them to a controller (called the presenter).
 
 
 #### Documentation
+#71 [doc] Update the GitHub project description.
 #63 [doc] Update the section 'Demos' in the ReadMe.
 #49 [doc] Write new concept 'SaveToDatabase'.
 #41 [doc] Update section 'Intention' in ReadMe.

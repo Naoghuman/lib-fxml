@@ -1,7 +1,8 @@
 Welcome to `Lib-FXML` with the new release `vX.Y.Z`.
 
-`Lib-FXML` allows the developer to load [JavaFX] relevant files (.fxml, .css, .properties) 
-and connect them to a controller (called the presenter).
+The `Lib-FXML` library simplifies the loading of [JavaFX] relevant files (model, 
+view, controller, .fxml, .css, .properties) and enables a standardized handling 
+of the data flow to (from) the gui.
 
 
 
