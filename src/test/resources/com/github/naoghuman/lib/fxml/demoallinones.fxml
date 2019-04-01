@@ -29,7 +29,7 @@
                 </VBox>
                 <VBox minWidth="256.0" style="-fx-background-color: rgba(255,255,255,0.3);">
                     <children>
-                        <Label text="Entity A">
+                        <Label text="Entity">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -58,6 +58,26 @@
                                 <Insets top="5.0" />
                             </VBox.margin>
                         </Button>
+                  <Label text="Console">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="14.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Separator>
+                     <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                     </padding>
+                  </Separator>
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onActionPrintFXMLViewInfos" text="Print FXMLView infos" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onActionPrintFXMLControllerInfos" text="Print FXMLController infos">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onActionPrintFXMLModelInfos" text="Print FXMLModel infos" />
                     </children>
                     <padding>
                         <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />

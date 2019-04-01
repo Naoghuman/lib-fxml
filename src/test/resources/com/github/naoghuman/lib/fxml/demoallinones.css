@@ -24,14 +24,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 .button {
-    -fx-background-color:derive(#EEEEEE, 40%);
+    -fx-background-color:derive(#EEEEEE, 50%);
 }
 .button:hover {
-    -fx-background-color:derive(#616161, 55%);
+    -fx-background-color:derive(#616161, 65%);
     -fx-text-fill:derive(#FFFFFF, 40%);
 }
 .button:pressed {
-    -fx-background-color:derive(#212121, 70%);
+    -fx-background-color:derive(#212121, 85%);
     -fx-text-fill:#FFFFFF;
 }
 
@@ -60,14 +60,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 .text-field {
-    -fx-background-color:derive(#EEEEEE, 40%);
+    -fx-background-color:derive(#EEEEEE, 50%);
 }
 .text-field:hover {
-    -fx-background-color:derive(#616161, 55%);
+    -fx-background-color:derive(#616161, 65%);
     -fx-text-fill:derive(#FFFFFF, 40%);
 }
 .text-field:focused {
-    -fx-background-color:derive(#212121, 75%);
+    -fx-background-color:derive(#212121, 85%);
     -fx-text-fill:#FFFFFF;
 }
 

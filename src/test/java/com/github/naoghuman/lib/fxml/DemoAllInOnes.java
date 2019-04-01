@@ -16,11 +16,13 @@
  */
 package com.github.naoghuman.lib.fxml;
 
+import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.fxml.core.FXMLModel;
+import com.github.naoghuman.lib.fxml.core.FXMLRegisterable;
 import com.github.naoghuman.lib.fxml.core.FXMLView;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
-import java.util.Optional;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -30,11 +32,28 @@ import javafx.stage.Stage;
  * @version 0.3.0-PRERELEASE
  * @author  Naoghuman
  */
-public class DemoAllInOnes extends Application {
+public class DemoAllInOnes extends Application implements FXMLRegisterable {
     
+    /**
+     * 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public static final String ON_ACTION__PRINT_FXMLVIEW_INFOS = "ON_ACTION__PRINT_FXMLVIEW_INFOS"; // NOI18N
+    
+    /**
+     * 
+     * @param   args 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
     public static void main(String[] args) {
         launch(args);
     }
+    
+    private FXMLView view;
 
     @Override
     public void init() throws Exception {
@@ -43,6 +62,7 @@ public class DemoAllInOnes extends Application {
         LoggerFacade.getDefault().info(this.getClass(), "DemoAllInOnes#init()"); // NOI18N
     
         // Register all managed actions
+        this.register();
         DemoAllInOnesSqlEntity.getDefault().register();
     }
     
@@ -50,22 +70,30 @@ public class DemoAllInOnes extends Application {
     public void start(Stage primaryStage) throws Exception {
         LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnes#start(Stage)"); // NOI18N
     
-        primaryStage.setTitle("Demo Lib-FXML: 'All in Ones'"); // NOI18N
+        primaryStage.setTitle("Demo Lib-FXML: 'All in Ones' v0.3.0-PRERELEASE"); // NOI18N
         
         final DemoAllInOnesEntity entity = new DemoAllInOnesEntity();
-        final FXMLModel            model  = entity.writeTo();
-            
-        final FXMLView                          view     = FXMLView.create(DemoAllInOnesController.class, model);
-        final Optional<DemoAllInOnesController> optional = view.getController(DemoAllInOnesController.class);
-        optional.ifPresent(controller -> {
-            controller.onActionShowFXMLViewInfos(view.toString());
-        });
+        final FXMLModel           model  = entity.writeTo();
+        view = FXMLView.create(DemoAllInOnesController.class, model);
         
         final Scene scene = new Scene(view.getRoot().get(), 1280, 720);
         scene.getStylesheets().add("/com/github/naoghuman/lib/fxml/demoallinones.css"); // NOI18N
         primaryStage.setScene(scene);
         
         primaryStage.show();
+    }
+    
+    private void onActionPrintFXMLViewInfos(final ActionEvent event) {
+        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnes#onActionPrintFXMLViewInfos(ActionEvent)"); // NOI18N
+    
+        System.out.println(view.toString());
+    }
+
+    @Override
+    public void register() {
+        LoggerFacade.getDefault().info(this.getClass(), "DemoAllInOnes.register()"); // NOI18N
+        
+        ActionHandlerFacade.getDefault().register(ON_ACTION__PRINT_FXMLVIEW_INFOS, this::onActionPrintFXMLViewInfos);
     }
     
 }
