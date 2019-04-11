@@ -78,7 +78,7 @@ public class DemoFXMLAction implements FXMLRegisterable {
         modelToDatabase.putData("int", 12345); // NOI18N
         modelToDatabase.putData("msg", "hello from #onActionSaveEntityToDatabase(FXMLModel)"); // NOI18N
         
-        FXMLAction.handle(ON_ACTION__SAVE_ENTITY_TO_DATABASE, modelToDatabase);
+        FXMLAction.handleConsumer(ON_ACTION__SAVE_ENTITY_TO_DATABASE, modelToDatabase);
     }
     
     /**
@@ -101,7 +101,7 @@ public class DemoFXMLAction implements FXMLRegisterable {
         
         // Execute the registered action ON_ACTION__LOAD_ENTITY_FROM_DATABASE which 
         // will then execute the registerd method :)) here in DemoFXMLAction.
-        final FXMLModel entity = FXMLAction.handle(ON_ACTION__LOAD_ENTITY_FROM_DATABASE, 987654321L);
+        final FXMLModel entity = FXMLAction.handleFunction(ON_ACTION__LOAD_ENTITY_FROM_DATABASE, 987654321L);
         System.out.println(entity.toString());
         
     }
@@ -115,7 +115,7 @@ public class DemoFXMLAction implements FXMLRegisterable {
     void onActionLoadEntitiesFromDatabase() {
         LoggerFacade.getDefault().debug(DemoFXMLAction.class, "DemoFXMLAction#onActionLoadEntitiesFromDatabase()"); // NOI18N
 
-        final List<FXMLModel> entities = FXMLAction.handle(ON_ACTION__LOAD_ENTITIES_FROM_DATABASE);
+        final List<FXMLModel> entities = FXMLAction.handleSupplier(ON_ACTION__LOAD_ENTITIES_FROM_DATABASE);
         entities.stream()
                 .forEach(entity -> {
                     System.out.println(entity.toString());

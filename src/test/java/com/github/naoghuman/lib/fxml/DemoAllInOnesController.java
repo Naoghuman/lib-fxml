@@ -16,10 +16,10 @@
  */
 package com.github.naoghuman.lib.fxml;
 
-import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.fxml.core.FXMLAction;
 import com.github.naoghuman.lib.fxml.core.FXMLController;
 import com.github.naoghuman.lib.fxml.core.FXMLModel;
+import com.github.naoghuman.lib.fxml.core.FXMLRegisterable;
 import com.github.naoghuman.lib.fxml.internal.DefaultFXMLValidator;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import java.net.URL;
@@ -27,10 +27,11 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.StringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 
 /**
@@ -39,16 +40,57 @@ import javafx.util.StringConverter;
  * @version 0.3.0-PRERELEASE
  * @author  Naoghuman
  */
-public class DemoAllInOnesController extends FXMLController implements Initializable {
+public final class DemoAllInOnesController extends FXMLController implements FXMLRegisterable, Initializable {
     
-    @FXML private TextArea  taDemoInfos;
-    @FXML private TextField tfEntityId;
-    @FXML private TextField tfEntityTitle;
+    /**
+     * 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public static final String ON_ACTION__ENTITY_LOAD = "ON_ACTION__ENTITY_LOAD"; // NOI18N
+    
+    /**
+     * 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public static final String ON_ACTION__ENTITY_NEW = "ON_ACTION__ENTITY_NEW"; // NOI18N
+    
+    /**
+     * 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public static final String ON_ACTION__ENTITY_SAVE = "ON_ACTION__ENTITY_SAVE"; // NOI18N
+    
+    /**
+     * 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public static final String ON_ACTION__PRINT_FXMLMODEL_INFOS = "ON_ACTION__PRINT_FXMLMODEL_INFOS"; // NOI18N
+    
+    /**
+     * 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public static final String ON_ACTION__PRINT_FXMLCONTROLLER_INFOS = "ON_ACTION__PRINT_FXMLCONTROLLER_INFOS"; // NOI18N
+    
+    @FXML private VBox vbDemoInfos;
+    @FXML private VBox vbPreferences;
     
     private String keyHelloLibFXML;
     private String resources;
     private String location;
-
+    
+    private DemoInfoWriter demoAllInOnesPreferencesWriter;
+    
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
         LoggerFacade.getDefault().info(this.getClass(), "DemoAllInOnesController#initialize(URL, ResourceBundle)"); // NOI18N
@@ -56,59 +98,27 @@ public class DemoAllInOnesController extends FXMLController implements Initializ
         this.location        = (location  != null ? location.toString()                      : "<not-defined>"); // NOI18N
         this.resources       = (resources != null ? resources.getBaseBundleName()            : "<not-defined>"); // NOI18N
         this.keyHelloLibFXML = (resources != null ? resources.getString("key.hello.libfxml") : "<not-defined>"); // NOI18N
-    
-        taDemoInfos.appendText(this.initializeDemoInfosIntention());
-        taDemoInfos.appendText(this.initializeDemoInfosDemoFiles());
-        taDemoInfos.appendText(this.initializeDemoInfosHowThisWorks());
-    }
-    
-    private String initializeDemoInfosIntention() {
-        LoggerFacade.getDefault().info(this.getClass(), "DemoAllInOnesController#initializeDemoInfosIntention()"); // NOI18N
-    
-        final StringBuilder sb = new StringBuilder();
-        sb.append("================================================================================\n"); // NOI18N
-        sb.append("Intention\n"); // NOI18N
-        sb.append("\n");          // NOI18N
-        sb.append("This demo shows how to load the following files with the library 'Lib-FXML' in v0.3.0-PRERELEASE.\n"); // NOI18N
-        sb.append(" - The factory FXMLView.create (class FXMLController>, FXMLModel extended)\n"); // NOI18N
-        sb.append("   loads an instance of the controller class ").append(this.getClass().getSimpleName()).append(",\n");
-        sb.append("   automatically configuring thereby the passed FXMLModel.\n"); // NOI18N
-        sb.append(" - The optional files '.css' and '.properties' are automatically loaded\n"); // NOI18N
-        sb.append("   with the 'conventional name' (controller name in lower case without the suffix controller).\n"); // NOI18N
-        sb.append("\n");          // NOI18N
-
-        return sb.toString();
-    }
-    
-    private String initializeDemoInfosDemoFiles() {
-        LoggerFacade.getDefault().info(this.getClass(), "DemoAllInOnesController#initializeDemoInfosDemoFiles()"); // NOI18N
-    
-        final StringBuilder sb = new StringBuilder();
-        sb.append("================================================================================\n"); // NOI18N
-        sb.append("Demo files\n");                      // NOI18N
-        sb.append("\n");                                // NOI18N
-        sb.append(" - DemoAllInOnes.java\n");           // NOI18N
-        sb.append(" - DemoAllInOnesController.java\n"); // NOI18N
-        sb.append(" - DemoAllInOnesEntity.java\n");     // NOI18N
-        sb.append(" - DemoAllInOnesSqlEntity.java\n");  // NOI18N
-        sb.append(" - demoallinones.css\n");            // NOI18N
-        sb.append(" - demoallinones.fxml\n");           // NOI18N
-        sb.append(" - demoallinones.properties\n");   // NOI18N
-        sb.append("\n");                                // NOI18N
         
-        return sb.toString();
+        this.register();
+        
+        this.initializeDemoInfoWriter();
+        this.initializeDemoPreferencesWriter();
     }
     
-    private String initializeDemoInfosHowThisWorks() {
-        LoggerFacade.getDefault().info(this.getClass(), "DemoAllInOnesController#initializeDemoInfosHowThisWorks()"); // NOI18N
-    
-        final StringBuilder sb = new StringBuilder();
-        sb.append("================================================================================\n"); // NOI18N
-        sb.append("How this works!\n"); // NOI18N
-        sb.append("\n");                // NOI18N
-        sb.append("================================================================================\n"); // NOI18N
+    private void initializeDemoInfoWriter() {
+        LoggerFacade.getDefault().info(this.getClass(), "DemoAllInOnesController#initializeDemoInfoWriter()"); // NOI18N
         
-        return sb.toString();
+        final DemoInfoWriter demoAllInOnesInfoWriter = new DemoAllInOnesInfoWriter();
+        demoAllInOnesInfoWriter.configure(vbDemoInfos);
+        demoAllInOnesInfoWriter.writeSectionInfo();
+    }
+    
+    private void initializeDemoPreferencesWriter() {
+        LoggerFacade.getDefault().info(this.getClass(), "DemoAllInOnesController#initializeDemoPreferencesWriter()"); // NOI18N
+        
+        demoAllInOnesPreferencesWriter = new DemoAllInOnesPreferencesWriter();
+        demoAllInOnesPreferencesWriter.configure(vbPreferences);
+        demoAllInOnesPreferencesWriter.writeSectionPreferences();
     }
     
     @Override
@@ -121,7 +131,8 @@ public class DemoAllInOnesController extends FXMLController implements Initializ
         
         final Optional<StringProperty> optionalTitle = model.getData(StringProperty.class, DemoAllInOnesEntity.TITLE);
         optionalTitle.ifPresent(title -> {
-            tfEntityTitle.textProperty().bindBidirectional(title);
+            final TextField textField = demoAllInOnesPreferencesWriter.getTextField(DemoAllInOnesPreferencesWriter.TEXT_FIELD__ENTITY_TITLE);
+            textField.textProperty().bindBidirectional(title);
         });
         
         final Optional<LongProperty> optionalId = model.getData(LongProperty.class, DemoAllInOnesEntity.ID);
@@ -143,51 +154,101 @@ public class DemoAllInOnesController extends FXMLController implements Initializ
                 }
             };
             
-            tfEntityId.textProperty().bindBidirectional(entityId, stringConverter);
+            final TextField textField = demoAllInOnesPreferencesWriter.getTextField(DemoAllInOnesPreferencesWriter.TEXT_FIELD__ENTITY_ID);
+            textField.textProperty().bindBidirectional(entityId, stringConverter);
         });
     }
     
-    public void onActionEntityLoad() {
-        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesController#onActionEntityLoad()"); // NOI18N
+    /**
+     * 
+     * @param   event
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public void onActionEntityLoad(final ActionEvent event) {
+        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesController#onActionEntityLoad(ActionEvent)"); // NOI18N
         
-        Long   entityId = DemoAllInOnesSqlEntity.DEFAULT_ID;
-        String strId    = tfEntityId.getText();
+        final TextField textField = demoAllInOnesPreferencesWriter.getTextField(DemoAllInOnesPreferencesWriter.TEXT_FIELD__ENTITY_ID);
+        final String    strId     = textField.getText();
+        Long            entityId  = DemoAllInOnesSqlEntityProvider.DEFAULT_ID;
         if (!strId.equals("") && !strId.equals("-")) { // NOI18N
             entityId = Long.parseLong(strId);
         }
         
-        final FXMLModel modelFromDatabase = FXMLAction.handle(DemoAllInOnesSqlEntity.ON_ACTION__ENTITY__LOAD, entityId);
+        final FXMLModel modelFromDatabase = FXMLAction.handleFunction(DemoAllInOnesSqlEntityProvider.ON_ACTION__SQL__ENTITY_LOAD, entityId);
         this.configure(modelFromDatabase);
     }
     
-    public void onActionEntitySave() {
-        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesController#onActionEntitySave()"); // NOI18N
+    /**
+     * 
+     * @param   event
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public void onActionEntityNew(final ActionEvent event) {
+        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesController#onActionEntityNew(ActionEvent)"); // NOI18N
         
-        final Optional<FXMLModel> optionalModel = super.getModel(DemoAllInOnesEntity.class, Long.parseLong(tfEntityId.getText()));
+    }
+    
+    /**
+     * 
+     * @param   event
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public void onActionEntitySave(final ActionEvent event) {
+        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesController#onActionEntitySave(ActionEvent)"); // NOI18N
+        
+        final TextField           textField     = demoAllInOnesPreferencesWriter.getTextField(DemoAllInOnesPreferencesWriter.TEXT_FIELD__ENTITY_ID);
+        final Optional<FXMLModel> optionalModel = super.getModel(DemoAllInOnesEntity.class, Long.parseLong(textField.getText()));
         optionalModel.ifPresent(model -> {
-            FXMLAction.handle(DemoAllInOnesSqlEntity.ON_ACTION__ENTITY__SAVE, model);
+            FXMLAction.handleConsumer(DemoAllInOnesSqlEntityProvider.ON_ACTION__SQL__ENTITY_SAVE, model);
         });
     }
     
-    public void onActionPrintFXMLControllerInfos() {
-        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesController#onActionPrintFXMLControllerInfos()"); // NOI18N
+    /**
+     * 
+     * @param   event
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public void onActionPrintFXMLControllerInfos(final ActionEvent event) {
+        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesController#onActionPrintFXMLControllerInfos(ActionEvent)"); // NOI18N
         
         System.out.println(this.toString());
     }
     
-    public void onActionPrintFXMLModelInfos() {
-        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesController#onActionPrintFXMLModelInfos()"); // NOI18N
+    /**
+     * 
+     * @param   event
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public void onActionPrintFXMLModelInfos(final ActionEvent event) {
+        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesController#onActionPrintFXMLModelInfos(ActionEvent)"); // NOI18N
         
-        final Optional<FXMLModel> optionalModel = super.getModel(DemoAllInOnesEntity.class, Long.parseLong(tfEntityId.getText()));
+        final TextField           textField     = demoAllInOnesPreferencesWriter.getTextField(DemoAllInOnesPreferencesWriter.TEXT_FIELD__ENTITY_ID);
+        final Optional<FXMLModel> optionalModel = super.getModel(DemoAllInOnesEntity.class, Long.parseLong(textField.getText()));
         optionalModel.ifPresent(model -> {
             System.out.println(model.toString());
         });
     }
-    
-    public void onActionPrintFXMLViewInfos() {
-        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesController#onActionPrintFXMLViewInfos()"); // NOI18N
+
+    @Override
+    public void register() {
+        LoggerFacade.getDefault().info(this.getClass(), "DemoAllInOnesController.register()"); // NOI18N
         
-        ActionHandlerFacade.getDefault().handle(DemoAllInOnes.ON_ACTION__PRINT_FXMLVIEW_INFOS);
+        FXMLAction.register(ON_ACTION__ENTITY_LOAD, this::onActionEntityLoad);
+        FXMLAction.register(ON_ACTION__ENTITY_NEW,  this::onActionEntityNew);
+        FXMLAction.register(ON_ACTION__ENTITY_SAVE, this::onActionEntitySave);
+        
+        FXMLAction.register(ON_ACTION__PRINT_FXMLCONTROLLER_INFOS, this::onActionPrintFXMLControllerInfos);
+        FXMLAction.register(ON_ACTION__PRINT_FXMLMODEL_INFOS,      this::onActionPrintFXMLModelInfos);
     }
 
     @Override

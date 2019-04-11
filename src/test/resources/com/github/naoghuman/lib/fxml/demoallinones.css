@@ -18,56 +18,71 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     Created on : 19.12.2018, 10:33:35
     Author     : Naoghuman
 */
+/* AnchorPane */
 .anchor-pane {
-    -fx-background-color:#EAEAEA;
+    -fx-background-color:LIGHTGREY;
 }
 
-
+/* Button */
 .button {
-    -fx-background-color:derive(#EEEEEE, 50%);
+    -fx-background-color:LIGHTGREY;
 }
 .button:hover {
     -fx-background-color:derive(#616161, 65%);
-    -fx-text-fill:derive(#FFFFFF, 40%);
 }
 .button:pressed {
-    -fx-background-color:derive(#212121, 85%);
+    -fx-background-color:derive(#212121, 70%);
     -fx-text-fill:#FFFFFF;
 }
 
-
-.text-area .scroll-bar:horizontal {
-    -fx-background-color:derive(#EEEEEE, 40%);
-}
-.text-area .scroll-bar:vertical {
-    -fx-background-color:derive(#EEEEEE, 40%);
-}
-.text-area .scroll-bar .thumb {
-    -fx-background-color:derive(#616161, 60%);
-}
-.text-area .scroll-bar .thumb:hover {
-    -fx-background-color:derive(#616161, 55%);
-}
-.text-area .scroll-bar .thumb:pressed {
-    -fx-background-color:derive(#212121, 80%);
-}
-.text-area .scroll-pane .corner {    
-    -fx-background-color:transparent;
-}
-.text-area, .text-area .viewport, .text-area .content {
-    -fx-background-color:transparent;
-}
-
-
+/* TextField */
 .text-field {
-    -fx-background-color:derive(#EEEEEE, 50%);
+    -fx-background-color:LIGHTGREY;
 }
 .text-field:hover {
     -fx-background-color:derive(#616161, 65%);
-    -fx-text-fill:derive(#FFFFFF, 40%);
 }
 .text-field:focused {
-    -fx-background-color:derive(#212121, 85%);
+    -fx-background-color:derive(#212121, 70%);
     -fx-text-fill:#FFFFFF;
 }
 
+/* ScrollBar */
+.scroll-bar {
+    -fx-pref-width:16;
+}
+.scroll-bar .decrement-arrow,
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-button,
+.scroll-bar .increment-button {
+    -fx-pref-height:0;
+    -fx-pref-width:0;
+}
+
+/* ScrollPane */
+.scroll-pane {
+    -fx-background-insets:0;
+}
+.scroll-pane:focused {
+    -fx-background-insets:0;
+}
+.scroll-pane .corner {
+    -fx-background-insets:0;
+}
+.scroll-pane .scroll-bar:horizontal {
+    -fx-background-color:#F4F4F4;
+}
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color:#F4F4F4;
+}
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color:LIGHTGREY;
+    -fx-background-insets:3;
+    -fx-background-radius:0em;
+}
+.scroll-pane .scroll-bar .thumb:hover {
+    -fx-background-color:derive(#616161, 65%);
+}
+.scroll-pane .scroll-bar .thumb:pressed {
+    -fx-background-color:derive(#212121, 70%);
+}

@@ -30,7 +30,7 @@ import java.util.Optional;
  * @version 0.3.0-PRERELEASE
  * @author  Naoghuman
  */
-public final class DemoAllInOnesSqlEntity implements FXMLRegisterable {
+public final class DemoAllInOnesSqlEntityProvider implements FXMLRegisterable {
     
     /**
      *
@@ -46,7 +46,7 @@ public final class DemoAllInOnesSqlEntity implements FXMLRegisterable {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static final String ON_ACTION__ENTITY__LOAD = "ON_ACTION__ENTITY__LOAD"; // NOI18N
+    public static final String ON_ACTION__SQL__ENTITY_LOAD = "ON_ACTION__SQL__ENTITY_LOAD"; // NOI18N
     
     /**
      *
@@ -54,19 +54,26 @@ public final class DemoAllInOnesSqlEntity implements FXMLRegisterable {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static final String ON_ACTION__ENTITY__SAVE = "ON_ACTION__ENTITY__SAVE"; // NOI18N
+    public static final String ON_ACTION__SQL__ENTITY_SAVE = "ON_ACTION__SQL__ENTITY_SAVE"; // NOI18N
     
-    private static Optional<DemoAllInOnesSqlEntity> instance = Optional.empty();
+    private static Optional<DemoAllInOnesSqlEntityProvider> instance = Optional.empty();
     
-    public static DemoAllInOnesSqlEntity getDefault() {
+    /**
+     * 
+     * @return 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public static DemoAllInOnesSqlEntityProvider getDefault() {
         if (!instance.isPresent()) {
-            instance = Optional.of(new DemoAllInOnesSqlEntity());
+            instance = Optional.of(new DemoAllInOnesSqlEntityProvider());
         }
         
         return instance.get();
     }
     
-    private DemoAllInOnesSqlEntity() {
+    private DemoAllInOnesSqlEntityProvider() {
         
     }
     
@@ -74,12 +81,20 @@ public final class DemoAllInOnesSqlEntity implements FXMLRegisterable {
     public void register() {
         LoggerFacade.getDefault().info(this.getClass(), "DemoAllInOnesSqlEntity#register()"); // NOI18N
     
-        this.registerOnActionEntityLoad();
-        this.registerOnActionEntitySave();
+        FXMLAction.register(ON_ACTION__SQL__ENTITY_LOAD, this::onActionSqlEntityLoad);
+        FXMLAction.register(ON_ACTION__SQL__ENTITY_SAVE, this::onActionSqlEntitySave);
     }
     
-    public FXMLModel onActionEntityLoad(final Long entityId) {
-        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesSqlEntity#onActionEntityALoad(Long): FXMLModel"); // NOI18N
+    /**
+     * 
+     * @param   entityId
+     * @return 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public FXMLModel onActionSqlEntityLoad(final Long entityId) {
+        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesSqlEntity#onActionSqlEntityLoad(Long): FXMLModel"); // NOI18N
         
         DefaultFXMLValidator.requireNonNull(entityId);
         
@@ -96,24 +111,19 @@ public final class DemoAllInOnesSqlEntity implements FXMLRegisterable {
         return entity.writeTo();
     }
     
-    public void onActionEntitySave(final FXMLModel model) {
-        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesSqlEntity#onActionEntitySave(FXMLModel)"); // NOI18N
+    /**
+     * 
+     * @param   model 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public void onActionSqlEntitySave(final FXMLModel model) {
+        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesSqlEntity#onActionSqlEntitySave(FXMLModel)"); // NOI18N
         
         DefaultFXMLValidator.requireNonNull(model);
         
         System.out.println(model.toString());
-    }
-
-    private void registerOnActionEntityLoad() {
-        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesSqlEntity#registerOnActionEntityLoad()"); // NOI18N
-        
-        FXMLAction.register(ON_ACTION__ENTITY__LOAD, this::onActionEntityLoad);
-    }
-
-    private void registerOnActionEntitySave() {
-        LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesSqlEntity#registerOnActionEntitySave()"); // NOI18N
-        
-        FXMLAction.register(ON_ACTION__ENTITY__SAVE, this::onActionEntitySave);
     }
     
 }

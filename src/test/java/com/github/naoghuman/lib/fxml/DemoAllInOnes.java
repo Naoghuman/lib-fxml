@@ -16,7 +16,7 @@
  */
 package com.github.naoghuman.lib.fxml;
 
-import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
+import com.github.naoghuman.lib.fxml.core.FXMLAction;
 import com.github.naoghuman.lib.fxml.core.FXMLModel;
 import com.github.naoghuman.lib.fxml.core.FXMLRegisterable;
 import com.github.naoghuman.lib.fxml.core.FXMLView;
@@ -32,7 +32,7 @@ import javafx.stage.Stage;
  * @version 0.3.0-PRERELEASE
  * @author  Naoghuman
  */
-public class DemoAllInOnes extends Application implements FXMLRegisterable {
+public final class DemoAllInOnes extends Application implements FXMLRegisterable {
     
     /**
      * 
@@ -60,10 +60,10 @@ public class DemoAllInOnes extends Application implements FXMLRegisterable {
         super.init();
         
         LoggerFacade.getDefault().info(this.getClass(), "DemoAllInOnes#init()"); // NOI18N
-    
+        
         // Register all managed actions
         this.register();
-        DemoAllInOnesSqlEntity.getDefault().register();
+        DemoAllInOnesSqlEntityProvider.getDefault().register();
     }
     
     @Override
@@ -93,7 +93,7 @@ public class DemoAllInOnes extends Application implements FXMLRegisterable {
     public void register() {
         LoggerFacade.getDefault().info(this.getClass(), "DemoAllInOnes.register()"); // NOI18N
         
-        ActionHandlerFacade.getDefault().register(ON_ACTION__PRINT_FXMLVIEW_INFOS, this::onActionPrintFXMLViewInfos);
+        FXMLAction.register(ON_ACTION__PRINT_FXMLVIEW_INFOS, this::onActionPrintFXMLViewInfos);
     }
     
 }
