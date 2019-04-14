@@ -12,6 +12,10 @@ of the data flow to (from) the gui.
 
 
 
+#### Bug
+
+
+
 #### Feature
 #61 [api] Create new class FXMLAction which hide functionalities from Lib-Action.
 #56 [api] Add new interface 'FXMLRegisterable'.
@@ -36,12 +40,13 @@ of the data flow to (from) the gui.
 
 
 
-#### Bug
+#### Test
 
 
 
 #### Documentation
 #71 [doc] Update the GitHub project description.
+#69 [doc] Update the header from the UML image in the section 'Intention'.
 #63 [doc] Update the section 'Demos' in the ReadMe.
 #49 [doc] Write new concept 'SaveToDatabase'.
 #41 [doc] Update section 'Intention' in ReadMe.
@@ -71,6 +76,7 @@ Naoghuman
 
 
 [//]: # (Issues which will be integrated in this release)
+#73 [doc] Write section 'DemoAllInOnes' in ReadMe. // documentation
 
 
 
