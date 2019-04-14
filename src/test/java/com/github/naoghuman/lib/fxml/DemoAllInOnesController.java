@@ -176,7 +176,7 @@ public final class DemoAllInOnesController extends FXMLController implements FXM
             entityId = Long.parseLong(strId);
         }
         
-        final FXMLModel modelFromDatabase = FXMLAction.handleFunction(DemoAllInOnesSqlEntityProvider.ON_ACTION__SQL__ENTITY_LOAD, entityId);
+        final FXMLModel modelFromDatabase = FXMLAction.getDefault().handleFunction(DemoAllInOnesSqlEntityProvider.ON_ACTION__SQL__ENTITY_LOAD, entityId);
         this.configure(modelFromDatabase);
     }
     
@@ -205,7 +205,7 @@ public final class DemoAllInOnesController extends FXMLController implements FXM
         final TextField           textField     = demoAllInOnesPreferencesWriter.getTextField(DemoAllInOnesPreferencesWriter.TEXT_FIELD__ENTITY_ID);
         final Optional<FXMLModel> optionalModel = super.getModel(DemoAllInOnesEntity.class, Long.parseLong(textField.getText()));
         optionalModel.ifPresent(model -> {
-            FXMLAction.handleConsumer(DemoAllInOnesSqlEntityProvider.ON_ACTION__SQL__ENTITY_SAVE, model);
+            FXMLAction.getDefault().handleConsumer(DemoAllInOnesSqlEntityProvider.ON_ACTION__SQL__ENTITY_SAVE, model);
         });
     }
     
@@ -243,12 +243,12 @@ public final class DemoAllInOnesController extends FXMLController implements FXM
     public void register() {
         LoggerFacade.getDefault().info(this.getClass(), "DemoAllInOnesController.register()"); // NOI18N
         
-        FXMLAction.register(ON_ACTION__ENTITY_LOAD, this::onActionEntityLoad);
-        FXMLAction.register(ON_ACTION__ENTITY_NEW,  this::onActionEntityNew);
-        FXMLAction.register(ON_ACTION__ENTITY_SAVE, this::onActionEntitySave);
+        FXMLAction.getDefault().register(ON_ACTION__ENTITY_LOAD, this::onActionEntityLoad);
+        FXMLAction.getDefault().register(ON_ACTION__ENTITY_NEW,  this::onActionEntityNew);
+        FXMLAction.getDefault().register(ON_ACTION__ENTITY_SAVE, this::onActionEntitySave);
         
-        FXMLAction.register(ON_ACTION__PRINT_FXMLCONTROLLER_INFOS, this::onActionPrintFXMLControllerInfos);
-        FXMLAction.register(ON_ACTION__PRINT_FXMLMODEL_INFOS,      this::onActionPrintFXMLModelInfos);
+        FXMLAction.getDefault().register(ON_ACTION__PRINT_FXMLCONTROLLER_INFOS, this::onActionPrintFXMLControllerInfos);
+        FXMLAction.getDefault().register(ON_ACTION__PRINT_FXMLMODEL_INFOS,      this::onActionPrintFXMLModelInfos);
     }
 
     @Override

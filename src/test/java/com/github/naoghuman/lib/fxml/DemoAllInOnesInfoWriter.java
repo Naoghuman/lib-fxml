@@ -34,28 +34,28 @@ public final class DemoAllInOnesInfoWriter extends DemoInfoWriter {
         super.writeSeparator();
         
         super.writeText(SIZE_DESCRIPTION, "This demo wants to show, explain how to integrate the various features from the library 'Lib-FXML' into a demo application:"); // NOI18N
-        super.writeListPoint("TODO How to write a demo application with the help from the various features from the library 'Lib-FXML' :) ."); // NOI18N
-        super.writeListPoint("TODO (only one) How to integrate the features from library 'Lib-FXML' into the demo application."); // NOI18N
         
-        super.writeListPoint("TODO first the main classes, then the interfaces"); // NOI18N
-        super.writeListPoint("TODO add new point to FXMLModel. developer can add additional methods (updateProperty()) which extend the original entity behaviour"); // NOI18N
-        
-        super.writeListPoint("How to use the 'FXMLRegisterable' interface as a convention which allowes developers to register action methods."); // NOI18N
-        super.writeListPoint("How to use the 'FXMLModelable' interface as a convention to create a lightweight version from an entity."); // NOI18N
-        
-        super.writeListPoint("TODO fxmlview points"); // NOI18N
-        super.writeListPoint("TODO use the abstract class fxmlcontroller to "); // NOI18N
-        super.writeListPoint("TODO fxmlaction register lambda methods like consumers, functions, suppliers..."); // NOI18N
-        super.writeListPoint("TODO fxmlaction save, load"); // NOI18N
-        super.writeListPoint("TODO javafx binding automatically update the entity, fxmlmodel data"); // NOI18N
+        super.writeTitleSmall("General features"); // NOI18N
+        super.writeListPoint("How to use the abstract class 'FXMLController' as a convention to managed the presentation from the 'FXMLModel' data in a concrete implementation from 'FXMLController'."); // NOI18N
+        super.writeListPoint("How to use the class 'FXMLModel' as a lightweight version from an entity to manage the dataflow to (in, from) the controller."); // NOI18N
+        super.writeListPoint("How to use the class 'FXMLView' to load the gui declaration (.fxml file) and map it (initialization from the gui) to a controller."); // NOI18N
         
         super.writeEmptyLine(SIZE_HALF_EMPTY);
         
-        super.writeText(SIZE_DESCRIPTION, "TODO And as a special treat :)"); // NOI18N
-        super.writeListPoint("TODO fxmlloader to load fxml, assoziate with controller"); // NOI18N
-        super.writeListPoint("How to style 'JavaFX' components such like 'AnchorPane', 'Button', 'TextField', 'ScrollPane' with css."); // NOI18N
-        super.writeListPoint("How to define a .css file and include it into the application."); // NOI18N
-        super.writeListPoint("TODO lib-action, lib-logger"); // NOI18N
+        super.writeTitleSmall("Extended features"); // NOI18N
+        super.writeListPoint("How to use the singleton 'FXMLAction' to register (handle) lambda methods such like 'Consumer', 'Function' and 'Supplier'."); // NOI18N
+        super.writeListPoint("How to use the class 'FXMLModel' to add additional methods which extend the original entity behavior. For example 'isUpdatedProperty()'."); // NOI18N
+        super.writeListPoint("How to use the interface 'FXMLRegisterable' as a convention which allowes developers to register for example action methods."); // NOI18N
+        super.writeListPoint("How to use the interface 'FXMLModelable' as a convention to create a lightweight version from an entity."); // NOI18N
+        
+        super.writeEmptyLine(SIZE_HALF_EMPTY);
+        
+        super.writeTitleSmall("Additional features"); // NOI18N
+        super.writeListPoint("How to implement a 'singleton' instance with 'Optional<T>' in 'FXMLAction' and access the class behaviours with the static method 'getDefault()'."); // NOI18N
+        super.writeListPoint("How to use the 'JavaFX' default binding features to automatically update the 'FXMLModel' (entity) data to (in, from) the controller."); // NOI18N
+        super.writeListPoint("How to use the 'JavaFX' standard class 'FXMLLoader' in 'FXMLView' to load '.fxml', '.css', '.properties' files and assoziate them with a controller."); // NOI18N
+        super.writeListPoint("How to style with 'CSS' different 'JavaFX' components such like 'AnchorPane', 'Button', 'TextField', 'ScrollPane'."); // NOI18N
+        super.writeListPoint("How to use the library 'Lib-Logger' (https://github.com/Naoghuman/lib-logger) to log messages easily to a log-file."); // NOI18N
         
         super.writeEmptyLine();
     }
@@ -70,42 +70,42 @@ public final class DemoAllInOnesInfoWriter extends DemoInfoWriter {
         super.writeText(SIZE_DESCRIPTION, "In this section all files are listed which are involved into this demo. Also their main purpose are explained:"); // NOI18N
         
         super.writeTitleSmall("DemoAllInOnes.java"); // NOI18N
-        super.writeListPoint("The starter class from this demo application."); // NOI18N
-        super.writeListPoint("Shows how to use 'FXMLView' in combination with 'FXMLModel', 'DemoAllInOnesController' and 'DemoAllInOnesEntity' to create a view which will be shown then in the gui."); // NOI18N
-        super.writeListPoint("Shows how to inject the an optional .css file with 'scene.getStylesheets()'."); // NOI18N
-        super.writeListPoint("Shows how the interface 'FXMLRegisterable' can be used to register the various action methods from this demo."); // NOI18N
+        super.writeListPoint("Shows how to start a 'JavaFX' application :) ."); // NOI18N
+        super.writeListPoint("Shows how to create an instance from the class 'FXMLView' to show then the gui with 'view.getRoot().orElse(new AnchorPane())' in the demo application."); // NOI18N
+        super.writeListPoint("Shows how the interface 'FXMLRegisterable' can be used as a convention to register the action method from this class."); // NOI18N
         
         super.writeTitleSmall("DemoAllInOnesController.java"); // NOI18N
         super.writeListPoint("Shows how the developer can access the 'URL' from the '.fxml' file."); // NOI18N
-        super.writeListPoint("Shows how the developer can access the optional '.properties' file if defined."); // NOI18N
-        super.writeListPoint("Shows how to use the classes 'DemoInfoWriter' and 'DemoAllInOnesInfoWriter' to write the demo infos."); // NOI18N
+        super.writeListPoint("Shows how the developer can access the optional 'ResourceBundle' if defined."); // NOI18N
+        super.writeListPoint("Shows how to use the classes 'DemoInfoWriter', 'DemoAllInOnesInfoWriter' and 'DemoAllInOnesPreferencesWriter' to write the demo infos."); // NOI18N
         super.writeListPoint("Shows how to use the overriden method 'FXMLController#configure(FXMLModel) to bind the data from the 'FXMLModel' to the gui components."); // NOI18N
-        super.writeListPoint("Shows how the interface 'FXMLRegisterable' can be used to register the various action methods from this demo."); // NOI18N
-        super.writeListPoint("Shows how to use the different 'FXMLAction#handle(...)' methods to fit the necessities from the controller."); // NOI18N
+        super.writeListPoint("Shows how the interface 'FXMLRegisterable' can be used as a convention to register the various action methods from this controller."); // NOI18N
+        super.writeListPoint("Shows how to use the different 'FXMLAction#handle(...)' methods to fit the necessities from this controller."); // NOI18N
         
         super.writeTitleSmall("DemoAllInOnesEntity.java"); // NOI18N
-        super.writeListPoint("Shows how to create a simple 'POJO' with 2 'JavaFX' properties ('LongProperty' and 'StringProperty'."); // NOI18N
-        super.writeListPoint("The usage from 'JavaFX' properties allowed to bind data which means we don't need to be aware that the data is up-to-date :)."); // NOI18N
-        super.writeListPoint("Shows how to use the interface 'FXMLModelable' which allowed to get a 'FXMLModel' with selected data properties from the entity."); // NOI18N
+        super.writeListPoint("Shows how to create a simple 'POJO' with 'JavaFX' properties ('LongProperty' and 'StringProperty')."); // NOI18N
+        super.writeListPoint("Shows the usage from 'JavaFX' properties to bind data which means we don't need to be aware that the data is up-to-date :)."); // NOI18N
+        super.writeListPoint("Shows how to use the interface 'FXMLModelable' which allowed to configure a 'FXMLModel' with selected data properties from the entity."); // NOI18N
         
         super.writeTitleSmall("DemoAllInOnesSqlEntityProvider.java"); // NOI18N
-        super.writeListPoint("Shows how to define a simple 'sql' entity provider which simulates the 'crud' operations for an entity / database."); // NOI18N
+        super.writeListPoint("Shows how to define a simple 'sql' entity provider which simulates the 'crud' operations for an entity to (from) a database."); // NOI18N
         super.writeListPoint("Shows how to use the interface 'FXMLRegisterable' as a convention to register the action methods from this class."); // NOI18N
         super.writeListPoint("Shows how to use the class 'FXMLAction' to register the (crud) action methods via lambda injection."); // NOI18N
         
         super.writeEmptyLine(SIZE_HALF_EMPTY);
         
         super.writeTitleSmall("demoallinones.css"); // NOI18N
-        super.writeListPoint("This file contains all 'CSS' (Cascading Style Sheets) styles for the demo application."); // NOI18N
-        super.writeListPoint("TODO add hint what styles are defined..."); // NOI18N
+        super.writeListPoint("Shows how to create a 'CSS' (Cascading Style Sheets) file which styles will be then shown in the demo application."); // NOI18N
+        super.writeListPoint("Shows how to style with 'CSS' different 'JavaFX' components such like 'AnchorPane', 'Button', 'TextField', 'ScrollPane'."); // NOI18N
         
         super.writeTitleSmall("demoallinones.fxml"); // NOI18N
-        super.writeListPoint("This file contains the declaration from the demo gui in form from a special JavaFX 'XML' file so called 'FXML'."); // NOI18N
-        super.writeListPoint("The initialization will be done during the loading and mapping from the file with the corresponding 'controller'."); // NOI18N
+        super.writeListPoint("Shows how to define a declaration from the demo gui in form from a special JavaFX 'XML' file so called 'FXML'."); // NOI18N
+        super.writeListPoint("Shows how then the initialization will be done during the loading and mapping from the '.fxml' file with the corresponding 'controller'."); // NOI18N
         super.writeListPoint("See 'FXMLView#initializeFXMLLoader(FXMLModel)' for more informations."); // NOI18N
         
         super.writeTitleSmall("demoallinones.properties"); // NOI18N
-        super.writeListPoint("TODO"); // NOI18N
+        super.writeListPoint("Shows how to create a '.properties' file which can contains different 'key/value' String pairs. Over the 'key' the 'value' can retrieved then in the application."); // NOI18N
+        super.writeListPoint("An alternative is the useage from my Library 'Lib-I18N' (https://github.com/Naoghuman/lib-i18n), which allowed multilingualism depending from an actual 'Locale'."); // NOI18N
         
         super.writeEmptyLine(SIZE_HALF_EMPTY);
         
@@ -113,6 +113,7 @@ public final class DemoAllInOnesInfoWriter extends DemoInfoWriter {
         
         super.writeTitleSmall("DemoInfoWriter.java"); // NOI18N
         super.writeListPoint("The abstract class 'DemoInfoWriter' offers various functions for writing different styled informations into a 'VBox'."); // NOI18N
+        super.writeListPoint("For example: Styled text (size, FontPosture), 'Button's, 'Separator's and 'TextField's."); // NOI18N
         
         super.writeTitleSmall("DemoAllInOnesInfoWriter.java"); // NOI18N
         super.writeListPoint("A concrete implementation from the abstract class 'DemoInfoWriter' for this demo."); // NOI18N
@@ -134,21 +135,29 @@ public final class DemoAllInOnesInfoWriter extends DemoInfoWriter {
         
         super.writeText(SIZE_DESCRIPTION, "This section shows how to use the different classes and interfaces from the 'Lib-FXML' api:"); // NOI18N
         
-        super.writeTitleSmall("Usage from the class 'FXMLAction'"); // NOI18N
-        super.writeListPoint("Used in 'DemoAllInOnesController' and 'DemoAllInOnesSqlEntityProvider'."); // NOI18N
+        super.writeTitleSmall("Usage from the singleton class 'FXMLAction'"); // NOI18N
+        super.writeListPoint("Used in 'DemoAllInOnes', 'DemoAllInOnesController', 'DemoAllInOnesInfoWriter' and 'DemoAllInOnesSqlEntityProvider'."); // NOI18N
+        super.writeListPoint("Answers the question how to implement a 'singleton' instance with 'Optional<T>' in 'FXMLAction' and access the class behaviours with the static method 'getDefault()'."); // NOI18N
         super.writeListPoint("Answers the question how to register (handle) action methods from type 'Consumer<FXMLModel>', 'EventHandler<ActionEvent>' and 'Function<Long, FXMLModel>'."); // NOI18N
+        super.writeListPoint("Answers also the question how to register (handle) action methods from type 'EventHandler<ActionEvent>'."); // NOI18N
         
-        super.writeTitleSmall("Usage from the class 'FXMLController'"); // NOI18N
+        super.writeTitleSmall("Usage from the abstract class 'FXMLController'"); // NOI18N
         super.writeListPoint("Used in 'DemoAllInOnesController'."); // NOI18N
-        super.writeListPoint("TODO  Answers the question how to use the controller to managed the attributs and their data in the gui."); // NOI18N
-        super.writeListPoint("The controller will be associated with the file 'demoallinones.fxml' via 'FXMLView'."); // NOI18N
-        super.writeListPoint("TODO fxml=declaration, controller=initialization"); // NOI18N
+        super.writeListPoint("Used in 'FXMLView'."); // NOI18N
+        super.writeListPoint("Answers the question how to use the abstract class as a convention to managed the presentation from the 'FXMLModel' data in a concrete controller."); // NOI18N
+        super.writeListPoint("Answers the question how the controller (it's attributs) is the initialization from the declaration in the '.fxml' file."); // NOI18N
         
         super.writeTitleSmall("Usage from the class 'FXMLModel'"); // NOI18N
-        super.writeListPoint("Used in 'DemoAllInOnes', 'DemoAllInOnesController' and 'DemoAllInOnesSqlEntityProvider'."); // NOI18N
+        super.writeListPoint("Used in 'DemoAllInOnes', 'DemoAllInOnesController', 'DemoAllInOnesEntity' and 'DemoAllInOnesSqlEntityProvider'."); // NOI18N
+        super.writeListPoint("Used in 'FXMLAction', 'FXMLController', 'FXMLModelable' and 'FXMLView'."); // NOI18N
         super.writeListPoint("Answers the question how to use the model to managed the dataflow to (in, from) the gui."); // NOI18N
-        super.writeListPoint("The 'FXMLModel' will be initialized in the entity 'DemoAllInOnesEntity' with the convention methods from the interface 'FXMLModelable'."); // NOI18N
-        super.writeListPoint("TODO how to add some additional data to extend the original entity"); // NOI18N
+        super.writeListPoint("Answers the question how the 'FXMLModel' will be initialized in the entity 'DemoAllInOnesEntity' with the convention methods from the interface 'FXMLModelable'."); // NOI18N
+        super.writeListPoint("Answers the question how to add some additional data methods to extend the behavior from the original entity."); // NOI18N
+        
+        super.writeTitleSmall("Usage from the class 'FXMLView'"); // NOI18N
+        super.writeListPoint("Used in 'DemoAllInOnes'."); // NOI18N
+        super.writeListPoint("Answers the question how to use the class 'FXMLView' to load the gui declaration (.fxml file) and map it (initialization from the gui) to a controller."); // NOI18N
+        super.writeListPoint("Answers the question how to use the 'JavaFX' standard class 'FXMLLoader' in 'FXMLView' to load '.fxml', '.css', '.properties' files and assoziate them with a controller."); // NOI18N
         
         super.writeEmptyLine(SIZE_HALF_EMPTY);
         
@@ -158,19 +167,7 @@ public final class DemoAllInOnesInfoWriter extends DemoInfoWriter {
         
         super.writeTitleSmall("Usage from the interface 'FXMLRegisterable'"); // NOI18N
         super.writeListPoint("Used in 'DemoAllInOnes', 'DemoAllInOnesController' and 'DemoAllInOnesSqlEntityProvider'."); // NOI18N
-        super.writeListPoint("Answers the question how to use the interface as a convention to register different action methods via lambda injection."); // NOI18N
-        
-        super.writeEmptyLine(SIZE_HALF_EMPTY);
-        
-        super.writeText(SIZE_DESCRIPTION, "And some additional usage infos from the demo classes:"); // NOI18N
-        
-        super.writeTitleSmall("Usage from the class 'DemoAllInOnes'"); // NOI18N
-        
-        super.writeTitleSmall("Usage from the abstract class DemoInfoWriter.java"); // NOI18N
-        
-        super.writeTitleSmall("Usage from the class DemoAllInOnesInfoWriter.java"); // NOI18N
-        super.writeListPoint("TODO Usage from the library 'Lib-Action' which will be used to register (handle) an action from type 'EventHandler<ActionEvent>'."); // NOI18N
-        
+        super.writeListPoint("Answers the question how to use the interface as a convention to register different action methods via 'lambda' injection."); // NOI18N
     }
     
 }

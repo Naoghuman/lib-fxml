@@ -49,7 +49,8 @@ public final class DemoAllInOnesPreferencesWriter extends DemoInfoWriter {
         super.writeText(SIZE_DESCRIPTION, "Description"); // NOI18N
         super.writeSeparator();
         
-        super.writeText(SIZE_TEXT, "In this interactive area the developer can 'tweak' the data from the current loaded entity (FXMLModel)."); // NOI18N
+        super.writeText(SIZE_TEXT, "In this interactive area the developer can 'tweak' the data from the current loaded 'FXMLModel'."); // NOI18N
+        super.writeText(SIZE_TEXT, "For more informations about the options plz read the tooltips."); // NOI18N
     
         super.writeEmptyLine();
     }
@@ -61,23 +62,22 @@ public final class DemoAllInOnesPreferencesWriter extends DemoInfoWriter {
         super.writeText(SIZE_DESCRIPTION, "Entity"); // NOI18N
         super.writeSeparator();
         
-        super.writeTitleSmall("Titel"); // NOI18N
-        super.writeTextField(TEXT_FIELD__ENTITY_TITLE);
+        super.writeText(SIZE_TEXT, "Titel"); // NOI18N
+        super.writeTextField(TEXT_FIELD__ENTITY_TITLE, "TODO tooltip"); // NOI18N
         
         super.writeEmptyLine(SIZE_HALF_EMPTY);
         
-        super.writeTitleSmall("Id"); // NOI18N
-        super.writeTextField(TEXT_FIELD__ENTITY_ID);
+        super.writeText(SIZE_TEXT, "Id"); // NOI18N
+        super.writeTextField(TEXT_FIELD__ENTITY_ID, "TODO tooltip"); // NOI18N
         
         super.writeEmptyLine(SIZE_HALF_EMPTY);
         
-        super.writeTitleSmall("CRUD Operations"); // NOI18N
-        super.writeButton("New 'Entity'",  DemoAllInOnesController.ON_ACTION__ENTITY_NEW);  // NOI18N
-        super.writeButton("Load 'Entity'", DemoAllInOnesController.ON_ACTION__ENTITY_LOAD); // NOI18N
-        super.writeButton("Save 'Entity'", DemoAllInOnesController.ON_ACTION__ENTITY_SAVE); // NOI18N
+        super.writeText(SIZE_TEXT, "CRUD Operations"); // NOI18N
+        super.writeButton("New",  "TODO tooltip", DemoAllInOnesController.ON_ACTION__ENTITY_NEW);  // NOI18N
+        super.writeButton("Load", "TODO tooltip", DemoAllInOnesController.ON_ACTION__ENTITY_LOAD); // NOI18N
+        super.writeButton("Save", "TODO tooltip", DemoAllInOnesController.ON_ACTION__ENTITY_SAVE); // NOI18N
     
         super.writeEmptyLine();
-        
     }
 
     @Override
@@ -87,14 +87,13 @@ public final class DemoAllInOnesPreferencesWriter extends DemoInfoWriter {
         super.writeText(SIZE_DESCRIPTION, "Additional"); // NOI18N
         super.writeSeparator();
         
-        super.writeText(SIZE_TEXT, "The following buttons allowed the interested developer to print the actual state from the 'named' objects to the console."); // NOI18N
+        super.writeText(SIZE_TEXT, "And here some buttons which prints the actual state from the 'given' objects to the console."); // NOI18N
         
         super.writeEmptyLine(SIZE_HALF_EMPTY);
         
-        super.writeButton("Print 'FXMLView'",       DemoAllInOnes.ON_ACTION__PRINT_FXMLVIEW_INFOS);                 // NOI18N
-        super.writeButton("Print 'FXMLController'", DemoAllInOnesController.ON_ACTION__PRINT_FXMLCONTROLLER_INFOS); // NOI18N
-        super.writeButton("Print 'FXMLModel'",      DemoAllInOnesController.ON_ACTION__PRINT_FXMLMODEL_INFOS);      // NOI18N
-        super.writeText(SIZE_TEXT, "See 'DemoAllInOnes#register()' and 'DemoAllInOnesController#register()' for more informations.");              // NOI18N
+        super.writeButton("FXMLView",       "Prints the actual state from the 'FXMLView' to the console.",       DemoAllInOnes.ON_ACTION__PRINT_FXMLVIEW_INFOS);                 // NOI18N
+        super.writeButton("FXMLController", "Prints the actual state from the 'FXMLController' to the console.", DemoAllInOnesController.ON_ACTION__PRINT_FXMLCONTROLLER_INFOS); // NOI18N
+        super.writeButton("FXMLModel",      "Prints the actual state from the 'FXMLModel' to the console.",      DemoAllInOnesController.ON_ACTION__PRINT_FXMLMODEL_INFOS);      // NOI18N
     }
     
 }

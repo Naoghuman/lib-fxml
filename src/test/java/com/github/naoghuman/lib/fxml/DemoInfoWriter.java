@@ -24,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -159,20 +160,23 @@ public abstract class DemoInfoWriter {
     /**
      * 
      * @param   text 
+     * @param   tooltip 
      * @param   actionId 
      * @since   0.3.0-PRERELEASE
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    protected void writeButton(final String text, final String actionId) {
+    protected void writeButton(final String text, final String tooltip, final String actionId) {
         DefaultFXMLValidator.requireNonNullAndNotEmpty(text);
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(tooltip);
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         
         final Button btn = new Button(text);
         btn.setMaxWidth(Double.MAX_VALUE);
         btn.setOnAction((event) -> {
-            FXMLAction.handleAction(actionId);
+            FXMLAction.getDefault().handleAction(actionId);
         });
+        btn.setTooltip(new Tooltip(tooltip));
         VBox.setMargin(btn, new Insets(0.0d, 0.0d, 5.0d, 0.0d));
         
         vBox.getChildren().add(btn);
@@ -272,7 +276,7 @@ public abstract class DemoInfoWriter {
      * @author  Naoghuman
      */
     protected void writeListPoint(final String prefix, final String text) {
-        DefaultFXMLValidator.requireNonNullAndNotEmpty(prefix);
+        DefaultFXMLValidator.requireNonNull(prefix);
         DefaultFXMLValidator.requireNonNullAndNotEmpty(text);
         
         final Label msg = new Label(prefix + text);
@@ -332,12 +336,22 @@ public abstract class DemoInfoWriter {
         vBox.getChildren().add(label);
     }
     
-    protected void writeTextField(final String textFieldId) {
+    /**
+     * 
+     * @param   textFieldId 
+     * @param   tooltip 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    protected void writeTextField(final String textFieldId, final String tooltip) {
         DefaultFXMLValidator.requireNonNullAndNotEmpty(textFieldId);
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(tooltip);
         
         final TextField textField = new TextField();
         textField.prefWidthProperty().bind(vBox.widthProperty());
         textField.setFocusTraversable(false);
+        textField.setTooltip(new Tooltip(tooltip));
         
         vBox.getChildren().add(textField);
         TEXTFIELDS.put(textFieldId, textField);

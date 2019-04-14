@@ -50,9 +50,9 @@ public class DemoFXMLAction implements FXMLRegisterable {
     public void register() {
         LoggerFacade.getDefault().info(DemoFXMLAction.class, "DemoFXMLAction#register()"); // NOI18N
     
-        FXMLAction.register(ON_ACTION__SAVE_ENTITY_TO_DATABASE,     SqlProvider::onActionSaveEntityToDatabase);
-        FXMLAction.register(ON_ACTION__LOAD_ENTITY_FROM_DATABASE,   SqlProvider::onActionLoadEntityFromDatabase);
-        FXMLAction.register(ON_ACTION__LOAD_ENTITIES_FROM_DATABASE, SqlProvider::onActionLoadEntitiesFromDatabase);
+        FXMLAction.getDefault().register(ON_ACTION__SAVE_ENTITY_TO_DATABASE,     SqlProvider::onActionSaveEntityToDatabase);
+        FXMLAction.getDefault().register(ON_ACTION__LOAD_ENTITY_FROM_DATABASE,   SqlProvider::onActionLoadEntityFromDatabase);
+        FXMLAction.getDefault().register(ON_ACTION__LOAD_ENTITIES_FROM_DATABASE, SqlProvider::onActionLoadEntitiesFromDatabase);
     }
     
     /**
@@ -78,7 +78,7 @@ public class DemoFXMLAction implements FXMLRegisterable {
         modelToDatabase.putData("int", 12345); // NOI18N
         modelToDatabase.putData("msg", "hello from #onActionSaveEntityToDatabase(FXMLModel)"); // NOI18N
         
-        FXMLAction.handleConsumer(ON_ACTION__SAVE_ENTITY_TO_DATABASE, modelToDatabase);
+        FXMLAction.getDefault().handleConsumer(ON_ACTION__SAVE_ENTITY_TO_DATABASE, modelToDatabase);
     }
     
     /**
@@ -101,7 +101,7 @@ public class DemoFXMLAction implements FXMLRegisterable {
         
         // Execute the registered action ON_ACTION__LOAD_ENTITY_FROM_DATABASE which 
         // will then execute the registerd method :)) here in DemoFXMLAction.
-        final FXMLModel entity = FXMLAction.handleFunction(ON_ACTION__LOAD_ENTITY_FROM_DATABASE, 987654321L);
+        final FXMLModel entity = FXMLAction.getDefault().handleFunction(ON_ACTION__LOAD_ENTITY_FROM_DATABASE, 987654321L);
         System.out.println(entity.toString());
         
     }
@@ -115,7 +115,7 @@ public class DemoFXMLAction implements FXMLRegisterable {
     void onActionLoadEntitiesFromDatabase() {
         LoggerFacade.getDefault().debug(DemoFXMLAction.class, "DemoFXMLAction#onActionLoadEntitiesFromDatabase()"); // NOI18N
 
-        final List<FXMLModel> entities = FXMLAction.handleSupplier(ON_ACTION__LOAD_ENTITIES_FROM_DATABASE);
+        final List<FXMLModel> entities = FXMLAction.getDefault().handleSupplier(ON_ACTION__LOAD_ENTITIES_FROM_DATABASE);
         entities.stream()
                 .forEach(entity -> {
                     System.out.println(entity.toString());

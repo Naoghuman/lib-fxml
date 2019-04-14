@@ -24,6 +24,7 @@ import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -70,14 +71,13 @@ public final class DemoAllInOnes extends Application implements FXMLRegisterable
     public void start(Stage primaryStage) throws Exception {
         LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnes#start(Stage)"); // NOI18N
     
-        primaryStage.setTitle("Demo Lib-FXML: 'All in Ones' v0.3.0-PRERELEASE"); // NOI18N
+        primaryStage.setTitle("Lib-FXML Demo: 'All in Ones' v0.3.0-PRERELEASE"); // NOI18N
         
         final DemoAllInOnesEntity entity = new DemoAllInOnesEntity();
         final FXMLModel           model  = entity.writeTo();
         view = FXMLView.create(DemoAllInOnesController.class, model);
         
-        final Scene scene = new Scene(view.getRoot().get(), 1280, 720);
-        scene.getStylesheets().add("/com/github/naoghuman/lib/fxml/demoallinones.css"); // NOI18N
+        final Scene scene = new Scene(view.getRoot().orElse(new AnchorPane()), 1280, 720);
         primaryStage.setScene(scene);
         
         primaryStage.show();
@@ -93,7 +93,7 @@ public final class DemoAllInOnes extends Application implements FXMLRegisterable
     public void register() {
         LoggerFacade.getDefault().info(this.getClass(), "DemoAllInOnes.register()"); // NOI18N
         
-        FXMLAction.register(ON_ACTION__PRINT_FXMLVIEW_INFOS, this::onActionPrintFXMLViewInfos);
+        FXMLAction.getDefault().register(ON_ACTION__PRINT_FXMLVIEW_INFOS, this::onActionPrintFXMLViewInfos);
     }
     
 }

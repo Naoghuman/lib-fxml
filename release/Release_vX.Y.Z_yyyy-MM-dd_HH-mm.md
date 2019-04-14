@@ -12,6 +12,10 @@ of the data flow to (from) the gui.
 
 
 
+#### Bug
+
+
+
 #### Feature
 
 
@@ -20,7 +24,7 @@ of the data flow to (from) the gui.
 
 
 
-#### Bug
+#### Test
 
 
 

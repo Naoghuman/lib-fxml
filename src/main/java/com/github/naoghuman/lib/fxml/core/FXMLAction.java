@@ -20,6 +20,7 @@ import com.github.naoghuman.lib.fxml.internal.DefaultFXMLValidator;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -41,6 +42,23 @@ public final class FXMLAction {
     
     private final static String ERROR_MSG__ACTION_ID_ISNT_REGISTERED = "Error: The [actionId=%s] isn't registerd!"; // NOI18N
     
+    private static final Optional<FXMLAction> INSTANCE = Optional.of(new FXMLAction());
+    
+    /**
+     * 
+     * @return 
+     * @since   0.3.0-PRERELEASE
+     * @version 0.3.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public static final FXMLAction getDefault() {
+        return INSTANCE.get();
+    }
+    
+    private FXMLAction() {
+        
+    }
+    
     /**
      * 
      * @param   actionId
@@ -48,12 +66,12 @@ public final class FXMLAction {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static void handleAction(final String actionId) {
+    public void handleAction(final String actionId) {
         LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#handleAction(String)"); // NOI18N
         
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         
-        if (!FXMLAction.isRegistered(actionId)) {
+        if (!this.isRegistered(actionId)) {
             throw new IllegalArgumentException(String.format(ERROR_MSG__ACTION_ID_ISNT_REGISTERED, actionId));
         }
         
@@ -71,13 +89,13 @@ public final class FXMLAction {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static void handleAction(final String actionId, final Object source) {
+    public void handleAction(final String actionId, final Object source) {
         LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#handleAction(String, Object)"); // NOI18N
         
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         DefaultFXMLValidator.requireNonNull(source);
         
-        if (!FXMLAction.isRegistered(actionId)) {
+        if (!this.isRegistered(actionId)) {
             throw new IllegalArgumentException(String.format(ERROR_MSG__ACTION_ID_ISNT_REGISTERED, actionId));
         }
         
@@ -95,13 +113,13 @@ public final class FXMLAction {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static void handleConsumer(final String actionId, final FXMLModel model) {
+    public void handleConsumer(final String actionId, final FXMLModel model) {
         LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#handleConsumer(String, FXMLModel)"); // NOI18N
         
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         DefaultFXMLValidator.requireNonNull(model);
         
-        if (!FXMLAction.isRegistered(actionId)) {
+        if (!this.isRegistered(actionId)) {
             throw new IllegalArgumentException(String.format(ERROR_MSG__ACTION_ID_ISNT_REGISTERED, actionId));
         }
         
@@ -120,13 +138,13 @@ public final class FXMLAction {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static FXMLModel handleFunction(final String actionId, final Long entityId) {
+    public FXMLModel handleFunction(final String actionId, final Long entityId) {
         LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#handleFunction(String, Long)"); // NOI18N
         
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         DefaultFXMLValidator.requireNonNull(entityId);
         
-        if (!FXMLAction.isRegistered(actionId)) {
+        if (!this.isRegistered(actionId)) {
             throw new IllegalArgumentException(String.format(ERROR_MSG__ACTION_ID_ISNT_REGISTERED, actionId));
         }
         
@@ -144,12 +162,12 @@ public final class FXMLAction {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static List<FXMLModel> handleSupplier(final String actionId) {
+    public List<FXMLModel> handleSupplier(final String actionId) {
         LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#handleSupplier(String)"); // NOI18N
         
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         
-        if (!FXMLAction.isRegistered(actionId)) {
+        if (!this.isRegistered(actionId)) {
             throw new IllegalArgumentException(String.format(ERROR_MSG__ACTION_ID_ISNT_REGISTERED, actionId));
         }
         
@@ -167,7 +185,7 @@ public final class FXMLAction {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static boolean isRegistered(final String actionId) {
+    public boolean isRegistered(final String actionId) {
         LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#isRegistered(String)"); // NOI18N
         
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
@@ -186,7 +204,7 @@ public final class FXMLAction {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static void register(final String actionId, final Consumer<FXMLModel> consumer) {
+    public void register(final String actionId, final Consumer<FXMLModel> consumer) {
         LoggerFacade.getDefault().info(FXMLAction.class, "FXMLAction#register(String, Consumer<FXMLModel>)"); // NOI18N
         
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
@@ -203,7 +221,7 @@ public final class FXMLAction {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static void register(final String actionId, final EventHandler<ActionEvent> eventHandler) {
+    public void register(final String actionId, final EventHandler<ActionEvent> eventHandler) {
         LoggerFacade.getDefault().info(FXMLAction.class, "FXMLAction#register(String, EventHandler<ActionEvent>)"); // NOI18N
         
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
@@ -220,7 +238,7 @@ public final class FXMLAction {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static void register(final String actionId, final Function<Long, FXMLModel> function) {
+    public void register(final String actionId, final Function<Long, FXMLModel> function) {
         LoggerFacade.getDefault().info(FXMLAction.class, "FXMLAction#register(String, Function<Long, FXMLModel>)"); // NOI18N
         
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
@@ -237,7 +255,7 @@ public final class FXMLAction {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static void register(final String actionId, final Supplier<List<FXMLModel>> supplier) {
+    public void register(final String actionId, final Supplier<List<FXMLModel>> supplier) {
         LoggerFacade.getDefault().info(FXMLAction.class, "FXMLAction#register(String, Supplier<List<FXMLModel>>)"); // NOI18N
         
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
@@ -253,7 +271,7 @@ public final class FXMLAction {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static void remove(final String actionId) {
+    public void remove(final String actionId) {
         LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#remove(String)"); // NOI18N
         
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);

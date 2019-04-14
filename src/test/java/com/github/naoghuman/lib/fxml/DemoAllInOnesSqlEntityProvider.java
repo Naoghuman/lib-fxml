@@ -81,8 +81,8 @@ public final class DemoAllInOnesSqlEntityProvider implements FXMLRegisterable {
     public void register() {
         LoggerFacade.getDefault().info(this.getClass(), "DemoAllInOnesSqlEntity#register()"); // NOI18N
     
-        FXMLAction.register(ON_ACTION__SQL__ENTITY_LOAD, this::onActionSqlEntityLoad);
-        FXMLAction.register(ON_ACTION__SQL__ENTITY_SAVE, this::onActionSqlEntitySave);
+        FXMLAction.getDefault().register(ON_ACTION__SQL__ENTITY_LOAD, this::onActionSqlEntityLoad);
+        FXMLAction.getDefault().register(ON_ACTION__SQL__ENTITY_SAVE, this::onActionSqlEntitySave);
     }
     
     /**
