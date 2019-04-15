@@ -12,7 +12,7 @@ Intention
 
 The `Lib-FXML` library simplifies the loading of [JavaFX] relevant files (model, 
 view, controller, .fxml, .css, .properties) and enables a standardized handling 
-of the data flow to (from) the gui.
+of the data flow to (in, from) the gui.
 
 Inspired by [Adam Bien]'s library [afterburner.fx], which unfortunately hasn't been 
 developed since 2015, the library `Lib-FXML` simplifies the daily developer tasks 

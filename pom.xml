@@ -10,7 +10,7 @@
     <inceptionYear>2018</inceptionYear>
     <url>https://github.com/Naoghuman/lib-fxml.git</url>
     
-    <description>The `Lib-FXML` library simplifies the loading of [JavaFX] relevant files (model, view, controller, .fxml, .css, .properties) and enables a standardized handling of the data flow to (from) the gui.</description>
+    <description>The `Lib-FXML` library simplifies the loading of [JavaFX] relevant files (model, view, controller, .fxml, .css, .properties) and enables a standardized handling of the data flow to (in, from) the gui.</description>
     
     <developers>
         <developer>
