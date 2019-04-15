@@ -270,7 +270,7 @@ public abstract class DemoInfoWriter {
     /**
      * 
      * @param   prefix
-     * @param   text 
+     * @param   text
      * @since   0.3.0-PRERELEASE
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman

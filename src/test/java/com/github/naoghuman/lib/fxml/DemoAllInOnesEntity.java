@@ -37,7 +37,7 @@ public final class DemoAllInOnesEntity implements FXMLModelable {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static final String ID = "DemoAllInOnesEntity#idProperty";
+    public static final String ID = "DemoAllInOnesEntity#idProperty"; // NOI18N
     
     /**
      *
@@ -45,10 +45,10 @@ public final class DemoAllInOnesEntity implements FXMLModelable {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public static final String TITLE = "DemoAllInOnesEntity#titleProperty"; 
+    public static final String TITLE = "DemoAllInOnesEntity#titleProperty";  // NOI18N
     
     private final LongProperty   idProperty    = new SimpleLongProperty(123456789L);
-    private final StringProperty titleProperty = new SimpleStringProperty("Hi title!");
+    private final StringProperty titleProperty = new SimpleStringProperty("Title: 123456789"); // NOI18N
     
     /**
      * 

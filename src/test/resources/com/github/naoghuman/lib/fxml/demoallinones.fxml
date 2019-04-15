@@ -12,14 +12,14 @@
             <children>
                 <ScrollPane fitToHeight="true" fitToWidth="true" HBox.hgrow="ALWAYS">
                     <content>
-                        <VBox fx:id="vbDemoInfos">
+                        <VBox fx:id="vbDemoInfos" styleClass="vbox">
                             <padding>
                                 <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                             </padding>
                         </VBox>
                     </content>
                 </ScrollPane>
-                <VBox fx:id="vbPreferences" maxWidth="256.0" minWidth="256.0" prefWidth="256.0" style="-fx-background-color:#F4F4F4">
+                <VBox fx:id="vbPreferences" styleClass="vbox" maxWidth="256.0" minWidth="256.0" prefWidth="256.0">
                     <padding>
                         <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                     </padding>

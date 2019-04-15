@@ -21,7 +21,6 @@ import com.github.naoghuman.lib.fxml.core.FXMLModel;
 import com.github.naoghuman.lib.fxml.core.FXMLRegisterable;
 import com.github.naoghuman.lib.fxml.internal.DefaultFXMLValidator;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -100,13 +99,7 @@ public final class DemoAllInOnesSqlEntityProvider implements FXMLRegisterable {
         
         final DemoAllInOnesEntity entity = new DemoAllInOnesEntity();
         entity.idProperty().set(entityId);
-        
-        if (!Objects.equals(entityId, DEFAULT_ID)) {
-            entity.titleProperty().set(String.format("Load Id#%s from DB!", entityId)); // NOI18N
-        }
-        else {
-            entity.titleProperty().set(String.format("Create new FXMLModel Id#%s!", entityId)); // NOI18N
-        }
+        entity.titleProperty().set(String.format("Title: %d", entityId)); // NOI18N
         
         return entity.writeTo();
     }

@@ -34,7 +34,7 @@ public abstract class FXMLController {
     
     /**
      * 
-     * @since   0.1.0-PRERELEASE
+     * @since   0.3.0-PRERELEASE
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */

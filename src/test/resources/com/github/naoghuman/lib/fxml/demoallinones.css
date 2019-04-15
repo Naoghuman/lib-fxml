@@ -16,6 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 /* 
     Created on : 19.12.2018, 10:33:35
+    Since      : 0.1.0-PRERELEASE
+    Version    : 0.3.0-PRERELEASE
     Author     : Naoghuman
 */
 /* AnchorPane */
@@ -25,26 +27,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Button */
 .button {
-    -fx-background-color:LIGHTGREY;
+    -fx-background-color:derive(LIGHTGREY, 35%);
 }
 .button:hover {
-    -fx-background-color:derive(#616161, 65%);
+    -fx-background-color:LIGHTGREY;
 }
 .button:pressed {
-    -fx-background-color:derive(#212121, 70%);
-    -fx-text-fill:#FFFFFF;
+    -fx-background-color:derive(#616161, 65%);
 }
 
 /* TextField */
 .text-field {
-    -fx-background-color:LIGHTGREY;
+    -fx-background-color:#F4F4F4;
+    -fx-border-color:LIGHTGREY;
+    -fx-border-width:0 0 3 0;
 }
 .text-field:hover {
-    -fx-background-color:derive(#616161, 65%);
+    -fx-background-color:derive(LIGHTGREY, 35%);
+    -fx-border-color:derive(#616161, 65%);
 }
 .text-field:focused {
-    -fx-background-color:derive(#212121, 70%);
-    -fx-text-fill:#FFFFFF;
+    -fx-background-color:LIGHTGREY;
+    -fx-border-color:derive(#212121, 70%);
 }
 
 /* ScrollBar */
@@ -85,4 +89,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 .scroll-pane .scroll-bar .thumb:pressed {
     -fx-background-color:derive(#212121, 70%);
+}
+
+/* VBox */
+.vbox {
+    -fx-background-color:#F4F4F4;
 }

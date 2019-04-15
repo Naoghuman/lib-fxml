@@ -49,7 +49,7 @@ public final class DemoAllInOnesPreferencesWriter extends DemoInfoWriter {
         super.writeText(SIZE_DESCRIPTION, "Description"); // NOI18N
         super.writeSeparator();
         
-        super.writeText(SIZE_TEXT, "In this interactive area the developer can 'tweak' the data from the current loaded 'FXMLModel'."); // NOI18N
+        super.writeText(SIZE_TEXT, "This interactive area allowed the developer to do some 'CRUD' operations with the data from the current 'FXMLModel'."); // NOI18N
         super.writeText(SIZE_TEXT, "For more informations about the options plz read the tooltips."); // NOI18N
     
         super.writeEmptyLine();
@@ -63,19 +63,19 @@ public final class DemoAllInOnesPreferencesWriter extends DemoInfoWriter {
         super.writeSeparator();
         
         super.writeText(SIZE_TEXT, "Titel"); // NOI18N
-        super.writeTextField(TEXT_FIELD__ENTITY_TITLE, "TODO tooltip"); // NOI18N
+        super.writeTextField(TEXT_FIELD__ENTITY_TITLE, "Tip here to update the 'title' from the entity."); // NOI18N
         
         super.writeEmptyLine(SIZE_HALF_EMPTY);
         
         super.writeText(SIZE_TEXT, "Id"); // NOI18N
-        super.writeTextField(TEXT_FIELD__ENTITY_ID, "TODO tooltip"); // NOI18N
+        super.writeTextField(TEXT_FIELD__ENTITY_ID, "Tip here to update the 'id' from the entity."); // NOI18N
         
         super.writeEmptyLine(SIZE_HALF_EMPTY);
         
         super.writeText(SIZE_TEXT, "CRUD Operations"); // NOI18N
-        super.writeButton("New",  "TODO tooltip", DemoAllInOnesController.ON_ACTION__ENTITY_NEW);  // NOI18N
-        super.writeButton("Load", "TODO tooltip", DemoAllInOnesController.ON_ACTION__ENTITY_LOAD); // NOI18N
-        super.writeButton("Save", "TODO tooltip", DemoAllInOnesController.ON_ACTION__ENTITY_SAVE); // NOI18N
+        super.writeButton("New",  "This operation create a new entity with id: -1.",            DemoAllInOnesController.ON_ACTION__ENTITY_NEW);  // NOI18N
+        super.writeButton("Load", "This operation load an entity with same written id: ",       DemoAllInOnesController.ON_ACTION__ENTITY_LOAD); // NOI18N
+        super.writeButton("Save", "This operation saves the entity to the database (console).", DemoAllInOnesController.ON_ACTION__ENTITY_SAVE); // NOI18N
     
         super.writeEmptyLine();
     }
@@ -87,13 +87,14 @@ public final class DemoAllInOnesPreferencesWriter extends DemoInfoWriter {
         super.writeText(SIZE_DESCRIPTION, "Additional"); // NOI18N
         super.writeSeparator();
         
-        super.writeText(SIZE_TEXT, "And here some buttons which prints the actual state from the 'given' objects to the console."); // NOI18N
+        super.writeText(SIZE_TEXT, "The following buttons demonstrate the registration with 'FXMLAction#register(String, EventHandler<ActionEvent>)."); // NOI18N
+        super.writeText(SIZE_TEXT, "Click one or more from the buttons will print the actual state from the 'given' object to the console."); // NOI18N
         
         super.writeEmptyLine(SIZE_HALF_EMPTY);
         
-        super.writeButton("FXMLView",       "Prints the actual state from the 'FXMLView' to the console.",       DemoAllInOnes.ON_ACTION__PRINT_FXMLVIEW_INFOS);                 // NOI18N
-        super.writeButton("FXMLController", "Prints the actual state from the 'FXMLController' to the console.", DemoAllInOnesController.ON_ACTION__PRINT_FXMLCONTROLLER_INFOS); // NOI18N
-        super.writeButton("FXMLModel",      "Prints the actual state from the 'FXMLModel' to the console.",      DemoAllInOnesController.ON_ACTION__PRINT_FXMLMODEL_INFOS);      // NOI18N
+        super.writeButton("FXMLView",       "Prints the actual state from the 'FXMLView' instance to the console.",       DemoAllInOnes.ON_ACTION__PRINT_FXMLVIEW_INFOS);                 // NOI18N
+        super.writeButton("FXMLController", "Prints the actual state from the 'FXMLController' instance to the console.", DemoAllInOnesController.ON_ACTION__PRINT_FXMLCONTROLLER_INFOS); // NOI18N
+        super.writeButton("FXMLModel",      "Prints the actual state from the 'FXMLModel' instance to the console.",      DemoAllInOnesController.ON_ACTION__PRINT_FXMLMODEL_INFOS);      // NOI18N
     }
     
 }

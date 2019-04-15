@@ -190,6 +190,8 @@ public final class DemoAllInOnesController extends FXMLController implements FXM
     public void onActionEntityNew(final ActionEvent event) {
         LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesController#onActionEntityNew(ActionEvent)"); // NOI18N
         
+        final FXMLModel modelFromDatabase = FXMLAction.getDefault().handleFunction(DemoAllInOnesSqlEntityProvider.ON_ACTION__SQL__ENTITY_LOAD, DemoAllInOnesSqlEntityProvider.DEFAULT_ID);
+        this.configure(modelFromDatabase);
     }
     
     /**
