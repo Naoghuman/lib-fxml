@@ -18,7 +18,7 @@ Inspired by [Adam Bien]'s library [afterburner.fx], which unfortunately hasn't b
 developed since 2015, the library `Lib-FXML` simplifies the daily developer tasks 
 in context from the aboved mentioned two main points:
  * Simplifying the loading of `JavaFX` relevant files and
- * offering a standardized data flow to (from) the gui.
+ * offering a standardized data flow to (in, from) the gui.
 
 _Image:_ Overview Lib-FXML  
 ![Overview-UML_Lib-FXML_v0.3.0-PRERELEASE_2019-04-14_23-39.png][Overview-UML_Lib-FXML_v0.3.0-PRERELEASE_2019-04-14_23-39]
