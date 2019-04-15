@@ -58,6 +58,7 @@ and features of the library Lib-FXML.
 ___Intention___
 
 _Image:_ Demo 'All in Ones'  
+![Lib-FXML_Demo-All-in-Ones_v0.3.0-PRERELEASE_2019-04-15_21-40.png][Lib-FXML_Demo-All-in-Ones_v0.3.0-PRERELEASE_2019-04-15_21-40]
 
 ___Demo files___
 The following demo files are involved:
@@ -225,6 +226,7 @@ You can reach me under <peter.rogge@yahoo.de>.
 
 
 [//]: # (Images)
+[Lib-FXML_Demo-All-in-Ones_v0.3.0-PRERELEASE_2019-04-15_21-40]:https://user-images.githubusercontent.com/8161815/56160350-4870e680-5fc7-11e9-9b95-9ab31d0ce2ec.png
 [Overview-UML_Lib-FXML_v0.3.0-PRERELEASE_2019-04-14_23-39]:https://user-images.githubusercontent.com/8161815/56099552-d0df8080-5f0e-11e9-8709-62470c9b5f63.png
 
 
