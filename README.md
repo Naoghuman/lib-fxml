@@ -17,8 +17,8 @@ of the data flow to (in, from) the gui.
 Inspired by [Adam Bien]'s library [afterburner.fx], which unfortunately hasn't been 
 developed since 2015, the library `Lib-FXML` simplifies the daily developer tasks 
 in context from the aboved mentioned two main points:
- * Simplifying the loading of `JavaFX` relevant files and
- * offering a standardized data flow to (in, from) the gui.
+* Simplifying the loading of `JavaFX` relevant files and
+* offering a standardized data flow to (in, from) the gui.
 
 _Image:_ Overview Lib-FXML  
 ![Overview-UML_Lib-FXML_v0.3.0-PRERELEASE_2019-04-14_23-39.png][Overview-UML_Lib-FXML_v0.3.0-PRERELEASE_2019-04-14_23-39]
@@ -28,11 +28,29 @@ _Image:_ Overview Lib-FXML
 Content
 ---
 
-* [Demos](#Demos)
-    * [Demo 'All in Ones'](#DeAlInOn)
-    * [Demo 'With all files'](#DeWiAlFi)
-    * [Demo 'Without .css file'](#DeWiCsFi)
-    * [Demo 'Without .properties file'](#DeWiPrFi)
+* [Demo 'All in Ones'](#DeAlInOn)
+    - [_Intention_](#DeAlInOnIn)  
+      [General features](#DeAlInOnInGeFe)  
+      [Extended features](#DeAlInOnInExFe)  
+      [Additional features](#DeAlInOnInAdFe)
+    - [_Demo files_](#DeAlInOnDeFi)  
+      [DemoAllInOnes.java](#DeAlInOnDeFiSt)  
+      [DemoAllInOnesController.java](#DeAlInOnDeFiCo)  
+      [DemoAllInOnesEntity.java](#DeAlInOnDeFiEn)  
+      [DemoAllInOnesSqlEntityProvider.java](#DeAlInOnDeFiSqEn)  
+      [demoallinones.css](#DeAlInOnDeFiCs)  
+      [demoallinones.fxml](#DeAlInOnDeFiFx)  
+      [demoallinones.properties](#DeAlInOnDeFiPr)  
+      [DemoInfoWriter.java](#DeInWr)  
+      [DemoAllInOnesInfoWriter.java](#DeAlInOnInWr)  
+      [DemoAllInOnesPreferencesWriter.java](#DeAlInOnPrWr)
+    - [_How it works_](#DeAlInOnHoItWo)  
+      [Usage from the singleton class 'FXMLAction'](#DeAlInOnHoItWoAc)  
+      [Usage from the abstract class 'FXMLController'](#DeAlInOnHoItWoCo)  
+      [Usage from the class 'FXMLModel'](#DeAlInOnHoItWoMo)  
+      [Usage from the class 'FXMLView'](#DeAlInOnHoItWoVi)  
+      [Usage from the interface 'FXMLModelable'](#DeAlInOnHoItWoMoAb)  
+      [Usage from the interface 'FXMLRegistrable'](#DeAlInOnHoItWoRe)
 * [Conventions](#Conventions)
 * [Features](#Features)
 * [JavaDoc](#JavaDoc)
@@ -46,80 +64,123 @@ Content
 
 
 
-Demos<a name="Demos" />
+Demo 'All in Ones'<a name="DeAlInOn" />
 ---
-
-The various demo applications in this chapter shows specific aspects, conventions 
-and features of the library Lib-FXML.
-
-
-### Demo 'All in Ones'<a name="DeAlInOn" />
-
-___Intention___
 
 _Image:_ Demo 'All in Ones'  
 ![Lib-FXML_Demo-All-in-Ones_v0.3.0-PRERELEASE_2019-04-15_21-40.png][Lib-FXML_Demo-All-in-Ones_v0.3.0-PRERELEASE_2019-04-15_21-40]
 
-___Demo files___
-The following demo files are involved:
-* DemoAllInOnes.java
-* DemoAllInOnesController.java
-* DemoAllInOnesEntity.java
-* DemoAllInOnesSqlEntity.java
-* demoallinones.css
-* demoallinones.fxml
-* demoallinones.properties
 
-___How it works!___
+### _Intention_<a name="DeAlInOnIn" />
+This demo wants to show, explain how to integrate the various features from the library 'Lib-FXML' into a demo application:
 
+#### General features<a name="DeAlInOnInGeFe" />
+* How to use the abstract class 'FXMLController' as a convention to managed the presentation from the 'FXMLModel' data in a concrete implementation from 'FXMLController'.
+* How to use the class 'FXMLModel' as a lightweight version from an entity to manage the dataflow to (in, from) the controller.
+* How to use the class 'FXMLView' to load the gui declaration (.fxml file) and map it (initialization from the gui) to a controller.
 
-### Demo 'With all files'<a name="DeWiAlFi" />
+#### Extended features<a name="DeAlInOnInExFe" />
+* How to use the singleton 'FXMLAction' to register (handle) lambda methods such like 'Consumer', 'Function' and 'Supplier'.
+* How to use the class 'FXMLModel' to add additional methods which extend the original entity behavior. For example 'isUpdatedProperty()'.
+* How to use the interface 'FXMLRegisterable' as a convention which allowes developers to register for example action methods.
+* How to use the interface 'FXMLModelable' as a convention to create a lightweight version from an entity.
 
-___Intention___
-
-_Image:_ Demo 'With all files'  
-
-___Demo files___
-The following demo files are involved:
-* DemoWithAllFiles.java
-* DemoWithAllFilesController.java
-* demowithallfiles.css
-* demowithallfiles.fxml
-* demowithallfiles.properties
-
-___How it works!___
+#### Additional features<a name="DeAlInOnInAdFe" />
+* How to implement a 'singleton' instance with 'Optional<T>' in 'FXMLAction' and access the class behaviours with the static method 'getDefault()'.
+* How to use the 'JavaFX' default binding features to automatically update the 'FXMLModel' (entity) data to (in, from) the controller.
+* How to use the 'JavaFX' standard class 'FXMLLoader' in 'FXMLView' to load '.fxml', '.css', '.properties' files and assoziate them with a controller.
+* How to style with 'CSS' different 'JavaFX' components such like 'AnchorPane', 'Button', 'TextField', 'ScrollPane'.
+* How to use the library 'Lib-Logger' (https://github.com/Naoghuman/lib-logger) to log messages easily to a log-file.
 
 
-### Demo 'Without .css file'<a name="DeWiCsFi" />
+### _Demo files_<a name="DeAlInOnDeFi" />
+In this section all files are listed which are involved into this demo. Also their main purpose are explained:
 
-___Intention___
+#### DemoAllInOnes.java<a name="DeAlInOnDeFiSt" />
+* Shows how to start a 'JavaFX' application :) .
+* Shows how to create an instance from the class 'FXMLView' to show then the gui with 'view.getRoot().orElse(new AnchorPane())' in the demo application.
+* Shows how the interface 'FXMLRegisterable' can be used as a convention to register the action method from this class.
 
-_Image:_ Demo 'Without .css file'  
+#### DemoAllInOnesController.java<a name="DeAlInOnDeFiCo" />
+* Shows how the developer can access the 'URL' from the '.fxml' file.
+* Shows how the developer can access the optional 'ResourceBundle' if defined.
+* Shows how to use the classes 'DemoInfoWriter', 'DemoAllInOnesInfoWriter' and 'DemoAllInOnesPreferencesWriter' to write the demo infos.
+* Shows how to use the overriden method 'FXMLController#configure(FXMLModel) to bind the data from the 'FXMLModel' to the gui components.
+* Shows how the interface 'FXMLRegisterable' can be used as a convention to register the various action methods from this controller.
+* Shows how to use the different 'FXMLAction#handle(...)' methods to fit the necessities from this controller.
 
-___Demo files___
-The following demo files are involved:
-* DemoWithoutCssFile.java
-* DemoWithoutCssFileController.java
-* demowithoutcssfile.fxml
-* demowithoutcssfile.properties
+#### DemoAllInOnesEntity.java<a name="DeAlInOnDeFiEn" />
+* Shows how to create a simple 'POJO' with 'JavaFX' properties ('LongProperty' and 'StringProperty').
+* Shows the usage from 'JavaFX' properties to bind data which means we don't need to be aware that the data is up-to-date :).
+* Shows how to use the interface 'FXMLModelable' which allowed to configure a 'FXMLModel' with selected data properties from the entity.
 
-___How it works!___
+#### DemoAllInOnesSqlEntityProvider.java<a name="DeAlInOnDeFiSqEn" />
+* Shows how to define a simple 'sql' entity provider which simulates the 'crud' operations for an entity to (from) a database.
+* Shows how to use the interface 'FXMLRegisterable' as a convention to register the action methods from this class.
+* Shows how to use the class 'FXMLAction' to register the (crud) action methods via lambda injection.
+
+#### demoallinones.css<a name="DeAlInOnDeFiCs" />
+* Shows how to create a 'CSS' (Cascading Style Sheets) file which styles will be then shown in the demo application.
+* Shows how to style with 'CSS' different 'JavaFX' components such like 'AnchorPane', 'Button', 'TextField', 'ScrollPane'.
+
+#### demoallinones.fxml<a name="DeAlInOnDeFiFx" />
+* Shows how to define a declaration from the demo gui in form from a special JavaFX 'XML' file so called 'FXML'.
+* Shows how then the initialization will be done during the loading and mapping from the '.fxml' file with the corresponding 'controller'.  
+  See 'FXMLView#initializeFXMLLoader(FXMLModel)' for more informations.
+
+#### demoallinones.properties<a name="DeAlInOnDeFiPr" />
+* Shows how to create a '.properties' file which can contains different 'key/value' String pairs. Over the 'key' the 'value' can retrieved then in the application.
+* An alternative is the useage from my Library 'Lib-I18N' (https://github.com/Naoghuman/lib-i18n), which allowed multilingualism depending from an actual 'Locale'.
+
+The next files are used to create the demo informations:
+
+#### DemoInfoWriter.java<a name="DeInWr" />
+* The abstract class 'DemoInfoWriter' offers various functions for writing different styled informations into a 'VBox'.
+* For example: Styled text (size, FontPosture), 'Button's, 'Separator's and 'TextField's.
+
+#### DemoAllInOnesInfoWriter.java<a name="DeAlInOnInWr" />
+* A concrete implementation from the abstract class 'DemoInfoWriter' for this demo.
+* All informations about the features from the library 'Lib-FXML' and the demo :) in the left side from the demo are written with this class.
+
+#### DemoAllInOnesPreferencesWriter.java<a name="DeAlInOnPrWr" />
+* Another concrete implementation from the abstract class 'DemoInfoWriter'.
+* With this class the interactive area on the right side in the demo application is written.
 
 
-### Demo 'Without .properties file'<a name="DeWiPrFi" />
-
-___Intention___
-
-_Image:_ Demo 'Without .properties file'  
-
-___Demo files___
-The following demo files are involved:
-* DemoWithoutPropertiesFile.java
-* DemoWithoutPropertiesFileController.java
-* demowithoutpropertiesfile.css
-* demowithoutpropertiesfile.fxml
-
-___How it works!___
+### _How it works_<a name="DeAlInOnHoItWo" />
+This section shows how to use the different classes and interfaces from the 'Lib-FXML' api:
+        
+#### Usage from the singleton class 'FXMLAction'<a name="DeAlInOnHoItWoAc" />
+* Used in 'DemoAllInOnes', 'DemoAllInOnesController', 'DemoAllInOnesInfoWriter' and 'DemoAllInOnesSqlEntityProvider'.
+* Answers the question how to implement a 'singleton' instance with 'Optional<T>' in 'FXMLAction' and access the class behaviours with the static method 'getDefault()'.
+* Answers the question how to register (handle) action methods from type 'Consumer<FXMLModel>', 'EventHandler<ActionEvent>' and 'Function<Long, FXMLModel>'.
+* Answers also the question how to register (handle) action methods from type 'EventHandler<ActionEvent>'.
+        
+#### Usage from the abstract class 'FXMLController'<a name="DeAlInOnHoItWoCo" />
+* Used in 'DemoAllInOnesController'.
+* Used in 'FXMLView'.
+* Answers the question how to use the abstract class as a convention to managed the presentation from the 'FXMLModel' data in a concrete controller.
+* Answers the question how the controller (it's attributs) is the initialization from the declaration in the '.fxml' file.
+        
+#### Usage from the class 'FXMLModel'<a name="DeAlInOnHoItWoMo" />
+* Used in 'DemoAllInOnes', 'DemoAllInOnesController', 'DemoAllInOnesEntity' and 'DemoAllInOnesSqlEntityProvider'.
+* Used in 'FXMLAction', 'FXMLController', 'FXMLModelable' and 'FXMLView'.
+* Answers the question how to use the model to managed the dataflow to (in, from) the gui.
+* Answers the question how the 'FXMLModel' will be initialized in the entity 'DemoAllInOnesEntity' with the convention methods from the interface 'FXMLModelable'.
+* Answers the question how to add some additional data methods to extend the behavior from the original entity.
+        
+#### Usage from the class 'FXMLView'<a name="DeAlInOnHoItWoVi" />
+* Used in 'DemoAllInOnes'.
+* Answers the question how to use the class 'FXMLView' to load the gui declaration (.fxml file) and map it (initialization from the gui) to a controller.
+* Answers the question how to use the 'JavaFX' standard class 'FXMLLoader' in 'FXMLView' to load '.fxml', '.css', '.properties' files and assoziate them with a controller.
+        
+#### Usage from the interface 'FXMLModelable'<a name="DeAlInOnHoItWoMoAb" />
+* Used in 'DemoAllInOnesEntity'.
+* Answers the question how to use the interface as a convention to initialize a FXMLModel with different entity properties.
+        
+#### Usage from the interface 'FXMLRegistrable'<a name="DeAlInOnHoItWoRe" />
+* Used in 'DemoAllInOnes', 'DemoAllInOnesController' and 'DemoAllInOnesSqlEntityProvider'.
+* Answers the question how to use the interface as a convention to register different action methods via 'lambda' injection.
 
 
 

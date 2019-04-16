@@ -2,7 +2,7 @@ Welcome to `Lib-FXML` with the new release `vX.Y.Z`.
 
 The `Lib-FXML` library simplifies the loading of [JavaFX] relevant files (model, 
 view, controller, .fxml, .css, .properties) and enables a standardized handling 
-of the data flow to (from) the gui.
+of the data flow to (in, from) the gui.
 
 
 
