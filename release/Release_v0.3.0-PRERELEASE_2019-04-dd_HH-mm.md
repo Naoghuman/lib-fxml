@@ -2,13 +2,13 @@ Welcome to `Lib-FXML` with the new release `v0.3.0-PRERELEASE`.
 
 The `Lib-FXML` library simplifies the loading of [JavaFX] relevant files (model, 
 view, controller, .fxml, .css, .properties) and enables a standardized handling 
-of the data flow to (from) the gui.
+of the data flow to (in, from) the gui.
 
 
 
 #### Summary
-* ...
-* ...
+* Extend the api with exciting features like FXMLAction, FXMLModel.
+* Create an extended demo application with all features from the library.
 
 
 
@@ -45,6 +45,7 @@ of the data flow to (from) the gui.
 
 
 #### Documentation
+#73 [doc] Write section 'DemoAllInOnes' in ReadMe.
 #71 [doc] Update the GitHub project description.
 #69 [doc] Update the header from the UML image in the section 'Intention'.
 #63 [doc] Update the section 'Demos' in the ReadMe.
@@ -76,7 +77,6 @@ Naoghuman
 
 
 [//]: # (Issues which will be integrated in this release)
-#73 [doc] Write section 'DemoAllInOnes' in ReadMe. // documentation
 
 
 
