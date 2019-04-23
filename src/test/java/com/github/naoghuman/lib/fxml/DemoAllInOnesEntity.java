@@ -18,6 +18,7 @@ package com.github.naoghuman.lib.fxml;
 
 import com.github.naoghuman.lib.fxml.core.FXMLModel;
 import com.github.naoghuman.lib.fxml.core.FXMLModelable;
+import java.util.Optional;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -73,19 +74,14 @@ public final class DemoAllInOnesEntity implements FXMLModelable {
     }
 
     @Override
-    public void readFrom(final FXMLModel model) {
-        
-    }
-
-    @Override
-    public FXMLModel writeTo() {
+    public Optional<FXMLModel> writeTo() {
         final FXMLModel model = new FXMLModel();
         model.setMetadataEntity(this.getClass(), this.idProperty().get());
         
         model.putData(ID,    this.idProperty());
         model.putData(TITLE, this.titleProperty());
         
-        return model;
+        return Optional.of(model);
     }
     
 }

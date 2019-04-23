@@ -101,7 +101,7 @@ public final class DemoAllInOnesSqlEntityProvider implements FXMLRegisterable {
         entity.idProperty().set(entityId);
         entity.titleProperty().set(String.format("Title: %d", entityId)); // NOI18N
         
-        return entity.writeTo();
+        return entity.writeTo().get();
     }
     
     /**

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Naoghuman's dream
+ * Copyright (C) 2018 - 2019 Naoghuman's dream
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ import javafx.beans.property.StringProperty;
  *
  * @since   0.3.0-PRERELEASE
  * @version 0.3.0-PRERELEASE
- * @author Naoghuman
+ * @author  Naoghuman
  */
 public class FXMLModelGenericPropertyTest {
     public static void main(String[] args) {

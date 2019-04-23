@@ -21,6 +21,7 @@ import com.github.naoghuman.lib.fxml.core.FXMLModel;
 import com.github.naoghuman.lib.fxml.core.FXMLRegisterable;
 import com.github.naoghuman.lib.fxml.core.FXMLView;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
+import java.util.Optional;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
@@ -74,8 +75,8 @@ public final class DemoAllInOnes extends Application implements FXMLRegisterable
         primaryStage.setTitle("Lib-FXML Demo: 'All in Ones' v0.3.0-PRERELEASE"); // NOI18N
         
         final DemoAllInOnesEntity entity = new DemoAllInOnesEntity();
-        final FXMLModel           model  = entity.writeTo();
-        view = FXMLView.create(DemoAllInOnesController.class, model);
+        final Optional<FXMLModel> model  = entity.writeTo();
+        view = FXMLView.create(DemoAllInOnesController.class, model.get());
         
         final Scene scene = new Scene(view.getRoot().orElse(new AnchorPane()), 1280, 720);
         primaryStage.setScene(scene);

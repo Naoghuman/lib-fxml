@@ -16,6 +16,8 @@
  */
 package com.github.naoghuman.lib.fxml.core;
 
+import java.util.Optional;
+
 /**
  *
  * @since   0.3.0-PRERELEASE
@@ -28,18 +30,22 @@ public interface FXMLModelable {
      * 
      * @param   model 
      * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0-PRERELEASE
      * @author  Naoghuman
      */
-    public void readFrom(final FXMLModel model);
+    public default void readFrom(final FXMLModel model) {
+        
+    };
     
     /**
      * 
      * @return 
      * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0-PRERELEASE
      * @author  Naoghuman
      */
-    public FXMLModel writeTo();
+    public default Optional<FXMLModel> writeTo() {
+        return Optional.empty();
+    };
     
 }
