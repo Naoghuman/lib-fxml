@@ -21,6 +21,7 @@ of the data flow to (in, from) the gui.
 
 
 #### Enhancement
+#78 [api] Extend the interface FXMLModelable with new methods.
 #77 [api] Switch methods in interface FXMLModelable to default methods.
 
 

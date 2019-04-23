@@ -39,12 +39,36 @@ public interface FXMLModelable {
     
     /**
      * 
+     * @param   key
+     * @param   model 
+     * @since   0.4.0-PRERELEASE
+     * @version 0.4.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public default void readFrom(final String key, final FXMLModel model) {
+        
+    };
+    
+    /**
+     * 
      * @return 
      * @since   0.3.0-PRERELEASE
      * @version 0.4.0-PRERELEASE
      * @author  Naoghuman
      */
     public default Optional<FXMLModel> writeTo() {
+        return Optional.empty();
+    };
+    
+    /**
+     * 
+     * @param   key
+     * @return 
+     * @since   0.4.0-PRERELEASE
+     * @version 0.4.0-PRERELEASE
+     * @author  Naoghuman
+     */
+    public default Optional<FXMLModel> writeTo(final String key) {
         return Optional.empty();
     };
     
