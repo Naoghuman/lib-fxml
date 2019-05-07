@@ -140,8 +140,8 @@ public final class FXMLModel {
      * @author  Naoghuman
      */
     public <T> Optional<T> getData(final Class<T> type, final String key) {
-        DefaultFXMLValidator.requireNonNullAndNotEmpty(key);
         DefaultFXMLValidator.requireNonNull(type);
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(key);
         
         Optional<T> value = Optional.empty();
         try {
