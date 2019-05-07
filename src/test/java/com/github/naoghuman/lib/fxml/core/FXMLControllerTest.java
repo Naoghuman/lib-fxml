@@ -89,6 +89,18 @@ public class FXMLControllerTest {
         assertTrue(instance.getModels().isEmpty());
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testGetModel__Class_throw_NullPointerException() {
+        FXMLController instance = new FXMLControllerImpl();
+        instance.getModel(null, 12321L);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testGetModel__Long_throw_NullPointerException() {
+        FXMLController instance = new FXMLControllerImpl();
+        instance.getModel(String.class, null);
+    }
+
     @Test
     public void testGetModel() {
         FXMLController instance = new FXMLControllerImpl();
