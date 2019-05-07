@@ -17,6 +17,7 @@ of the data flow to (in, from) the gui.
 
 
 #### Feature
+#12 [test] Add unittests for the abstract class 'FXMLController'.
 #11 [test] Add unittests for the class 'FXMLModel'.
 
 

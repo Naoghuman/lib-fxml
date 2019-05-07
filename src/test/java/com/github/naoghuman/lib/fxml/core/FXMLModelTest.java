@@ -23,7 +23,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- *
  * UnitTests to test the validator {@link com.github.naoghuman.lib.fxml.core.FXMLModel}.
  *
  * @since   0.4.0
