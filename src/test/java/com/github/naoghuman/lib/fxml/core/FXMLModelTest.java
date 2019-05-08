@@ -178,6 +178,78 @@ public class FXMLModelTest {
         instance.setEntity(String.class.getName(), null);
     }
     
+    @Test
+    public void testEquals_true() {
+        FXMLModel model1 = new FXMLModel();
+        model1.setEntity(String.class.getName(), -12345L);
+        
+        FXMLModel model2 = new FXMLModel();
+        model2.setEntity(String.class.getName(), -12345L);
+        
+        assertTrue(model1.equals(model2));
+        assertTrue(model2.equals(model1));
+    }
+    
+    @Test
+    public void testEquals_false_Name() {
+        FXMLModel model1 = new FXMLModel();
+        model1.setEntity(String.class.getName(), -12345L);
+        
+        FXMLModel model2 = new FXMLModel();
+        model2.setEntity(Double.class.getName(), -12345L);
+        
+        assertTrue(!model1.equals(model2));
+        assertTrue(!model2.equals(model1));
+    }
+    
+    @Test
+    public void testEquals_false_Id() {
+        FXMLModel model1 = new FXMLModel();
+        model1.setEntity(String.class.getName(), -12345L);
+        
+        FXMLModel model2 = new FXMLModel();
+        model2.setEntity(String.class.getName(), -12345678L);
+        
+        assertTrue(!model1.equals(model2));
+        assertTrue(!model2.equals(model1));
+    }
+    
+    @Test
+    public void testCompareTo_Equals() {
+        FXMLModel model1 = new FXMLModel();
+        model1.setEntity(String.class.getName(), -12345L);
+        
+        FXMLModel model2 = new FXMLModel();
+        model2.setEntity(String.class.getName(), -12345L);
+        
+        assertTrue(model1.compareTo(model2) == 0);
+        assertTrue(model2.compareTo(model1) == 0);
+    }
+    
+    @Test
+    public void testCompareTo_Not_Equals_Name() {
+        FXMLModel model1 = new FXMLModel();
+        model1.setEntity(String.class.getName(), -12345L);
+        
+        FXMLModel model2 = new FXMLModel();
+        model2.setEntity(Double.class.getName(), -12345L);
+        
+        assertTrue(model1.compareTo(model2) != 0);
+        assertTrue(model2.compareTo(model1) != 0);
+    }
+    
+    @Test
+    public void testCompareTo_Not_Equals_Id() {
+        FXMLModel model1 = new FXMLModel();
+        model1.setEntity(String.class.getName(), -12345L);
+        
+        FXMLModel model2 = new FXMLModel();
+        model2.setEntity(String.class.getName(), -1234234L);
+        
+        assertTrue(model1.compareTo(model2) != 0);
+        assertTrue(model2.compareTo(model1) != 0);
+    }
+    
     // TODO add testToString
     
 }

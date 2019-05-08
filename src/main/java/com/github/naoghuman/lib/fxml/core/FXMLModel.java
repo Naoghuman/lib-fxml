@@ -30,7 +30,7 @@ import java.util.Optional;
  * @version 0.1.0-PRERELEASE
  * @author  Naoghuman
  */
-public final class FXMLModel {
+public final class FXMLModel implements Comparable<FXMLModel> {
     
     /**
      * 
@@ -186,6 +186,47 @@ public final class FXMLModel {
         
         this.entityName = entityName;
         this.entityId   = entityId;
+    }
+
+    @Override
+    public int compareTo(final FXMLModel other) {
+        DefaultFXMLValidator.requireNonNull(other);
+        
+        int compareTo = this.entityName.compareTo(other.getEntityName());
+        if (compareTo == 0) {
+            compareTo = this.entityId.compareTo(other.getEntityId());
+        }
+        
+        return compareTo;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        
+        if (obj == null) {
+            return false;
+        }
+        
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        
+        final FXMLModel other = (FXMLModel) obj;
+        
+        return Objects.equals(this.entityId, other.entityId)
+                && Objects.equals(this.entityName, other.entityName);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.entityId);
+        hash = 89 * hash + Objects.hashCode(this.entityName);
+        
+        return hash;
     }
     
     @Override

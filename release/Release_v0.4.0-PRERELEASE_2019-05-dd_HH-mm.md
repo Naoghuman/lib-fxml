@@ -24,6 +24,7 @@ of the data flow to (in, from) the gui.
 
 #### Enhancement
 #85 [api] Change in FXMLModel the signature from 'entityType'.
+#84 [api] Add equals(), compareTo() and hashcode() methods to FXMLModel.
 #83 [api] Remove obsolete methods 'isSameEntity' with triple parameters in FXMLModel.
 #78 [api] Extend the interface FXMLModelable with new methods.
 #77 [api] Switch methods in interface FXMLModelable to default methods.
