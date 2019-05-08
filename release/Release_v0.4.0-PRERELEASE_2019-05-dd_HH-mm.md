@@ -41,6 +41,7 @@ of the data flow to (in, from) the gui.
 
 
 #### Refactoring
+#79 [doc] Typo in error message if a ResourceBundle can not found.
 
 
 

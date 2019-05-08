@@ -131,9 +131,9 @@ public final class FXMLView {
         try {
             resourceBundle = Optional.ofNullable(ResourceBundle.getBundle(baseBundleName));
         } catch (MissingResourceException ex) {
-            LoggerFacade.getDefault().debug(this.getClass(), 
+            LoggerFacade.getDefault().warn(this.getClass(), 
                     String.format(
-                            "Can't found a ResourceBundle with the specified 'base' name: %s", // NOI18N
+                            "Can't find a ResourceBundle with the specified 'base' name: %s. Skip loading from the ResourceBundle.", // NOI18N
                             baseBundleName));
         }
     }
