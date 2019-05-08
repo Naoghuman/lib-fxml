@@ -90,27 +90,33 @@ public class FXMLControllerTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testGetModel__Class_throw_NullPointerException() {
+    public void testGetModel__String_throw_NullPointerException() {
         FXMLController instance = new FXMLControllerImpl();
         instance.getModel(null, 12321L);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetModel__String_throw_IllegalArgumentException() {
+        FXMLController instance = new FXMLControllerImpl();
+        instance.getModel("", 12321L);
+    }
+    
     @Test(expected = NullPointerException.class)
     public void testGetModel__Long_throw_NullPointerException() {
         FXMLController instance = new FXMLControllerImpl();
-        instance.getModel(String.class, null);
+        instance.getModel(String.class.getName(), null);
     }
 
     @Test
     public void testGetModel() {
         FXMLController instance = new FXMLControllerImpl();
         FXMLModel model = new FXMLModel();
-        model.setMetadataEntity(String.class, 12321L);
+        model.setEntity(String.class.getName(), 12321L);
         instance.configure(model);
         
-        Optional<FXMLModel> result = instance.getModel(String.class, 12321L);
+        Optional<FXMLModel> result = instance.getModel(String.class.getName(), 12321L);
         assertTrue(result.isPresent());
-        assertTrue(result.get().isSameEntity(String.class, 12321L));
+        assertTrue(result.get().isSameEntity(String.class.getName(), 12321L));
     }
 
     @Test

@@ -50,20 +50,8 @@ public final class FXMLModel {
     
     private final HashMap<String, Object> data = new HashMap<>();
     
-    private Optional<Class>  entity    = Optional.empty();
-    private Optional<Long>   entityId  = Optional.empty();
-    
-    /**
-     * 
-     * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
-     * @author  Naoghuman
-     */
-    public void clearMetadata() {
-        // idea metadata is own hashmap
-        entity    = Optional.empty();
-        entityId  = Optional.empty();
-    }
+    private String entityName;
+    private Long   entityId;
     
     /**
      * 
@@ -76,27 +64,21 @@ public final class FXMLModel {
     }
     
     /**
+     * TODO compareTo
      * 
-     * @param entity
+     * @param entityName
      * @param entityId
      * @return 
      * @since   0.3.0-PRERELEASE
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public boolean isSameEntity(final Class entity, final Long entityId) {
-        DefaultFXMLValidator.requireNonNull(entity);
+    public boolean isSameEntity(final String entityName, final Long entityId) {
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(entityName);
         DefaultFXMLValidator.requireNonNull(entityId);
-        
-        if (
-                this.entity.isPresent()
-                && this.entityId.isPresent()
-        ) {
-            return this.entity.get().getName().equals(entity.getName())
-                    && Objects.equals(this.getMetadataEntityId().get(), entityId);
-        }
-        
-        return Boolean.FALSE;
+
+            return this.entityName.equals(entityName)
+                    && Objects.equals(entityId, entityId);
     }
     
     /**
@@ -145,8 +127,10 @@ public final class FXMLModel {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public Optional<Class> getMetadataEntity() {
-        return entity;
+    public String getEntityName() {
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(entityName);
+        
+        return entityName;
     }
     
     /**
@@ -156,7 +140,9 @@ public final class FXMLModel {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public Optional<Long> getMetadataEntityId() {
+    public Long getEntityId() {
+        DefaultFXMLValidator.requireNonNull(entityId);
+        
         return entityId;
     }
     
@@ -188,18 +174,18 @@ public final class FXMLModel {
     
     /**
      * 
-     * @param   entity 
+     * @param   entityName 
      * @param   entityId 
      * @since   0.3.0-PRERELEASE
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public void setMetadataEntity(final Class entity, final Long entityId) {
-        DefaultFXMLValidator.requireNonNull(entity);
+    public void setEntity(final String entityName, final Long entityId) {
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(entityName);
         DefaultFXMLValidator.requireNonNull(entityId);
         
-        this.entity   = Optional.of(entity);
-        this.entityId = Optional.of(entityId);
+        this.entityName = entityName;
+        this.entityId   = entityId;
     }
     
     @Override
@@ -207,34 +193,35 @@ public final class FXMLModel {
         final StringBuilder sb = new StringBuilder();
         sb.append("FXMLModel [\n"); // NOI18N
         
-        sb.append("  metadata [\n"); // NOI18N
-        sb.append("    entity    = ").append((entity.isPresent())    ? entity.get().getName() : "<not-defined>").append(",\n"); // NOI18N
-        sb.append("    entityId  = ").append((entityId.isPresent())  ? entityId.get()         : "<not-defined>").append(",\n"); // NOI18N
+        sb.append("  entity [\n"); // NOI18N
+        sb.append("    name = ").append((entityName != null) ? entityName : "<not-defined>").append(",\n"); // NOI18N
+        sb.append("    id   = ").append((entityId   != null) ? entityId   : "<not-defined>").append(",\n"); // NOI18N
         sb.append("  ],\n"); // NOI18N
         
         sb.append("  data [\n"); // NOI18N
         final Iterator<Map.Entry<String, Object>> iterator = data.entrySet().iterator();
-        if (!iterator.hasNext()) {
+        if (iterator.hasNext()) {
+            int maxLength = 0;
+            for(final String key : data.keySet()) {
+                maxLength = Math.max(maxLength, key.length());
+            }
+
+            final int elements = data.size();
+            int counter = 0;
+            while (iterator.hasNext()) {
+                final Map.Entry<String, Object> next = iterator.next();
+                final String key = next.getKey();
+                final Object value = next.getValue();
+
+                sb.append("    ").append(String.format("%-" + maxLength + "s", key)); // NOI18N
+                sb.append(" = ").append(value); // NOI18N
+
+                ++counter;
+                sb.append((counter < elements) ? ",\n" : "\n"); // NOI18N
+            }
+        }
+        else {
             sb.append("    <not-defined>\n"); // NOI18N
-        }
-        
-        int maxLength = 0;
-        for(final String key : data.keySet()) {
-            maxLength = Math.max(maxLength, key.length());
-        }
-        
-        final int elements = data.size();
-        int counter = 0;
-        while (iterator.hasNext()) {
-            final Map.Entry<String, Object> next = iterator.next();
-            final String key = next.getKey();
-            final Object value = next.getValue();
-            
-            sb.append("    ").append(String.format("%-" + maxLength + "s", key)); // NOI18N
-            sb.append(" = ").append(value); // NOI18N
-            
-            ++counter;
-            sb.append((counter < elements) ? ",\n" : "\n"); // NOI18N
         }
         
         sb.append("  ]\n"); // NOI18N

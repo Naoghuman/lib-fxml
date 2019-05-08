@@ -44,23 +44,6 @@ public class FXMLModelTest {
     }
 
     @Test
-    public void testClearMetadata() {
-        FXMLModel instance = new FXMLModel();
-        instance.setMetadataEntity(String.class, 123L);
-        
-        assertTrue(instance.getMetadataEntity().isPresent());
-        assertTrue(instance.getMetadataEntity().get().equals(String.class));
-        
-        assertTrue(instance.getMetadataEntityId().isPresent());
-        assertTrue(Objects.equals(instance.getMetadataEntityId().get(), 123L));
-        
-        instance.clearMetadata();
-        
-        assertTrue(!instance.getMetadataEntity().isPresent());
-        assertTrue(!instance.getMetadataEntityId().isPresent());
-    }
-
-    @Test
     public void testClearData() {
         FXMLModel instance = new FXMLModel();
         instance.putData("id", 12345L);
@@ -72,32 +55,12 @@ public class FXMLModelTest {
         assertTrue(instance.getData().isEmpty());
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testIsSameEntity_Class_Long__Class_throw_NullPointerException() {
-        FXMLModel instance = new FXMLModel();
-        
-        instance.setMetadataEntity(null, 1234L);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testIsSameEntity_Class_Long__Long_throw_NullPointerException() {
-        FXMLModel instance = new FXMLModel();
-        
-        instance.setMetadataEntity(String.class, null);
-    }
-
     @Test
     public void testIsSameEntity_Class_Long() {
         FXMLModel instance = new FXMLModel();
-        instance.setMetadataEntity(String.class, 1234L);
+        instance.setEntity(String.class.getName(), 1234L);
         
-        assertTrue(instance.getMetadataEntity().isPresent());
-        assertTrue(instance.getMetadataEntity().get().equals(String.class));
-        
-        assertTrue(instance.getMetadataEntityId().isPresent());
-        assertTrue(Objects.equals(instance.getMetadataEntityId().get(), 1234L));
-        
-        assertTrue(instance.isSameEntity(String.class, 1234L));
+        assertTrue(instance.isSameEntity("java.lang.String", 1234L));
     }
 
     @Test(expected = NullPointerException.class)
@@ -140,21 +103,21 @@ public class FXMLModelTest {
     }
 
     @Test
-    public void testGetMetadataEntity() {
+    public void testGetEntityName() {
         FXMLModel instance = new FXMLModel();
-        instance.setMetadataEntity(String.class, 234L);
+        instance.setEntity(String.class.getName(), 234L);
         
-        assertTrue(instance.getMetadataEntity().isPresent());
-        assertTrue(instance.getMetadataEntity().get().equals(String.class));
+        assertTrue(instance.getEntityName() != null);
+        assertTrue(instance.getEntityName().equals("java.lang.String"));
     }
 
     @Test
-    public void testGetMetadataEntityId() {
+    public void testGetEntityId() {
         FXMLModel instance = new FXMLModel();
-        instance.setMetadataEntity(String.class, 234L);
+        instance.setEntity(String.class.getName(), 234L);
         
-        assertTrue(instance.getMetadataEntityId().isPresent());
-        assertTrue(Objects.equals(instance.getMetadataEntityId().get(), 234L));
+        assertTrue(instance.getEntityId() != null);
+        assertTrue(Objects.equals(instance.getEntityId(), 234L));
     }
 
     @Test
@@ -195,31 +158,24 @@ public class FXMLModelTest {
     }
     
     @Test(expected = NullPointerException.class)
-    public void testSetMetadataEntity_Class_Long__Class_throw_NullPointerException() {
+    public void testSetEntity_String_Long__String_throw_NullPointerException() {
         FXMLModel instance = new FXMLModel();
         
-        instance.setMetadataEntity(null, 1234L);
+        instance.setEntity(null, 1234L);
     }
     
-    @Test(expected = NullPointerException.class)
-    public void testSetMetadataEntity_Class_Long__Long_throw_NullPointerException() {
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetEntity_String_Long__String_throw_IllegalArgumentException() {
         FXMLModel instance = new FXMLModel();
         
-        instance.setMetadataEntity(String.class, null);
+        instance.setEntity("", 1234L);
     }
 
-    @Test
-    public void testSetMetadataEntity_Class_Long() {
+    @Test(expected = NullPointerException.class)
+    public void testSetEntity_String_Long__Long_throw_NullPointerException() {
         FXMLModel instance = new FXMLModel();
-        instance.setMetadataEntity(String.class, 1234L);
         
-        assertTrue(instance.getMetadataEntity().isPresent());
-        assertTrue(instance.getMetadataEntity().get().equals(String.class));
-        
-        assertTrue(instance.getMetadataEntityId().isPresent());
-        assertTrue(Objects.equals(instance.getMetadataEntityId().get(), 1234L));
-        
-        assertTrue(instance.isSameEntity(String.class, 1234L));
+        instance.setEntity(String.class.getName(), null);
     }
     
     // TODO add testToString

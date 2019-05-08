@@ -205,7 +205,7 @@ public final class DemoAllInOnesController extends FXMLController implements FXM
         LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesController#onActionEntitySave(ActionEvent)"); // NOI18N
         
         final TextField           textField     = demoAllInOnesPreferencesWriter.getTextField(DemoAllInOnesPreferencesWriter.TEXT_FIELD__ENTITY_ID);
-        final Optional<FXMLModel> optionalModel = super.getModel(DemoAllInOnesEntity.class, Long.parseLong(textField.getText()));
+        final Optional<FXMLModel> optionalModel = super.getModel(DemoAllInOnesEntity.class.getName(), Long.parseLong(textField.getText()));
         optionalModel.ifPresent(model -> {
             FXMLAction.getDefault().handleConsumer(DemoAllInOnesSqlEntityProvider.ON_ACTION__SQL__ENTITY_SAVE, model);
         });
@@ -235,7 +235,7 @@ public final class DemoAllInOnesController extends FXMLController implements FXM
         LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesController#onActionPrintFXMLModelInfos(ActionEvent)"); // NOI18N
         
         final TextField           textField     = demoAllInOnesPreferencesWriter.getTextField(DemoAllInOnesPreferencesWriter.TEXT_FIELD__ENTITY_ID);
-        final Optional<FXMLModel> optionalModel = super.getModel(DemoAllInOnesEntity.class, Long.parseLong(textField.getText()));
+        final Optional<FXMLModel> optionalModel = super.getModel(DemoAllInOnesEntity.class.getName(), Long.parseLong(textField.getText()));
         optionalModel.ifPresent(model -> {
             System.out.println(model.toString());
         });

@@ -26,13 +26,13 @@ import javafx.beans.property.SimpleStringProperty;
  * @version 0.3.0-PRERELEASE
  * @author  Naoghuman
  */
-public class DemoFXMLModelMetadata {
+public class DemoFXMLModelEntity {
     
     public static void main(String[] args) {
         LoggerFacade.getDefault().info(DemoFXMLAction.class, "DemoFXMLModelMetadata#main(String[])"); // NOI18N
     
         final FXMLModel model = new FXMLModel();
-        model.setMetadataEntity(FXMLModel.class, System.currentTimeMillis());
+        model.setEntity(FXMLModel.class.getName(), System.currentTimeMillis());
         model.putData("string.property", new SimpleStringProperty("string.property")); // NOI18N
         
         System.out.println(model);

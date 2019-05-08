@@ -76,7 +76,7 @@ public final class DemoAllInOnesEntity implements FXMLModelable {
     @Override
     public Optional<FXMLModel> writeTo() {
         final FXMLModel model = new FXMLModel();
-        model.setMetadataEntity(this.getClass(), this.idProperty().get());
+        model.setEntity(this.getClass().getName(), this.idProperty().get());
         
         model.putData(ID,    this.idProperty());
         model.putData(TITLE, this.titleProperty());

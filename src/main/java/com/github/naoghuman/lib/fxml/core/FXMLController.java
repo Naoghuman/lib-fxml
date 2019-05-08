@@ -72,20 +72,20 @@ public abstract class FXMLController {
     
     /**
      * 
-     * @param   entity
+     * @param   entityName
      * @param   entityId
      * @return 
      * @since   0.1.0-PRERELEASE
      * @version 0.2.0-PRERELEASE
      * @author  Naoghuman
      */
-    public Optional<FXMLModel> getModel(final Class entity, final Long entityId) {
-        DefaultFXMLValidator.requireNonNull(entity);
+    public Optional<FXMLModel> getModel(final String entityName, final Long entityId) {
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(entityName);
         DefaultFXMLValidator.requireNonNull(entityId);
         
         final Optional<FXMLModel> fxmlModel = models.stream()
                 .filter(
-                        model -> model.isSameEntity(entity, entityId)
+                        model -> model.isSameEntity(entityName, entityId)
                 )
                 .findFirst();
         
