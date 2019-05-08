@@ -23,6 +23,7 @@ of the data flow to (in, from) the gui.
 
 
 #### Enhancement
+#83 [api] Remove obsolete methods 'isSameEntity' with triple parameters in FXMLModel.
 #78 [api] Extend the interface FXMLModelable with new methods.
 #77 [api] Switch methods in interface FXMLModelable to default methods.
 
@@ -50,6 +51,7 @@ Naoghuman
 
 
 [//]: # (Issues which will be integrated in this release)
+#13 [test] Add unittests for the class 'FXMLAction'.// feature
 
 
 

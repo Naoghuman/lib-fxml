@@ -52,7 +52,6 @@ public final class FXMLModel {
     
     private Optional<Class>  entity    = Optional.empty();
     private Optional<Long>   entityId  = Optional.empty();
-    private Optional<String> modelType = Optional.empty();
     
     /**
      * 
@@ -64,7 +63,6 @@ public final class FXMLModel {
         // idea metadata is own hashmap
         entity    = Optional.empty();
         entityId  = Optional.empty();
-        modelType = Optional.empty();
     }
     
     /**
@@ -96,34 +94,6 @@ public final class FXMLModel {
         ) {
             return this.entity.get().getName().equals(entity.getName())
                     && Objects.equals(this.getMetadataEntityId().get(), entityId);
-        }
-        
-        return Boolean.FALSE;
-    }
-    
-    /**
-     * 
-     * @param   entity
-     * @param   entityId
-     * @param   modelType
-     * @return 
-     * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
-     * @author  Naoghuman
-     */
-    public boolean isSameEntity(final Class entity, final Long entityId, final String modelType) {
-        DefaultFXMLValidator.requireNonNull(entity);
-        DefaultFXMLValidator.requireNonNull(entityId);
-        DefaultFXMLValidator.requireNonNullAndNotEmpty(modelType);
-        
-        if (
-                this.entity.isPresent()
-                && this.entityId.isPresent()
-                && this.modelType.isPresent()
-        ) {
-            return this.entity.get().getName().equals(entity.getName())
-                    && Objects.equals(this.getMetadataEntityId().get(), entityId)
-                    && this.modelType.get().equals(modelType);
         }
         
         return Boolean.FALSE;
@@ -193,17 +163,6 @@ public final class FXMLModel {
     /**
      * 
      * @return 
-     * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
-     * @author  Naoghuman
-     */
-    public Optional<String> getMetadataModelType() {
-        return modelType;
-    }
-    
-    /**
-     * 
-     * @return 
      * @since   0.1.0-PRERELEASE
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
@@ -243,25 +202,6 @@ public final class FXMLModel {
         this.entityId = Optional.of(entityId);
     }
     
-    /**
-     * 
-     * @param   entity 
-     * @param   entityId 
-     * @param   modelType 
-     * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
-     * @author  Naoghuman
-     */
-    public void setMetadataEntity(final Class entity, final Long entityId, final String modelType) {
-        DefaultFXMLValidator.requireNonNull(entity);
-        DefaultFXMLValidator.requireNonNull(entityId);
-        DefaultFXMLValidator.requireNonNullAndNotEmpty(modelType);
-        
-        this.entity    = Optional.of(entity);
-        this.entityId  = Optional.of(entityId);
-        this.modelType = Optional.of(modelType);
-    }
-    
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
@@ -270,7 +210,6 @@ public final class FXMLModel {
         sb.append("  metadata [\n"); // NOI18N
         sb.append("    entity    = ").append((entity.isPresent())    ? entity.get().getName() : "<not-defined>").append(",\n"); // NOI18N
         sb.append("    entityId  = ").append((entityId.isPresent())  ? entityId.get()         : "<not-defined>").append(",\n"); // NOI18N
-        sb.append("    modelType = ").append((modelType.isPresent()) ? modelType.get()        : "<not-defined>").append(",\n"); // NOI18N
         sb.append("  ],\n"); // NOI18N
         
         sb.append("  data [\n"); // NOI18N
