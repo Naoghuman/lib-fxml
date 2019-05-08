@@ -21,6 +21,7 @@ import com.github.naoghuman.lib.fxml.core.FXMLModel;
 import com.github.naoghuman.lib.fxml.core.FXMLRegisterable;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import java.util.List;
+import java.util.Optional;
 import javafx.collections.FXCollections;
 
 /**
@@ -101,8 +102,10 @@ public class DemoFXMLAction implements FXMLRegisterable {
         
         // Execute the registered action ON_ACTION__LOAD_ENTITY_FROM_DATABASE which 
         // will then execute the registerd method :)) here in DemoFXMLAction.
-        final FXMLModel entity = FXMLAction.getDefault().handleFunction(ON_ACTION__LOAD_ENTITY_FROM_DATABASE, 987654321L);
-        System.out.println(entity.toString());
+        final Optional<FXMLModel> model = FXMLAction.getDefault().handleFunction(ON_ACTION__LOAD_ENTITY_FROM_DATABASE, 987654321L);
+        model.ifPresent(entity -> {
+            System.out.println(entity.toString());
+        });
         
     }
     
@@ -115,11 +118,13 @@ public class DemoFXMLAction implements FXMLRegisterable {
     void onActionLoadEntitiesFromDatabase() {
         LoggerFacade.getDefault().debug(DemoFXMLAction.class, "DemoFXMLAction#onActionLoadEntitiesFromDatabase()"); // NOI18N
 
-        final List<FXMLModel> entities = FXMLAction.getDefault().handleSupplier(ON_ACTION__LOAD_ENTITIES_FROM_DATABASE);
-        entities.stream()
+        final Optional<List<FXMLModel>> models = FXMLAction.getDefault().handleSupplier(ON_ACTION__LOAD_ENTITIES_FROM_DATABASE);
+        models.ifPresent(entities -> {
+            entities.stream()
                 .forEach(entity -> {
                     System.out.println(entity.toString());
                 });
+        });
     }
     
     /**

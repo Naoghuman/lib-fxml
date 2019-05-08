@@ -176,8 +176,10 @@ public final class DemoAllInOnesController extends FXMLController implements FXM
             entityId = Long.parseLong(strId);
         }
         
-        final FXMLModel modelFromDatabase = FXMLAction.getDefault().handleFunction(DemoAllInOnesSqlEntityProvider.ON_ACTION__SQL__ENTITY_LOAD, entityId);
-        this.configure(modelFromDatabase);
+        final Optional<FXMLModel> modelFromDatabase = FXMLAction.getDefault().handleFunction(DemoAllInOnesSqlEntityProvider.ON_ACTION__SQL__ENTITY_LOAD, entityId);
+        modelFromDatabase.ifPresent(model -> {
+            this.configure(model);
+        });
     }
     
     /**
@@ -190,8 +192,10 @@ public final class DemoAllInOnesController extends FXMLController implements FXM
     public void onActionEntityNew(final ActionEvent event) {
         LoggerFacade.getDefault().debug(this.getClass(), "DemoAllInOnesController#onActionEntityNew(ActionEvent)"); // NOI18N
         
-        final FXMLModel modelFromDatabase = FXMLAction.getDefault().handleFunction(DemoAllInOnesSqlEntityProvider.ON_ACTION__SQL__ENTITY_LOAD, DemoAllInOnesSqlEntityProvider.DEFAULT_ID);
-        this.configure(modelFromDatabase);
+        final Optional<FXMLModel> modelFromDatabase = FXMLAction.getDefault().handleFunction(DemoAllInOnesSqlEntityProvider.ON_ACTION__SQL__ENTITY_LOAD, DemoAllInOnesSqlEntityProvider.DEFAULT_ID);
+        modelFromDatabase.ifPresent(model -> {
+            this.configure(model);
+        });
     }
     
     /**

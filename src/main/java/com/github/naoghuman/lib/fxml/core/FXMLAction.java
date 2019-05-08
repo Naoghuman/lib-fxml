@@ -138,20 +138,19 @@ public final class FXMLAction {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public FXMLModel handleFunction(final String actionId, final Long entityId) {
+    public Optional<FXMLModel> handleFunction(final String actionId, final Long entityId) {
         LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#handleFunction(String, Long)"); // NOI18N
         
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         DefaultFXMLValidator.requireNonNull(entityId);
         
-        if (!this.isRegistered(actionId)) {
-            throw new IllegalArgumentException(String.format(ERROR_MSG__ACTION_ID_ISNT_REGISTERED, actionId));
+        Optional<FXMLModel> model = Optional.empty();
+        if (this.isRegistered(actionId)) {
+            final Function<Long, FXMLModel> function = FUNCTIONS.get(actionId);
+            model = Optional.ofNullable(function.apply(entityId));
         }
         
-        final Function<Long, FXMLModel> function = FUNCTIONS.get(actionId);
-        DefaultFXMLValidator.requireNonNull(function);
-        
-        return function.apply(entityId);
+        return model;
     }
     
     /**
@@ -162,19 +161,18 @@ public final class FXMLAction {
      * @version 0.3.0-PRERELEASE
      * @author  Naoghuman
      */
-    public List<FXMLModel> handleSupplier(final String actionId) {
+    public Optional<List<FXMLModel>> handleSupplier(final String actionId) {
         LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#handleSupplier(String)"); // NOI18N
         
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         
-        if (!this.isRegistered(actionId)) {
-            throw new IllegalArgumentException(String.format(ERROR_MSG__ACTION_ID_ISNT_REGISTERED, actionId));
+        Optional<List<FXMLModel>> models = Optional.empty();
+        if (this.isRegistered(actionId)) {
+            final Supplier<List<FXMLModel>> supplier = SUPPLIERS.get(actionId);
+            models = Optional.ofNullable(supplier.get());
         }
         
-        final Supplier<List<FXMLModel>> supplier = SUPPLIERS.get(actionId);
-        DefaultFXMLValidator.requireNonNull(supplier);
-        
-        return supplier.get();
+        return models;
     }
     
     /**
