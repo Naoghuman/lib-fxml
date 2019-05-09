@@ -30,17 +30,15 @@ import javafx.event.EventHandler;
 /**
  *
  * @since   0.3.0-PRERELEASE
- * @version 0.3.0-PRERELEASE
+ * @version 0.4.0
  * @author  Naoghuman
  */
 public final class FXMLAction {
     
-    private final static HashMap<String, Consumer<FXMLModel>>       CONSUMERS     = new HashMap();
-    private final static HashMap<String, EventHandler<ActionEvent>> EVENTHANDLERS = new HashMap();
-    private final static HashMap<String, Function<Long, FXMLModel>> FUNCTIONS     = new HashMap();
-    private final static HashMap<String, Supplier<List<FXMLModel>>> SUPPLIERS     = new HashMap();
-    
-    private final static String ERROR_MSG__ACTION_ID_ISNT_REGISTERED = "Error: The [actionId=%s] isn't registerd!"; // NOI18N
+    private final static HashMap<String, Consumer<FXMLModel>>       MAP_CONSUMERS     = new HashMap<>();
+    private final static HashMap<String, EventHandler<ActionEvent>> MAP_EVENTHANDLERS = new HashMap<>();
+    private final static HashMap<String, Function<Long, FXMLModel>> MAP_FUNCTIONS     = new HashMap<>();
+    private final static HashMap<String, Supplier<List<FXMLModel>>> MAP_SUPPLIERS     = new HashMap<>();
     
     private static final Optional<FXMLAction> INSTANCE = Optional.of(new FXMLAction());
     
@@ -48,7 +46,7 @@ public final class FXMLAction {
      * 
      * @return 
      * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
      */
     public static final FXMLAction getDefault() {
@@ -62,8 +60,10 @@ public final class FXMLAction {
     /**
      * 
      * @param   actionId
+     * @throws  NullPointerException     if {@code actionId} is NULL.
+     * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
      * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
      */
     public void handleAction(final String actionId) {
@@ -71,22 +71,20 @@ public final class FXMLAction {
         
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         
-        if (!this.isRegistered(actionId)) {
-            throw new IllegalArgumentException(String.format(ERROR_MSG__ACTION_ID_ISNT_REGISTERED, actionId));
+        if (this.isRegistered(FXMLAction.Type.EVENTHANDLERS, actionId)) {
+            this.handleAction(actionId, ActionEvent.NULL_SOURCE_TARGET);
         }
-        
-        final EventHandler<ActionEvent> eventHandler = EVENTHANDLERS.get(actionId);
-        DefaultFXMLValidator.requireNonNull(eventHandler);
-        
-        eventHandler.handle(new ActionEvent());
     }
     
     /**
      * 
      * @param   actionId
      * @param   source 
+     * @throws  NullPointerException     if {@code actionId} is NULL.
+     * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
+     * @throws  NullPointerException     if {@code source}   is NULL.
      * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
      */
     public void handleAction(final String actionId, final Object source) {
@@ -95,22 +93,21 @@ public final class FXMLAction {
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         DefaultFXMLValidator.requireNonNull(source);
         
-        if (!this.isRegistered(actionId)) {
-            throw new IllegalArgumentException(String.format(ERROR_MSG__ACTION_ID_ISNT_REGISTERED, actionId));
+        if (this.isRegistered(FXMLAction.Type.EVENTHANDLERS, actionId)) {
+            final EventHandler<ActionEvent> eventHandler = MAP_EVENTHANDLERS.get(actionId);
+            eventHandler.handle(new ActionEvent(source, ActionEvent.NULL_SOURCE_TARGET));
         }
-        
-        final EventHandler<ActionEvent> eventHandler = EVENTHANDLERS.get(actionId);
-        DefaultFXMLValidator.requireNonNull(eventHandler);
-        
-        eventHandler.handle(new ActionEvent(source, null));
     }
     
     /**
      * 
      * @param   actionId
      * @param   model 
+     * @throws  NullPointerException     if {@code actionId} is NULL.
+     * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
+     * @throws  NullPointerException     if {@code model}    is NULL.
      * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
      */
     public void handleConsumer(final String actionId, final FXMLModel model) {
@@ -119,23 +116,22 @@ public final class FXMLAction {
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         DefaultFXMLValidator.requireNonNull(model);
         
-        if (!this.isRegistered(actionId)) {
-            throw new IllegalArgumentException(String.format(ERROR_MSG__ACTION_ID_ISNT_REGISTERED, actionId));
+        if (this.isRegistered(FXMLAction.Type.CONSUMERS, actionId)) {
+            final Consumer<FXMLModel> consumer = MAP_CONSUMERS.get(actionId);
+            consumer.accept(model);
         }
-        
-        final Consumer<FXMLModel> consumer = CONSUMERS.get(actionId);
-        DefaultFXMLValidator.requireNonNull(consumer);
-        
-        consumer.accept(model);
     }
     
     /**
      * 
      * @param   actionId
      * @param   entityId
+     * @throws  NullPointerException     if {@code actionId} is NULL.
+     * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
+     * @throws  NullPointerException     if {@code entityId} is NULL.
      * @return 
      * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
      */
     public Optional<FXMLModel> handleFunction(final String actionId, final Long entityId) {
@@ -145,8 +141,8 @@ public final class FXMLAction {
         DefaultFXMLValidator.requireNonNull(entityId);
         
         Optional<FXMLModel> model = Optional.empty();
-        if (this.isRegistered(actionId)) {
-            final Function<Long, FXMLModel> function = FUNCTIONS.get(actionId);
+        if (this.isRegistered(FXMLAction.Type.FUNCTIONS, actionId)) {
+            final Function<Long, FXMLModel> function = MAP_FUNCTIONS.get(actionId);
             model = Optional.ofNullable(function.apply(entityId));
         }
         
@@ -157,18 +153,20 @@ public final class FXMLAction {
      * 
      * @param   actionId
      * @return 
+     * @throws  NullPointerException     if {@code actionId} is NULL.
+     * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
      * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
      */
     public Optional<List<FXMLModel>> handleSupplier(final String actionId) {
         LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#handleSupplier(String)"); // NOI18N
         
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
-        
+
         Optional<List<FXMLModel>> models = Optional.empty();
-        if (this.isRegistered(actionId)) {
-            final Supplier<List<FXMLModel>> supplier = SUPPLIERS.get(actionId);
+        if (this.isRegistered(FXMLAction.Type.SUPPLIERS, actionId)) {
+            final Supplier<List<FXMLModel>> supplier = MAP_SUPPLIERS.get(actionId);
             models = Optional.ofNullable(supplier.get());
         }
         
@@ -177,29 +175,42 @@ public final class FXMLAction {
     
     /**
      * 
+     * @param   type
      * @param   actionId
      * @return 
+     * @throws  NullPointerException     if {@code type}     is NULL.
+     * @throws  NullPointerException     if {@code actionId} is NULL.
+     * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
      * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
      */
-    public boolean isRegistered(final String actionId) {
-        LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#isRegistered(String)"); // NOI18N
-        
+    public boolean isRegistered(final FXMLAction.Type type, final String actionId) {
+        LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#isRegistered(FXMLAction.Type, String)"); // NOI18N
+
+        DefaultFXMLValidator.requireNonNull(type);
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         
-        return CONSUMERS.containsKey(actionId)
-                || EVENTHANDLERS.containsKey(actionId)
-                || FUNCTIONS.containsKey(actionId)
-                || SUPPLIERS.containsKey(actionId);
+        boolean isRegistered = false;
+        switch(type) {
+            case CONSUMERS:     { isRegistered = MAP_CONSUMERS.containsKey(    actionId); break; }
+            case EVENTHANDLERS: { isRegistered = MAP_EVENTHANDLERS.containsKey(actionId); break; }
+            case FUNCTIONS:     { isRegistered = MAP_FUNCTIONS.containsKey(    actionId); break; }
+            case SUPPLIERS:     { isRegistered = MAP_SUPPLIERS.containsKey(    actionId); break; }
+        }
+        
+        return isRegistered;
     }
     
     /**
      * 
      * @param   actionId
      * @param   consumer
+     * @throws  NullPointerException     if {@code actionId} is NULL.
+     * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
+     * @throws  NullPointerException     if {@code consumer} is NULL.
      * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
      */
     public void register(final String actionId, final Consumer<FXMLModel> consumer) {
@@ -208,15 +219,18 @@ public final class FXMLAction {
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         DefaultFXMLValidator.requireNonNull(consumer);
         
-        CONSUMERS.put(actionId, consumer);
+        MAP_CONSUMERS.put(actionId, consumer);
     }
     
     /**
      * 
      * @param   actionId
      * @param   eventHandler
+     * @throws  NullPointerException     if {@code actionId}     is NULL.
+     * @throws  IllegalArgumentException if {@code actionId}     is EMPTY.
+     * @throws  NullPointerException     if {@code eventHandler} is NULL.
      * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
      */
     public void register(final String actionId, final EventHandler<ActionEvent> eventHandler) {
@@ -225,15 +239,18 @@ public final class FXMLAction {
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         DefaultFXMLValidator.requireNonNull(eventHandler);
         
-        EVENTHANDLERS.put(actionId, eventHandler);
+        MAP_EVENTHANDLERS.put(actionId, eventHandler);
     }
 
     /**
      * 
      * @param   actionId
      * @param   function
+     * @throws  NullPointerException     if {@code actionId} is NULL.
+     * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
+     * @throws  NullPointerException     if {@code function} is NULL.
      * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
      */
     public void register(final String actionId, final Function<Long, FXMLModel> function) {
@@ -242,15 +259,18 @@ public final class FXMLAction {
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         DefaultFXMLValidator.requireNonNull(function);
         
-        FUNCTIONS.put(actionId, function);
+        MAP_FUNCTIONS.put(actionId, function);
     }
 
     /**
      * 
      * @param   actionId
      * @param   supplier
+     * @throws  NullPointerException     if {@code actionId} is NULL.
+     * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
+     * @throws  NullPointerException     if {@code supplier} is NULL.
      * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
      */
     public void register(final String actionId, final Supplier<List<FXMLModel>> supplier) {
@@ -259,48 +279,74 @@ public final class FXMLAction {
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         DefaultFXMLValidator.requireNonNull(supplier);
         
-        SUPPLIERS.put(actionId, supplier);
+        MAP_SUPPLIERS.put(actionId, supplier);
     }
     
     /**
      * 
+     * @param   type 
      * @param   actionId 
+     * @throws  NullPointerException     if {@code type}     is NULL.
+     * @throws  NullPointerException     if {@code actionId} is NULL.
+     * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
      * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
      */
-    public void remove(final String actionId) {
-        LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#remove(String)"); // NOI18N
-        
+    public void remove(final FXMLAction.Type type, final String actionId) {
+        LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#remove(FXMLAction.Type, String)"); // NOI18N
+
+        DefaultFXMLValidator.requireNonNull(type);
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         
-        if (CONSUMERS.containsKey(actionId)) {
-            LoggerFacade.getDefault().debug(FXMLAction.class, String.format(
-                    "Remove 'Consumer<FXMLModel>' with [actionId]: %s", actionId)); // NOI18N
-            
-            CONSUMERS.remove(actionId);
+        switch(type) {
+            case CONSUMERS:     { MAP_CONSUMERS.entrySet().stream().filter(    c -> MAP_CONSUMERS.containsKey(actionId)    ).forEach(c -> MAP_CONSUMERS.remove(actionId));     break; }
+            case EVENTHANDLERS: { MAP_EVENTHANDLERS.entrySet().stream().filter(e -> MAP_EVENTHANDLERS.containsKey(actionId)).forEach(e -> MAP_EVENTHANDLERS.remove(actionId)); break; }
+            case FUNCTIONS:     { MAP_FUNCTIONS.entrySet().stream().filter(    f -> MAP_FUNCTIONS.containsKey(actionId)    ).forEach(f -> MAP_FUNCTIONS.remove(actionId));     break; }
+            case SUPPLIERS:     { MAP_SUPPLIERS.entrySet().stream().filter(    s -> MAP_SUPPLIERS.containsKey(actionId)    ).forEach(s -> MAP_SUPPLIERS.remove(actionId));     break; }
         }
+    }
+    
+    /**
+     * 
+     * @since   0.4.0
+     * @version 0.4.0
+     * @author  Naoghuman
+     */
+    public enum Type {
         
-        if (EVENTHANDLERS.containsKey(actionId)) {
-            LoggerFacade.getDefault().debug(FXMLAction.class, String.format(
-                    "Remove 'EventHandler<ActionEvent>' with [actionId]: %s", actionId)); // NOI18N
-            
-            EVENTHANDLERS.remove(actionId);
-        }
+        /**
+         * 
+         * @since   0.4.0
+         * @version 0.4.0
+         * @author  Naoghuman
+         */
+        CONSUMERS,
         
-        if (FUNCTIONS.containsKey(actionId)) {
-            LoggerFacade.getDefault().debug(FXMLAction.class, String.format(
-                    "Remove 'Function<Long, FXMLModel>' with [actionId]: %s", actionId)); // NOI18N
-            
-            FUNCTIONS.remove(actionId);
-        }
+        /**
+         * 
+         * @since   0.4.0
+         * @version 0.4.0
+         * @author  Naoghuman
+         */
+        EVENTHANDLERS,
         
-        if (SUPPLIERS.containsKey(actionId)) {
-            LoggerFacade.getDefault().debug(FXMLAction.class, String.format(
-                    "Remove 'Supplier<List<FXMLModel>>' with [actionId]: %s", actionId)); // NOI18N
-            
-            SUPPLIERS.remove(actionId);
-        }
+        /**
+         * 
+         * @since   0.4.0
+         * @version 0.4.0
+         * @author  Naoghuman
+         */
+        FUNCTIONS,
+        
+        /**
+         * 
+         * @since   0.4.0
+         * @version 0.4.0
+         * @author  Naoghuman
+         */
+        SUPPLIERS;
+        
     }
     
 }
