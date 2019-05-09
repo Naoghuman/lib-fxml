@@ -38,6 +38,7 @@ of the data flow to (in, from) the gui.
 
 #### Documentation
 #89 [doc] Update the JavaDoc from the class 'DefaultFXMLValidator'.
+#82 [doc] Write JavaDoc for the class 'FXMLRegisterable'.
 #34 [doc] Write JavaDoc for the package 'com.github.naoghuman.lib.fxml.internal'.
 #33 [doc] Write JavaDoc for the package 'com.github.naoghuman.lib.fxml.core'.
 

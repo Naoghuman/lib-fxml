@@ -17,18 +17,29 @@
 package com.github.naoghuman.lib.fxml.core;
 
 /**
+ * The {@code FXMLRegisterable} interface provides by convention a #register() 
+ * method, which can be used, for example, to register various action methods.
+ * 
+ * For more informations about using action methods in {@code Lib-FXML} 
+ * see {@link com.github.naoghuman.lib.fxml.core.FXMLAction}.
  *
  * @since   0.3.0-PRERELEASE
- * @version 0.3.0-PRERELEASE
+ * @version 0.4.0
  * @author  Naoghuman
+ * @see     com.github.naoghuman.lib.fxml.core.FXMLAction
  */
 public interface FXMLRegisterable {
     
     /**
+     * Allows the registration of, for example, different action methods by convention.
+     * 
+     * For more informations about using action methods in {@code Lib-FXML} 
+     * see {@link com.github.naoghuman.lib.fxml.core.FXMLAction}.
      * 
      * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
+     * @see     com.github.naoghuman.lib.fxml.core.FXMLAction
      */
     public void register();
     
