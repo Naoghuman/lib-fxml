@@ -15,9 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
+ * The {@code internal} package from the {@code Lib-FXML} library contains all the 
+ * internal functions of this library. For convention reasons, the features of this 
+ * package should not be used directly by the developer.
  * 
  * @since   0.1.0-PRERELEASE
- * @version 0.1.0-PRERELEASE
+ * @version 0.4.0
  * @author  Naoghuman
  */
 package com.github.naoghuman.lib.fxml.internal;
