@@ -15,9 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
+ * The {@code core} package from the {@code Lib-FXML} library contains all the officially 
+ * supported features of this library.
+ * 
+ * The library covers 2 main areas:
+ * <ul>
+ * <li>Simplifying the loading of {@code JavaFX} relevant files (model, view, controller, .fxml, .css, .properties) and</li>
+ * <li>offering a standardized handling of the data flow to, in and from the GUI.</li>
+ * </ul>
  * 
  * @since   0.1.0-PRERELEASE
- * @version 0.1.0-PRERELEASE
+ * @version 0.4.0
  * @author  Naoghuman
+ * @see     com.github.naoghuman.lib.fxml.core.FXMLView
  */
 package com.github.naoghuman.lib.fxml.core;
