@@ -19,11 +19,15 @@ package com.github.naoghuman.lib.fxml.internal;
 import java.util.Objects;
 
 /**
- * An implementation from different {@code validation} methods to check preconditions 
- * in the topic from this library {@code Lib-FXML}.
+ * This class includes an implementation of various {@code validation} methods to 
+ * test for minimal assumptions in the context of this library.
+ * 
+ * In general, all {@ code} parameters are checked for minimal conditions by all 
+ * functions in this library. For example, a {@code string} can not be {@code NULL} 
+ * or {@code EMPTY}.
  * 
  * @since   0.1.0-PRERELEASE
- * @version 0.1.0-PRERELEASE
+ * @version 0.4.0
  * @author  Naoghuman
  */
 public final class DefaultFXMLValidator {
@@ -82,7 +86,7 @@ public final class DefaultFXMLValidator {
     }
     
     /**
-     * Validates if the attribute {@code value} isn't {@code NULL} and not {@code EMPTY}.
+     * Validates if the attribute {@code value} isn't {@code NULL} or {@code EMPTY}.
      * <p>
      * Adds following additional error messages depending from the error to the error stack:
      * <ul>
