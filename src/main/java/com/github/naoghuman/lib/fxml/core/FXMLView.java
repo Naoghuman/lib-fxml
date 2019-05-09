@@ -47,7 +47,7 @@ public final class FXMLView {
      * @author  Naoghuman
      */
     public static FXMLView create(final Class<? extends FXMLController> controller) {
-        return FXMLView.create(controller, FXMLModel.EMPTY);
+        return FXMLView.create(controller, new FXMLModel());
     }
     
     /**

@@ -116,7 +116,10 @@ public class FXMLControllerTest {
         
         Optional<FXMLModel> result = instance.getModel(String.class.getName(), 12321L);
         assertTrue(result.isPresent());
-        assertTrue(result.get().isSameEntity(String.class.getName(), 12321L));
+        
+        FXMLModel model2 = new FXMLModel();
+        model2.setEntity(String.class.getName(), 12321L);
+        assertTrue(result.get().equals(model2));
     }
 
     @Test

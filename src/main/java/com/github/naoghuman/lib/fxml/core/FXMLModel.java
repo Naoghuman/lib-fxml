@@ -25,38 +25,23 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
+ * source-code changes
  * 
  * @since   0.1.0-PRERELEASE
- * @version 0.1.0-PRERELEASE
+ * @version 0.4.0
  * @author  Naoghuman
  */
 public final class FXMLModel implements Comparable<FXMLModel> {
     
-    /**
-     * 
-     * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
-     * @author  Naoghuman
-     */
-    public static final Long DEFAULT_ENTITY_ID = -1L;
-    
-    /**
-     * 
-     * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
-     * @author  Naoghuman
-     */
-    public static final FXMLModel EMPTY = new FXMLModel();
-    
     private final HashMap<String, Object> data = new HashMap<>();
     
-    private String entityName;
-    private Long   entityId;
+    private String entityName = "<not-defined>"; // NOI18N
+    private Long   entityId   = -1L;
     
     /**
      * 
      * @since   0.1.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
      */
     public void clearData() {
@@ -64,56 +49,41 @@ public final class FXMLModel implements Comparable<FXMLModel> {
     }
     
     /**
-     * TODO compareTo
-     * 
-     * @param entityName
-     * @param entityId
-     * @return 
-     * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
-     * @author  Naoghuman
-     */
-    public boolean isSameEntity(final String entityName, final Long entityId) {
-        DefaultFXMLValidator.requireNonNullAndNotEmpty(entityName);
-        DefaultFXMLValidator.requireNonNull(entityId);
-
-            return this.entityName.equals(entityName)
-                    && Objects.equals(entityId, entityId);
-    }
-    
-    /**
      * 
      * @param   <T>
-     * @param   type
+     * @param   dataType
      * @param   key
      * @return 
+     * @throws  NullPointerException     if {@code dataType} is NULL.
+     * @throws  NullPointerException     if {@code key} is NULL.
+     * @throws  IllegalArgumentException if {@code key} is EMPTY.
      * @since   0.1.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
      */
-    public <T> Optional<T> getData(final Class<T> type, final String key) {
-        DefaultFXMLValidator.requireNonNull(type);
+    public <T> Optional<T> getData(final Class<T> dataType, final String key) {
+        DefaultFXMLValidator.requireNonNull(dataType);
         DefaultFXMLValidator.requireNonNullAndNotEmpty(key);
         
-        Optional<T> value = Optional.empty();
+        T value = null;
         try {
-            value = Optional.ofNullable(type.cast(data.get(key)));
+            value = dataType.cast(data.get(key));
         } catch (Exception ex) {
             LoggerFacade.getDefault().warn(this.getClass(), 
                     String.format(
                             "Can't cast the 'value' from 'key=%s' to 'Optional<T>=%s'. Return Optional.empty().", // NOI18N
-                            key, type.getName()), 
+                            key, dataType.getName()), 
                     ex);
         }
         
-        return value;
+        return Optional.ofNullable(value);
     }
     
     /**
      * 
      * @return 
      * @since   0.1.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
      */
     public HashMap<String, Object> getData() {
@@ -122,9 +92,11 @@ public final class FXMLModel implements Comparable<FXMLModel> {
     
     /**
      * 
-     * @return 
+     * @return  the {@code name} from the defined {@code entity}.
+     * @throws  NullPointerException     if {@code entityName} is NULL.
+     * @throws  IllegalArgumentException if {@code entityName} is EMPTY.
      * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
      */
     public String getEntityName() {
@@ -135,9 +107,10 @@ public final class FXMLModel implements Comparable<FXMLModel> {
     
     /**
      * 
-     * @return 
+     * @return  the {@code id} from the defined {@code entity}.
+     * @throws  NullPointerException if {@code entityId} is NULL.
      * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
      */
     public Long getEntityId() {
@@ -148,9 +121,9 @@ public final class FXMLModel implements Comparable<FXMLModel> {
     
     /**
      * 
-     * @return 
+     * @return  {@code TRUE} if no data exists otherwise {@code FALSE}.
      * @since   0.1.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
      */
     public boolean isDataEmpty() {
@@ -161,8 +134,11 @@ public final class FXMLModel implements Comparable<FXMLModel> {
      * 
      * @param   key
      * @param   value 
+     * @throws  NullPointerException     if {@code key}   is NULL.
+     * @throws  IllegalArgumentException if {@code key}   is EMPTY.
+     * @throws  NullPointerException     if {@code value} is NULL.
      * @since   0.1.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
      */
     public void putData(final String key, final Object value) {
@@ -174,10 +150,13 @@ public final class FXMLModel implements Comparable<FXMLModel> {
     
     /**
      * 
-     * @param   entityName 
-     * @param   entityId 
+     * @param   entityName the {@code name} from the defined {@code entity}.
+     * @param   entityId   the {@code id} from the defined {@code entity}.
+     * @throws  NullPointerException     if {@code entityName} is NULL.
+     * @throws  IllegalArgumentException if {@code entityName} is EMPTY.
+     * @throws  NullPointerException     if {@code entityId}   is NULL.
      * @since   0.3.0-PRERELEASE
-     * @version 0.3.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
      */
     public void setEntity(final String entityName, final Long entityId) {
@@ -187,82 +166,80 @@ public final class FXMLModel implements Comparable<FXMLModel> {
         this.entityName = entityName;
         this.entityId   = entityId;
     }
-
+    
     @Override
     public int compareTo(final FXMLModel other) {
-        DefaultFXMLValidator.requireNonNull(other);
-        
-        int compareTo = this.entityName.compareTo(other.getEntityName());
+        int compareTo = this.getEntityName().compareTo(other.getEntityName());
         if (compareTo == 0) {
-            compareTo = this.entityId.compareTo(other.getEntityId());
+            compareTo = this.getEntityId().compareTo(other.getEntityId());
         }
         
         return compareTo;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
-        
         if (obj == null) {
             return false;
         }
         
-        if (getClass() != obj.getClass()) {
+        if (this.getClass() != obj.getClass()) {
             return false;
         }
         
         final FXMLModel other = (FXMLModel) obj;
         
-        return Objects.equals(this.entityId, other.entityId)
-                && Objects.equals(this.entityName, other.entityName);
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.entityId);
-        hash = 89 * hash + Objects.hashCode(this.entityName);
-        
-        return hash;
+        return this.getEntityName().equals(other.getEntityName())
+                && Objects.equals(this.getEntityId(), other.getEntityId());
     }
     
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 23;
+        result = prime * result + this.getEntityName().hashCode();
+        result = prime * result + this.getEntityId().hashCode();
+        
+        return result;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
         sb.append("FXMLModel [\n"); // NOI18N
         
         sb.append("  entity [\n"); // NOI18N
-        sb.append("    name = ").append((entityName != null) ? entityName : "<not-defined>").append(",\n"); // NOI18N
-        sb.append("    id   = ").append((entityId   != null) ? entityId   : "<not-defined>").append(",\n"); // NOI18N
+        sb.append("    name = ").append(this.getEntityName()).append(",\n"); // NOI18N
+        sb.append("    id   = ").append(this.getEntityId()).append("\n"); // NOI18N
         sb.append("  ],\n"); // NOI18N
         
         sb.append("  data [\n"); // NOI18N
         final Iterator<Map.Entry<String, Object>> iterator = data.entrySet().iterator();
-        if (iterator.hasNext()) {
-            int maxLength = 0;
-            for(final String key : data.keySet()) {
-                maxLength = Math.max(maxLength, key.length());
-            }
-
-            final int elements = data.size();
-            int counter = 0;
-            while (iterator.hasNext()) {
-                final Map.Entry<String, Object> next = iterator.next();
-                final String key = next.getKey();
-                final Object value = next.getValue();
-
-                sb.append("    ").append(String.format("%-" + maxLength + "s", key)); // NOI18N
-                sb.append(" = ").append(value); // NOI18N
-
-                ++counter;
-                sb.append((counter < elements) ? ",\n" : "\n"); // NOI18N
-            }
-        }
-        else {
+        if (!iterator.hasNext()) {
             sb.append("    <not-defined>\n"); // NOI18N
+        }
+        
+        int maxLength = 0;
+        for(final String key : data.keySet()) {
+            maxLength = Math.max(maxLength, key.length());
+        }
+        
+        final int elements = data.size();
+        int counter = 0;
+        while (iterator.hasNext()) {
+            final Map.Entry<String, Object> next = iterator.next();
+            final String key = next.getKey();
+            final Object value = next.getValue();
+            
+            sb.append("    ");
+            sb.append(String.format("%-" + maxLength + "s", key)); // NOI18N
+            sb.append(" = ").append(value); // NOI18N
+            
+            ++counter;
+            sb.append((counter < elements) ? ",\n" : "\n"); // NOI18N
         }
         
         sb.append("  ]\n"); // NOI18N

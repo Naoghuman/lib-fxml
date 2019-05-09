@@ -55,14 +55,6 @@ public class FXMLModelTest {
         assertTrue(instance.getData().isEmpty());
     }
 
-    @Test
-    public void testIsSameEntity_Class_Long() {
-        FXMLModel instance = new FXMLModel();
-        instance.setEntity(String.class.getName(), 1234L);
-        
-        assertTrue(instance.isSameEntity("java.lang.String", 1234L));
-    }
-
     @Test(expected = NullPointerException.class)
     public void testGetData_Class_String__Class_throw_NullPointerException() {
         FXMLModel instance = new FXMLModel();
