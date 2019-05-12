@@ -28,10 +28,20 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 /**
+ * The class {@code FXMLAction} let the developer register and handle {@code functionalities} 
+ * from different types.<br>
+ * For more informations about the supported types plz see the JavaDoc from the enum 
+ * {@link com.github.naoghuman.lib.fxml.core.FXMLAction.Type}.
+ * <p>
+ * Internal the functionalities will be stored in different {@link java.util.HashMap}s 
+ * depending from their type. That means every key must be unique in context from the 
+ * type otherwise the last injection overwrite the old one.
  *
  * @since   0.3.0-PRERELEASE
  * @version 0.4.0
  * @author  Naoghuman
+ * @see     com.github.naoghuman.lib.fxml.core.FXMLAction.Type
+ * @see     java.util.HashMap
  */
 public final class FXMLAction {
     
@@ -43,8 +53,10 @@ public final class FXMLAction {
     private static final Optional<FXMLAction> INSTANCE = Optional.of(new FXMLAction());
     
     /**
+     * Create a singleton instance from the class {@code FXMLAction} if needed
+     * and return it.
      * 
-     * @return 
+     * @return  a singleton instance from this class.
      * @since   0.3.0-PRERELEASE
      * @version 0.4.0
      * @author  Naoghuman
@@ -58,34 +70,43 @@ public final class FXMLAction {
     }
     
     /**
+     * Handles the functionality with the id {@code actionId} in context from 
+     * {@link com.github.naoghuman.lib.fxml.core.FXMLAction.Type#EVENTHANDLERS}.
      * 
-     * @param   actionId
+     * @param   actionId the id from the functionality which should be performed.
      * @throws  NullPointerException     if {@code actionId} is NULL.
      * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
      * @since   0.3.0-PRERELEASE
      * @version 0.4.0
      * @author  Naoghuman
+     * @see     com.github.naoghuman.lib.fxml.core.FXMLAction.Type#EVENTHANDLERS
      */
     public void handleAction(final String actionId) {
         LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#handleAction(String)"); // NOI18N
         
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         
-        if (this.isRegistered(FXMLAction.Type.EVENTHANDLERS, actionId)) {
+        if (this.isRegistered(actionId, FXMLAction.Type.EVENTHANDLERS)) {
             this.handleAction(actionId, ActionEvent.NULL_SOURCE_TARGET);
         }
     }
     
     /**
+     * Handles the functionality with the id {@code actionId} in context from 
+     * {@link com.github.naoghuman.lib.fxml.core.FXMLAction.Type#EVENTHANDLERS}.
      * 
-     * @param   actionId
-     * @param   source 
+     * Adds the object {@source} to the {@link javafx.event.ActionEvent} as event source.
+     * 
+     * @param   actionId the id from the functionality which should be performed.
+     * @param   source   the event source object which sent the event.
      * @throws  NullPointerException     if {@code actionId} is NULL.
      * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
      * @throws  NullPointerException     if {@code source}   is NULL.
      * @since   0.3.0-PRERELEASE
      * @version 0.4.0
      * @author  Naoghuman
+     * @see     com.github.naoghuman.lib.fxml.core.FXMLAction.Type#EVENTHANDLERS
+     * @see     javafx.event.ActionEvent
      */
     public void handleAction(final String actionId, final Object source) {
         LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#handleAction(String, Object)"); // NOI18N
@@ -93,22 +114,26 @@ public final class FXMLAction {
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         DefaultFXMLValidator.requireNonNull(source);
         
-        if (this.isRegistered(FXMLAction.Type.EVENTHANDLERS, actionId)) {
+        if (this.isRegistered(actionId, FXMLAction.Type.EVENTHANDLERS)) {
             final EventHandler<ActionEvent> eventHandler = MAP_EVENTHANDLERS.get(actionId);
             eventHandler.handle(new ActionEvent(source, ActionEvent.NULL_SOURCE_TARGET));
         }
     }
     
     /**
+     * Handles the functionality with the id {@code actionId} in context from 
+     * {@link com.github.naoghuman.lib.fxml.core.FXMLAction.Type#CONSUMERS}.
      * 
-     * @param   actionId
-     * @param   model 
+     * @param   actionId the id from the functionality which should be performed.
+     * @param   model    the model which should be processed by the {@code Consumer}.
      * @throws  NullPointerException     if {@code actionId} is NULL.
      * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
      * @throws  NullPointerException     if {@code model}    is NULL.
      * @since   0.3.0-PRERELEASE
      * @version 0.4.0
      * @author  Naoghuman
+     * @see     com.github.naoghuman.lib.fxml.core.FXMLAction.Type#CONSUMERS
+     * @see     com.github.naoghuman.lib.fxml.core.FXMLModel
      */
     public void handleConsumer(final String actionId, final FXMLModel model) {
         LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#handleConsumer(String, FXMLModel)"); // NOI18N
@@ -116,23 +141,29 @@ public final class FXMLAction {
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
         DefaultFXMLValidator.requireNonNull(model);
         
-        if (this.isRegistered(FXMLAction.Type.CONSUMERS, actionId)) {
+        if (this.isRegistered(actionId, FXMLAction.Type.CONSUMERS)) {
             final Consumer<FXMLModel> consumer = MAP_CONSUMERS.get(actionId);
             consumer.accept(model);
         }
     }
     
     /**
+     * Handles the functionality with the id {@code actionId} in context from 
+     * {@link com.github.naoghuman.lib.fxml.core.FXMLAction.Type#FUNCTIONS}.
      * 
-     * @param   actionId
-     * @param   entityId
+     * @param   actionId the id from the functionality which should be performed.
+     * @param   entityId the id from the entity which should be loaded by this {@code Function}.
      * @throws  NullPointerException     if {@code actionId} is NULL.
      * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
      * @throws  NullPointerException     if {@code entityId} is NULL.
-     * @return 
+     * @return  the loaded entity wrapped into a {@code FXMLModel} or {@code Optional#empty()}.
      * @since   0.3.0-PRERELEASE
      * @version 0.4.0
      * @author  Naoghuman
+     * @see     com.github.naoghuman.lib.fxml.core.FXMLAction.Type#FUNCTIONS
+     * @see     com.github.naoghuman.lib.fxml.core.FXMLModel
+     * @see     java.util.Optional#empty()
+     * @see     java.util.function.Function
      */
     public Optional<FXMLModel> handleFunction(final String actionId, final Long entityId) {
         LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#handleFunction(String, Long)"); // NOI18N
@@ -141,7 +172,7 @@ public final class FXMLAction {
         DefaultFXMLValidator.requireNonNull(entityId);
         
         Optional<FXMLModel> model = Optional.empty();
-        if (this.isRegistered(FXMLAction.Type.FUNCTIONS, actionId)) {
+        if (this.isRegistered(actionId, FXMLAction.Type.FUNCTIONS)) {
             final Function<Long, FXMLModel> function = MAP_FUNCTIONS.get(actionId);
             model = Optional.ofNullable(function.apply(entityId));
         }
@@ -158,6 +189,7 @@ public final class FXMLAction {
      * @since   0.3.0-PRERELEASE
      * @version 0.4.0
      * @author  Naoghuman
+     * @see     java.util.Optional
      */
     public Optional<List<FXMLModel>> handleSupplier(final String actionId) {
         LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#handleSupplier(String)"); // NOI18N
@@ -165,7 +197,7 @@ public final class FXMLAction {
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
 
         Optional<List<FXMLModel>> models = Optional.empty();
-        if (this.isRegistered(FXMLAction.Type.SUPPLIERS, actionId)) {
+        if (this.isRegistered(actionId, FXMLAction.Type.SUPPLIERS)) {
             final Supplier<List<FXMLModel>> supplier = MAP_SUPPLIERS.get(actionId);
             models = Optional.ofNullable(supplier.get());
         }
@@ -175,21 +207,23 @@ public final class FXMLAction {
     
     /**
      * 
-     * @param   type
+     * 
      * @param   actionId
-     * @return 
-     * @throws  NullPointerException     if {@code type}     is NULL.
+     * @param   type
+     * @return  {@code TRUE} if the function in context from the type is registered, otherwise {@code FALSE}.
      * @throws  NullPointerException     if {@code actionId} is NULL.
      * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
+     * @throws  NullPointerException     if {@code type}     is NULL.
      * @since   0.3.0-PRERELEASE
      * @version 0.4.0
      * @author  Naoghuman
+     * @see     com.github.naoghuman.lib.fxml.core.FXMLAction.Type
      */
-    public boolean isRegistered(final FXMLAction.Type type, final String actionId) {
-        LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#isRegistered(FXMLAction.Type, String)"); // NOI18N
+    public boolean isRegistered(final String actionId, final FXMLAction.Type type) {
+        LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#isRegistered(String, FXMLAction.Type)"); // NOI18N
 
-        DefaultFXMLValidator.requireNonNull(type);
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
+        DefaultFXMLValidator.requireNonNull(type);
         
         boolean isRegistered = false;
         switch(type) {
@@ -203,15 +237,19 @@ public final class FXMLAction {
     }
     
     /**
+     * Register the {@code Consumer} with the defined {@code actionId}.<br>
+     * Should previously a function registered with this {@code actionId} then 
+     * the new functionality will be overwrite the old one.
      * 
-     * @param   actionId
-     * @param   consumer
+     * @param   actionId the id which allowed in the future the access of the stored functionality.
+     * @param   consumer the functionality which should be stored mapped with the {@code actionId}.
      * @throws  NullPointerException     if {@code actionId} is NULL.
      * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
      * @throws  NullPointerException     if {@code consumer} is NULL.
      * @since   0.3.0-PRERELEASE
      * @version 0.4.0
      * @author  Naoghuman
+     * @see     java.util.function.Consumer
      */
     public void register(final String actionId, final Consumer<FXMLModel> consumer) {
         LoggerFacade.getDefault().info(FXMLAction.class, "FXMLAction#register(String, Consumer<FXMLModel>)"); // NOI18N
@@ -223,15 +261,20 @@ public final class FXMLAction {
     }
     
     /**
+     * Register the {@code EventHandler<ActionEvent>} with the defined {@code actionId}.<br>
+     * Should previously a function registered with this {@code actionId} then the new 
+     * functionality will be overwrite the old one.
      * 
-     * @param   actionId
-     * @param   eventHandler
+     * @param   actionId     the id which allowed in the future the access of the stored functionality.
+     * @param   eventHandler the functionality which should be stored mapped with the {@code actionId}.
      * @throws  NullPointerException     if {@code actionId}     is NULL.
      * @throws  IllegalArgumentException if {@code actionId}     is EMPTY.
      * @throws  NullPointerException     if {@code eventHandler} is NULL.
      * @since   0.3.0-PRERELEASE
      * @version 0.4.0
      * @author  Naoghuman
+     * @see     javafx.event.ActionEvent
+     * @see     javafx.event.EventHandler
      */
     public void register(final String actionId, final EventHandler<ActionEvent> eventHandler) {
         LoggerFacade.getDefault().info(FXMLAction.class, "FXMLAction#register(String, EventHandler<ActionEvent>)"); // NOI18N
@@ -243,15 +286,19 @@ public final class FXMLAction {
     }
 
     /**
+     * Register the {@code Function} with the defined {@code actionId}.<br>
+     * Should previously a function registered with this {@code actionId} then 
+     * the new functionality will be overwrite the old one.
      * 
-     * @param   actionId
-     * @param   function
+     * @param   actionId the id which allowed in the future the access of the stored functionality.
+     * @param   function the functionality which should be stored mapped with the {@code actionId}.
      * @throws  NullPointerException     if {@code actionId} is NULL.
      * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
      * @throws  NullPointerException     if {@code function} is NULL.
      * @since   0.3.0-PRERELEASE
      * @version 0.4.0
      * @author  Naoghuman
+     * @see     java.util.function.Function
      */
     public void register(final String actionId, final Function<Long, FXMLModel> function) {
         LoggerFacade.getDefault().info(FXMLAction.class, "FXMLAction#register(String, Function<Long, FXMLModel>)"); // NOI18N
@@ -263,15 +310,19 @@ public final class FXMLAction {
     }
 
     /**
+     * Register the {@code Supplier} with the defined {@code actionId}.<br>
+     * Should previously a function registered with this {@code actionId} then 
+     * the new functionality will be overwrite the old one.
      * 
-     * @param   actionId
-     * @param   supplier
+     * @param   actionId the id which allowed in the future the access of the stored functionality.
+     * @param   supplier the functionality which should be stored mapped with the {@code actionId}.
      * @throws  NullPointerException     if {@code actionId} is NULL.
      * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
      * @throws  NullPointerException     if {@code supplier} is NULL.
      * @since   0.3.0-PRERELEASE
      * @version 0.4.0
      * @author  Naoghuman
+     * @see     java.util.function.Supplier
      */
     public void register(final String actionId, final Supplier<List<FXMLModel>> supplier) {
         LoggerFacade.getDefault().info(FXMLAction.class, "FXMLAction#register(String, Supplier<List<FXMLModel>>)"); // NOI18N
@@ -283,21 +334,24 @@ public final class FXMLAction {
     }
     
     /**
+     * Removes the functionality with the given {@code actionId} in context from the
+     * spezified {@code type}.
      * 
-     * @param   type 
-     * @param   actionId 
-     * @throws  NullPointerException     if {@code type}     is NULL.
+     * @param   actionId the id from the functionality which should be removed.
+     * @param   type     the context from which the functionality should be removed.
      * @throws  NullPointerException     if {@code actionId} is NULL.
      * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
+     * @throws  NullPointerException     if {@code type}     is NULL.
      * @since   0.3.0-PRERELEASE
      * @version 0.4.0
      * @author  Naoghuman
+     * @see     com.github.naoghuman.lib.fxml.core.FXMLAction.Type
      */
-    public void remove(final FXMLAction.Type type, final String actionId) {
-        LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#remove(FXMLAction.Type, String)"); // NOI18N
+    public void remove(final String actionId, final FXMLAction.Type type) {
+        LoggerFacade.getDefault().debug(FXMLAction.class, "FXMLAction#remove(String, FXMLAction.Type)"); // NOI18N
 
-        DefaultFXMLValidator.requireNonNull(type);
         DefaultFXMLValidator.requireNonNullAndNotEmpty(actionId);
+        DefaultFXMLValidator.requireNonNull(type);
         
         switch(type) {
             case CONSUMERS:     { MAP_CONSUMERS.entrySet().stream().filter(    c -> MAP_CONSUMERS.containsKey(actionId)    ).forEach(c -> MAP_CONSUMERS.remove(actionId));     break; }
@@ -308,6 +362,7 @@ public final class FXMLAction {
     }
     
     /**
+     * Defines the different event types which are supported from {@code FXMLAction}.
      * 
      * @since   0.4.0
      * @version 0.4.0
@@ -316,34 +371,55 @@ public final class FXMLAction {
     public enum Type {
         
         /**
+         * Defines the action type {@code CONSUMERS}.<br>
+         * With this {@code type} functionalities from type {@code Consumer<FXMLModel>}
+         * can be registerd and handle with this class {@code FXMLAction}.
          * 
          * @since   0.4.0
          * @version 0.4.0
          * @author  Naoghuman
+         * @see     com.github.naoghuman.lib.fxml.core.FXMLModel
+         * @see     java.util.function.Consumer
          */
         CONSUMERS,
         
         /**
+         * Defines the action type {@code CONSUMERS}.<br>
+         * With this {@code type} functionalities from type {@code EventHandler<ActionEvent>}
+         * can be registerd and handle with this class {@code FXMLAction}.
          * 
          * @since   0.4.0
          * @version 0.4.0
          * @author  Naoghuman
+         * @see     com.github.naoghuman.lib.fxml.core.FXMLModel
+         * @see     javafx.event.ActionEvent
+         * @see     javafx.event.EventHandler
          */
         EVENTHANDLERS,
         
         /**
+         * Defines the action type {@code CONSUMERS}.<br>
+         * With this {@code type} functionalities from type {@code Function<Long, FXMLModel>}
+         * can be registerd and handle with this class {@code FXMLAction}.
          * 
          * @since   0.4.0
          * @version 0.4.0
          * @author  Naoghuman
+         * @see     com.github.naoghuman.lib.fxml.core.FXMLModel
+         * @see     java.util.function.Function
          */
         FUNCTIONS,
         
         /**
+         * Defines the action type {@code CONSUMERS}.<br>
+         * With this {@code type} functionalities from type {@code Supplier<List<FXMLModel>>}
+         * can be registerd and handle with this class {@code FXMLAction}.
          * 
          * @since   0.4.0
          * @version 0.4.0
          * @author  Naoghuman
+         * @see     com.github.naoghuman.lib.fxml.core.FXMLModel
+         * @see     java.util.function.Supplier
          */
         SUPPLIERS;
         
