@@ -45,6 +45,7 @@ of the data flow to (in, from) the gui.
 #34 [doc] Write JavaDoc for the package 'com.github.naoghuman.lib.fxml.internal'.
 #33 [doc] Write JavaDoc for the package 'com.github.naoghuman.lib.fxml.core'.
 #32 [doc] Write JavaDoc for the abstract class 'FXMLController'.
+#24 [doc] Write JavaDoc for the class 'FXMLAction'.
 
 
 

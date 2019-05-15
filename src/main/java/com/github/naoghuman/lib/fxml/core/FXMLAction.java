@@ -28,14 +28,22 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 /**
- * The class {@code FXMLAction} let the developer register and handle {@code functionalities} 
+ * The class {@code FXMLAction} let the developer register and handle {@code functionalities}
  * from different types.<br>
- * For more informations about the supported types plz see the JavaDoc from the enum 
+ * Momentary following types of functionality are supported:
+ * <ul>
+ * <li>{@code FXMLAction.Type.CONSUMERS     -> Consumer<FXMLModel>}</li>
+ * <li>{@code FXMLAction.Type.EVENTHANDLERS -> EventHandler<ActionEvent>>}</li>
+ * <li>{@code FXMLAction.Type.FUNCTIONS     -> Function<Long, FXMLModel>>}</li>
+ * <li>{@code FXMLAction.Type.SUPPLIERS     -> Supplier<List<FXMLModel>>>}</li>
+ * </ul>
+ * For more informations about the supported types plz see the JavaDoc from the enum
  * {@link com.github.naoghuman.lib.fxml.core.FXMLAction.Type}.
  * <p>
- * Internal the functionalities will be stored in different {@link java.util.HashMap}s 
- * depending from their type. That means every key must be unique in context from the 
- * type otherwise the last injection overwrite the old one.
+ * Internal the functionalities will be stored in different {@link java.util.HashMap}s
+ * depending from their type. This means that each key must be unique in the context of
+ * the type. Otherwise, the last registered functionality will be overwritten by the new
+ * functionality.
  *
  * @since   0.3.0-PRERELEASE
  * @version 0.4.0
@@ -55,7 +63,7 @@ public final class FXMLAction {
     /**
      * Create a singleton instance from the class {@code FXMLAction} if needed
      * and return it.
-     * 
+     *
      * @return  a singleton instance from this class.
      * @since   0.3.0-PRERELEASE
      * @version 0.4.0
@@ -70,10 +78,10 @@ public final class FXMLAction {
     }
     
     /**
-     * Handles the functionality with the id {@code actionId} in context from 
-     * {@link com.github.naoghuman.lib.fxml.core.FXMLAction.Type#EVENTHANDLERS}.
-     * 
-     * @param   actionId the id from the functionality which should be performed.
+     * Handles the functionality with the ID {@code actionId} in context from the registration
+     * type {@link com.github.naoghuman.lib.fxml.core.FXMLAction.Type#EVENTHANDLERS}.
+     *
+     * @param   actionId the ID from the functionality which should be performed.
      * @throws  NullPointerException     if {@code actionId} is NULL.
      * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
      * @since   0.3.0-PRERELEASE
@@ -92,12 +100,12 @@ public final class FXMLAction {
     }
     
     /**
-     * Handles the functionality with the id {@code actionId} in context from 
-     * {@link com.github.naoghuman.lib.fxml.core.FXMLAction.Type#EVENTHANDLERS}.
-     * 
+     * Handles the functionality with the ID {@code actionId} in context from the registration
+     * type {@link com.github.naoghuman.lib.fxml.core.FXMLAction.Type#EVENTHANDLERS}.
+     *
      * Adds the object {@source} to the {@link javafx.event.ActionEvent} as event source.
-     * 
-     * @param   actionId the id from the functionality which should be performed.
+     *
+     * @param   actionId the ID from the functionality which should be performed.
      * @param   source   the event source object which sent the event.
      * @throws  NullPointerException     if {@code actionId} is NULL.
      * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
@@ -121,10 +129,10 @@ public final class FXMLAction {
     }
     
     /**
-     * Handles the functionality with the id {@code actionId} in context from 
-     * {@link com.github.naoghuman.lib.fxml.core.FXMLAction.Type#CONSUMERS}.
-     * 
-     * @param   actionId the id from the functionality which should be performed.
+     * Handles the functionality with the ID {@code actionId} in context from the registration
+     * type {@link com.github.naoghuman.lib.fxml.core.FXMLAction.Type#CONSUMERS}.
+     *
+     * @param   actionId the ID from the functionality which should be performed.
      * @param   model    the model which should be processed by the {@code Consumer}.
      * @throws  NullPointerException     if {@code actionId} is NULL.
      * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
@@ -148,15 +156,15 @@ public final class FXMLAction {
     }
     
     /**
-     * Handles the functionality with the id {@code actionId} in context from 
-     * {@link com.github.naoghuman.lib.fxml.core.FXMLAction.Type#FUNCTIONS}.
-     * 
-     * @param   actionId the id from the functionality which should be performed.
-     * @param   entityId the id from the entity which should be loaded by this {@code Function}.
+     * Handles the functionality with the ID {@code actionId} in context from the registration
+     * type {@link com.github.naoghuman.lib.fxml.core.FXMLAction.Type#FUNCTIONS}.
+     *
+     * @param   actionId the ID from the functionality which should be performed.
+     * @param   entityId the ID from the entity which should be loaded by this {@code Function}.
+     * @return  the loaded entity wrapped into a {@code FXMLModel} or {@code Optional#empty()}.
      * @throws  NullPointerException     if {@code actionId} is NULL.
      * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
      * @throws  NullPointerException     if {@code entityId} is NULL.
-     * @return  the loaded entity wrapped into a {@code FXMLModel} or {@code Optional#empty()}.
      * @since   0.3.0-PRERELEASE
      * @version 0.4.0
      * @author  Naoghuman
@@ -181,9 +189,11 @@ public final class FXMLAction {
     }
     
     /**
-     * 
-     * @param   actionId
-     * @return 
+     * Handles the functionality with the ID {@code actionId} in context from the registration
+     * type {@link com.github.naoghuman.lib.fxml.core.FXMLAction.Type#SUPPLIERS}.
+     *
+     * @param   actionId the ID from the functionality which should be performed.
+     * @return  the loaded entities wrapped into a {@code FXMLModel} or {@code Optional#empty()}.
      * @throws  NullPointerException     if {@code actionId} is NULL.
      * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
      * @since   0.3.0-PRERELEASE
@@ -206,11 +216,14 @@ public final class FXMLAction {
     }
     
     /**
-     * 
-     * 
-     * @param   actionId
-     * @param   type
-     * @return  {@code TRUE} if the function in context from the type is registered, otherwise {@code FALSE}.
+     * Returns a boolean if the ID {@code actionId} is registered in context from the given {@code type}.
+     * <p>
+     * For more informations about the supported types plz see the JavaDoc from the enum
+     * {@link com.github.naoghuman.lib.fxml.core.FXMLAction.Type}.
+     *
+     * @param   actionId the ID that is checked for its existence.
+     * @param   type     The context within which is checked, whether the ID exists or not.
+     * @return  {@code TRUE} if the function is registered is in context from the type, otherwise {@code FALSE}.
      * @throws  NullPointerException     if {@code actionId} is NULL.
      * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
      * @throws  NullPointerException     if {@code type}     is NULL.
@@ -237,12 +250,12 @@ public final class FXMLAction {
     }
     
     /**
-     * Register the {@code Consumer} with the defined {@code actionId}.<br>
-     * Should previously a function registered with this {@code actionId} then 
-     * the new functionality will be overwrite the old one.
-     * 
-     * @param   actionId the id which allowed in the future the access of the stored functionality.
-     * @param   consumer the functionality which should be stored mapped with the {@code actionId}.
+     * Register a function from type {@code ConsumerFXMLModel>} with the ID {@code actionId}.<br>
+     * Should previously a function registered with this {@code ID} then the new functionality
+     * will be overwrite the old one.
+     *
+     * @param   actionId the ID which allowed the access of the stored functionality.
+     * @param   consumer the functionality which should be stored.
      * @throws  NullPointerException     if {@code actionId} is NULL.
      * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
      * @throws  NullPointerException     if {@code consumer} is NULL.
@@ -261,12 +274,12 @@ public final class FXMLAction {
     }
     
     /**
-     * Register the {@code EventHandler<ActionEvent>} with the defined {@code actionId}.<br>
-     * Should previously a function registered with this {@code actionId} then the new 
-     * functionality will be overwrite the old one.
-     * 
-     * @param   actionId     the id which allowed in the future the access of the stored functionality.
-     * @param   eventHandler the functionality which should be stored mapped with the {@code actionId}.
+     * Register a function from type {@code EventHandler<ActionEvent>} with the ID {@code actionId}.<br>
+     * Should previously a function registered with this {@code ID} then the new functionality
+     * will be overwrite the old one.
+     *
+     * @param   actionId     the ID which allowed the access of the stored functionality.
+     * @param   eventHandler the functionality which should be stored.
      * @throws  NullPointerException     if {@code actionId}     is NULL.
      * @throws  IllegalArgumentException if {@code actionId}     is EMPTY.
      * @throws  NullPointerException     if {@code eventHandler} is NULL.
@@ -286,12 +299,12 @@ public final class FXMLAction {
     }
 
     /**
-     * Register the {@code Function} with the defined {@code actionId}.<br>
-     * Should previously a function registered with this {@code actionId} then 
-     * the new functionality will be overwrite the old one.
-     * 
-     * @param   actionId the id which allowed in the future the access of the stored functionality.
-     * @param   function the functionality which should be stored mapped with the {@code actionId}.
+     * Register a function from type {@code Function<Long, FXMLModel>} with the ID {@code actionId}.<br>
+     * Should previously a function registered with this {@code ID} then the new functionality
+     * will be overwrite the old one.
+     *
+     * @param   actionId the ID which allowed the access of the stored functionality.
+     * @param   function the functionality which should be stored.
      * @throws  NullPointerException     if {@code actionId} is NULL.
      * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
      * @throws  NullPointerException     if {@code function} is NULL.
@@ -310,12 +323,12 @@ public final class FXMLAction {
     }
 
     /**
-     * Register the {@code Supplier} with the defined {@code actionId}.<br>
-     * Should previously a function registered with this {@code actionId} then 
-     * the new functionality will be overwrite the old one.
-     * 
-     * @param   actionId the id which allowed in the future the access of the stored functionality.
-     * @param   supplier the functionality which should be stored mapped with the {@code actionId}.
+     * Register a function from type {@code Supplier<List<FXMLModel>>} with the ID {@code actionId}.<br>
+     * Should previously a function registered with this {@code ID} then the new functionality
+     * will be overwrite the old one.
+     *
+     * @param   actionId the ID which allowed the access of the stored functionality.
+     * @param   supplier the functionality which should be stored.
      * @throws  NullPointerException     if {@code actionId} is NULL.
      * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
      * @throws  NullPointerException     if {@code supplier} is NULL.
@@ -334,10 +347,17 @@ public final class FXMLAction {
     }
     
     /**
-     * Removes the functionality with the given {@code actionId} in context from the
-     * spezified {@code type}.
-     * 
-     * @param   actionId the id from the functionality which should be removed.
+     * Removes the functionality with the ID {@code actionId} in context from the
+     * spezified {@code type} where type must be one value from the enum
+     * {@link com.github.naoghuman.lib.fxml.core.FXMLAction.Type}:
+     * <ul>
+     *<li>FXMLAction.Type#CONSUMERS</li>
+     *<li>FXMLAction.Type#EVENTHANDLERS</li>
+     *<li>FXMLAction.Type#FUNCTIONS</li>
+     *<li>FXMLAction.Type#SUPPLIERS</li>
+     * </ul>
+     *
+     * @param   actionId the ID from the functionality which should be removed.
      * @param   type     the context from which the functionality should be removed.
      * @throws  NullPointerException     if {@code actionId} is NULL.
      * @throws  IllegalArgumentException if {@code actionId} is EMPTY.
@@ -362,8 +382,8 @@ public final class FXMLAction {
     }
     
     /**
-     * Defines the different event types which are supported from {@code FXMLAction}.
-     * 
+     * Defines different event types which are supported from {@code FXMLAction}.
+     *
      * @since   0.4.0
      * @version 0.4.0
      * @author  Naoghuman
@@ -371,10 +391,9 @@ public final class FXMLAction {
     public enum Type {
         
         /**
-         * Defines the action type {@code CONSUMERS}.<br>
-         * With this {@code type} functionalities from type {@code Consumer<FXMLModel>}
-         * can be registerd and handle with this class {@code FXMLAction}.
-         * 
+         * Defines the constant {@code CONSUMERS}.<br>
+         * This {@code type} allowed to register and handle functionalities from type {@code Consumer<FXMLModel>}.
+         *
          * @since   0.4.0
          * @version 0.4.0
          * @author  Naoghuman
@@ -384,10 +403,9 @@ public final class FXMLAction {
         CONSUMERS,
         
         /**
-         * Defines the action type {@code CONSUMERS}.<br>
-         * With this {@code type} functionalities from type {@code EventHandler<ActionEvent>}
-         * can be registerd and handle with this class {@code FXMLAction}.
-         * 
+         * Defines the constant {@code EVENTHANDLERS}.<br>
+         * This {@code type} allowed to register and handle functionalities from type {@code EventHandler<ActionEvent>}.
+         *
          * @since   0.4.0
          * @version 0.4.0
          * @author  Naoghuman
@@ -398,10 +416,9 @@ public final class FXMLAction {
         EVENTHANDLERS,
         
         /**
-         * Defines the action type {@code CONSUMERS}.<br>
-         * With this {@code type} functionalities from type {@code Function<Long, FXMLModel>}
-         * can be registerd and handle with this class {@code FXMLAction}.
-         * 
+         * Defines the constant {@code FUNCTIONS}.<br>
+         * This {@code type} allowed to register and handle functionalities from type {@code Function<Long, FXMLModel>}.
+         *
          * @since   0.4.0
          * @version 0.4.0
          * @author  Naoghuman
@@ -411,10 +428,9 @@ public final class FXMLAction {
         FUNCTIONS,
         
         /**
-         * Defines the action type {@code CONSUMERS}.<br>
-         * With this {@code type} functionalities from type {@code Supplier<List<FXMLModel>>}
-         * can be registerd and handle with this class {@code FXMLAction}.
-         * 
+         * Defines the constant {@code SUPPLIERS}.<br>
+         * This {@code type} allowed to register and handle functionalities from type {@code Supplier<List<FXMLModel>>}.
+         *
          * @since   0.4.0
          * @version 0.4.0
          * @author  Naoghuman
