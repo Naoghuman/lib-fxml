@@ -29,7 +29,6 @@ import javafx.beans.property.LongProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
@@ -40,7 +39,7 @@ import javafx.util.StringConverter;
  * @version 0.3.0-PRERELEASE
  * @author  Naoghuman
  */
-public final class DemoAllInOnesController extends FXMLController implements FXMLRegisterable, Initializable {
+public final class DemoAllInOnesController extends FXMLController implements FXMLRegisterable {
     
     /**
      * 

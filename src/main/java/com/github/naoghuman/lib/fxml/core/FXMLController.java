@@ -20,6 +20,7 @@ import com.github.naoghuman.lib.fxml.internal.DefaultFXMLValidator;
 import java.util.List;
 import java.util.Optional;
 import javafx.collections.FXCollections;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 
 /**
@@ -35,7 +36,7 @@ import javafx.scene.Parent;
  * @version 0.4.0
  * @author  Naoghuman
  */
-public abstract class FXMLController {
+public abstract class FXMLController implements Initializable {
     
     private final List<FXMLModel> models = FXCollections.observableArrayList();
     

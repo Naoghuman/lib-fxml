@@ -23,6 +23,7 @@ of the data flow to (in, from) the gui.
 
 
 #### Enhancement
+#91 [api] Extend 'FXMLController' with the interface 'Initializable'.
 #90 [api] Add new enum 'FXMLAction.Type' to 'FXMLAction'.
 #86 [api] Change return type in handle methods in FXMLAction to Optional.
 #85 [api] Change in FXMLModel the signature from 'entityType'.
@@ -64,7 +65,7 @@ Naoghuman
 
 
 [//]: # (Issues which will be integrated in this release)
-#13 [test] Add unittests for the class 'FXMLAction'.// feature
+#13 [test] Add unittests for the class 'FXMLAction'. // feature
 
 
 

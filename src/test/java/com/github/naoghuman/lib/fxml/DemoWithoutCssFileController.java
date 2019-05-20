@@ -23,7 +23,6 @@ import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 
 /**
@@ -32,7 +31,7 @@ import javafx.scene.control.TextArea;
  * @version 0.3.0-PRERELEASE
  * @author  Naoghuman
  */
-public class DemoWithoutCssFileController extends FXMLController implements Initializable {
+public class DemoWithoutCssFileController extends FXMLController {
     
     @FXML private TextArea taDemoInfos;
     
