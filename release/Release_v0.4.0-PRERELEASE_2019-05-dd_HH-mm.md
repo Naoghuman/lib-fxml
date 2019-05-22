@@ -17,6 +17,7 @@ of the data flow to (in, from) the gui.
 
 
 #### Feature
+#13 [test] Add unittests for the class 'FXMLAction'.
 #12 [test] Add unittests for the abstract class 'FXMLController'.
 #11 [test] Add unittests for the class 'FXMLModel'.
 
@@ -65,7 +66,6 @@ Naoghuman
 
 
 [//]: # (Issues which will be integrated in this release)
-#13 [test] Add unittests for the class 'FXMLAction'. // feature
 
 
 

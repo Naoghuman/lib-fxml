@@ -374,10 +374,10 @@ public final class FXMLAction {
         DefaultFXMLValidator.requireNonNull(type);
         
         switch(type) {
-            case CONSUMERS:     { MAP_CONSUMERS.entrySet().stream().filter(    c -> MAP_CONSUMERS.containsKey(actionId)    ).forEach(c -> MAP_CONSUMERS.remove(actionId));     break; }
-            case EVENTHANDLERS: { MAP_EVENTHANDLERS.entrySet().stream().filter(e -> MAP_EVENTHANDLERS.containsKey(actionId)).forEach(e -> MAP_EVENTHANDLERS.remove(actionId)); break; }
-            case FUNCTIONS:     { MAP_FUNCTIONS.entrySet().stream().filter(    f -> MAP_FUNCTIONS.containsKey(actionId)    ).forEach(f -> MAP_FUNCTIONS.remove(actionId));     break; }
-            case SUPPLIERS:     { MAP_SUPPLIERS.entrySet().stream().filter(    s -> MAP_SUPPLIERS.containsKey(actionId)    ).forEach(s -> MAP_SUPPLIERS.remove(actionId));     break; }
+            case CONSUMERS:     { MAP_CONSUMERS.entrySet().removeIf(    (entry) -> ( entry.getKey().equals(actionId) )); break; }
+            case EVENTHANDLERS: { MAP_EVENTHANDLERS.entrySet().removeIf((entry) -> ( entry.getKey().equals(actionId) )); break; }
+            case FUNCTIONS:     { MAP_FUNCTIONS.entrySet().removeIf(    (entry) -> ( entry.getKey().equals(actionId) )); break; }
+            case SUPPLIERS:     { MAP_SUPPLIERS.entrySet().removeIf(    (entry) -> ( entry.getKey().equals(actionId) )); break; }
         }
     }
     

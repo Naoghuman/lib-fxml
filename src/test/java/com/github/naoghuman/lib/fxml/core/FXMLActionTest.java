@@ -16,7 +16,13 @@
  */
 package com.github.naoghuman.lib.fxml.core;
 
+import java.util.ArrayList;
+import java.util.List;
+import javafx.event.ActionEvent;
 import org.junit.After;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,138 +32,204 @@ import org.junit.Test;
  */
 public class FXMLActionTest {
     
+    boolean booleanForActionEvent = false;
+    boolean booleanForConsumer    = false;
+    boolean booleanForFunction    = false;
+    boolean booleanForSupplier    = false;
+    
     public FXMLActionTest() {
     }
     
     @Before
     public void setUp() {
+        booleanForActionEvent = false;
+        booleanForConsumer    = false;
+        booleanForFunction    = false;
+        booleanForSupplier    = false;
     }
     
     @After
     public void tearDown() {
+        booleanForActionEvent = false;
+        booleanForConsumer    = false;
+        booleanForFunction    = false;
+        booleanForSupplier    = false;
     }
 
     @Test
     public void testGetDefault() {
-//        System.out.println("getDefault");
-//        FXMLAction expResult = null;
-//        FXMLAction result = FXMLAction.getDefault();
-//        assertEquals(expResult, result);
-//        fail("The test case is a prototype.");
+        FXMLAction instance = FXMLAction.getDefault();
+        assertNotNull(instance);
     }
 
     @Test
     public void testHandleAction_String() {
-//        System.out.println("handleAction");
-//        String actionId = "";
-//        FXMLAction instance = null;
-//        instance.handleAction(actionId);
-//        fail("The test case is a prototype.");
+        FXMLAction instance = FXMLAction.getDefault();
+        String     actionId = "action-id-actionevent";
+        instance.register(actionId, this::testActionEvent);
+        
+        assertFalse(booleanForActionEvent);
+        instance.handleAction(actionId);
+        assertTrue(booleanForActionEvent);
     }
 
     @Test
     public void testHandleAction_String_Object() {
-//        System.out.println("handleAction");
-//        String actionId = "";
-//        Object source = null;
-//        FXMLAction instance = null;
-//        instance.handleAction(actionId, source);
-//        fail("The test case is a prototype.");
+        FXMLAction instance = FXMLAction.getDefault();
+        String     actionId = "action-id-actionevent";
+        instance.register(actionId, this::testActionEvent);
+        
+        assertFalse(booleanForActionEvent);
+        instance.handleAction(actionId, "hello test");
+        assertTrue(booleanForActionEvent);
     }
 
     @Test
     public void testHandleConsumer() {
-//        System.out.println("handleConsumer");
-//        String actionId = "";
-//        FXMLModel model = null;
-//        FXMLAction instance = null;
-//        instance.handleConsumer(actionId, model);
-//        fail("The test case is a prototype.");
+        FXMLAction instance = FXMLAction.getDefault();
+        String     actionId = "action-id-consumer";
+        instance.register(actionId, this::testConsumer);
+        
+        assertFalse(booleanForConsumer);
+        instance.handleConsumer(actionId, new FXMLModel());
+        assertTrue(booleanForConsumer);
     }
 
     @Test
     public void testHandleFunction() {
-//        System.out.println("handleFunction");
-//        String actionId = "";
-//        Long entityId = null;
-//        FXMLAction instance = null;
-//        Optional<FXMLModel> expResult = null;
-//        Optional<FXMLModel> result = instance.handleFunction(actionId, entityId);
-//        assertEquals(expResult, result);
-//        fail("The test case is a prototype.");
+        FXMLAction instance = FXMLAction.getDefault();
+        String     actionId = "action-id-function";
+        instance.register(actionId, this::testFunction);
+        
+        assertFalse(booleanForFunction);
+        instance.handleFunction(actionId, 1234L);
+        assertTrue(booleanForFunction);
     }
 
     @Test
     public void testHandleSupplier() {
-//        System.out.println("handleSupplier");
-//        String actionId = "";
-//        FXMLAction instance = null;
-//        Optional<List<FXMLModel>> expResult = null;
-//        Optional<List<FXMLModel>> result = instance.handleSupplier(actionId);
-//        assertEquals(expResult, result);
-//        fail("The test case is a prototype.");
+        FXMLAction instance = FXMLAction.getDefault();
+        String     actionId = "action-id-supplier";
+        instance.register(actionId, this::testSupplier);
+        
+        assertFalse(booleanForSupplier);
+        instance.handleSupplier(actionId);
+        assertTrue(booleanForSupplier);
     }
 
     @Test
     public void testIsRegistered() {
-//        System.out.println("isRegistered");
-//        String actionId = "";
-//        FXMLAction.Type type = null;
-//        FXMLAction instance = null;
-//        boolean expResult = false;
-//        boolean result = instance.isRegistered(actionId, type);
-//        assertEquals(expResult, result);
-//        fail("The test case is a prototype.");
+        String          actionId = "action-id-eventhandler";
+        FXMLAction.Type type     = FXMLAction.Type.EVENTHANDLERS;
+        FXMLAction      instance = FXMLAction.getDefault();
+        instance.register(actionId, (ActionEvent event) -> { });
+        
+        boolean result = instance.isRegistered(actionId, type);
+        assertTrue(result);
     }
 
     @Test
     public void testRegister_String_Consumer() {
-//        System.out.println("register");
-//        String actionId = "";
-//        Consumer<FXMLModel> consumer = null;
-//        FXMLAction instance = null;
-//        instance.register(actionId, consumer);
-//        fail("The test case is a prototype.");
+        String actionIdNotRegistered = "action-id-consumer-not-registerd";
+        FXMLAction.Type type         = FXMLAction.Type.CONSUMERS;
+        FXMLAction      instance     = FXMLAction.getDefault();
+
+        boolean result = instance.isRegistered(actionIdNotRegistered, type);
+        assertFalse(result);
+        
+        
+        String actionId = "action-id-consumer";
+        instance.register(actionId, this::testConsumer);
+        
+        result = instance.isRegistered(actionId, type);
+        assertTrue(result);
     }
 
     @Test
     public void testRegister_String_EventHandler() {
-//        System.out.println("register");
-//        String actionId = "";
-//        EventHandler<ActionEvent> eventHandler = null;
-//        FXMLAction instance = null;
-//        instance.register(actionId, eventHandler);
-//        fail("The test case is a prototype.");
+        String actionIdNotRegistered = "action-id-eventhandler-not-registerd";
+        FXMLAction.Type type         = FXMLAction.Type.EVENTHANDLERS;
+        FXMLAction      instance     = FXMLAction.getDefault();
+
+        boolean result = instance.isRegistered(actionIdNotRegistered, type);
+        assertFalse(result);
+        
+        
+        String actionId = "action-id-eventhandler";
+        instance.register(actionId, this::testActionEvent);
+        
+        result = instance.isRegistered(actionId, type);
+        assertTrue(result);
     }
 
     @Test
     public void testRegister_String_Function() {
-//        System.out.println("register");
-//        String actionId = "";
-//        Function<Long, FXMLModel> function = null;
-//        FXMLAction instance = null;
-//        instance.register(actionId, function);
-//        fail("The test case is a prototype.");
+        String actionIdNotRegistered = "action-id-function-not-registerd";
+        FXMLAction.Type type         = FXMLAction.Type.FUNCTIONS;
+        FXMLAction      instance     = FXMLAction.getDefault();
+
+        boolean result = instance.isRegistered(actionIdNotRegistered, type);
+        assertFalse(result);
+        
+        
+        String actionId = "action-id-function";
+        instance.register(actionId, this::testFunction);
+        
+        result = instance.isRegistered(actionId, type);
+        assertTrue(result);
     }
 
     @Test
     public void testRegister_String_Supplier() {
-//        System.out.println("register");
-//        String actionId = "";
-//        Supplier<List<FXMLModel>> supplier = null;
-//        FXMLAction instance = null;
-//        instance.register(actionId, supplier);
-//        fail("The test case is a prototype.");
+        String actionIdNotRegistered = "action-id-supplier-not-registerd";
+        FXMLAction.Type type         = FXMLAction.Type.SUPPLIERS;
+        FXMLAction      instance     = FXMLAction.getDefault();
+
+        boolean result = instance.isRegistered(actionIdNotRegistered, type);
+        assertFalse(result);
+        
+        
+        String actionId = "action-id-supplier";
+        instance.register(actionId, this::testSupplier);
+        
+        result = instance.isRegistered(actionId, type);
+        assertTrue(result);
     }
 
     @Test
     public void testRemove() {
-//        System.out.println("remove");
-//        String actionId = "";
-//        FXMLAction.Type type = null;
-//        FXMLAction instance = null;
-//        instance.remove(actionId, type);
-//        fail("The test case is a prototype.");
+        FXMLAction.Type type     = FXMLAction.Type.SUPPLIERS;
+        FXMLAction      instance = FXMLAction.getDefault();
+
+        String actionId = "action-id-supplier";
+        instance.register(actionId, this::testSupplier);
+        
+        boolean result = instance.isRegistered(actionId, type);
+        assertTrue(result);
+        
+        instance.remove(actionId, type);
+        result = instance.isRegistered(actionId, type);
+        assertFalse("should be false", result);
+    }
+    
+    public void testActionEvent(ActionEvent event) {
+        booleanForActionEvent = true;
+    }
+    
+    public void testConsumer(FXMLModel model) {
+        booleanForConsumer = true;
+    }
+    
+    public FXMLModel testFunction(Long id) {
+        booleanForFunction = true;
+        
+        return new FXMLModel();
+    }
+    
+    public List<FXMLModel> testSupplier() {
+        booleanForSupplier = true;
+        
+        return new ArrayList<>();
     }
     
 }

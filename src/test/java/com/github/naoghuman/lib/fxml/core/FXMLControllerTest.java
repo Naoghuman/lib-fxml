@@ -16,9 +16,11 @@
  */
 package com.github.naoghuman.lib.fxml.core;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import org.junit.After;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
@@ -145,6 +147,11 @@ public class FXMLControllerTest {
     }
 
     public class FXMLControllerImpl extends FXMLController {
+
+        @Override
+        public void initialize(URL location, ResourceBundle resources) {
+            
+        }
     }
     
 }

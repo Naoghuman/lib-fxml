@@ -80,10 +80,10 @@ public abstract class FXMLController implements Initializable {
     }
     
     /**
-	 * This method allowed to configure and bind the data from this instance with the given 
-	 * {@code models}.
+     * This method allowed to configure and bind the data from this instance with the given 
+     * {@code models}.
      * 
-	 * By {@code default}, this method first deletes all previously added models, and then adds 
+     * By {@code default}, this method first deletes all previously added models, and then adds 
      * the specified {@code models} to the available models. This means that when overriding this 
      * method in the overridden method, the {@code super.configure (model);} is written first, 
      * then followed by the individual treatment instructions (configuration, binding).
