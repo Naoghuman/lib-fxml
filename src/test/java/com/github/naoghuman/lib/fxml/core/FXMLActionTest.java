@@ -27,8 +27,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
+ * UnitTests to test the validator {@link com.github.naoghuman.lib.fxml.core.FXMLAction}.
  *
- * @author PRo
+ * @since   0.4.0
+ * @version 0.4.0
+ * @author  Naoghuman
+ * @see     com.github.naoghuman.lib.fxml.core.FXMLAction
  */
 public class FXMLActionTest {
     

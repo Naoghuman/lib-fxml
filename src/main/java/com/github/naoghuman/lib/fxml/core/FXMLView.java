@@ -20,6 +20,7 @@ import com.github.naoghuman.lib.fxml.internal.DefaultFXMLValidator;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.MissingResourceException;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -47,7 +48,7 @@ public final class FXMLView {
      * @author  Naoghuman
      */
     public static FXMLView create(final Class<? extends FXMLController> controller) {
-        return FXMLView.create(controller, new FXMLModel());
+        return FXMLView.create(controller);
     }
     
     /**
@@ -63,18 +64,52 @@ public final class FXMLView {
         return new FXMLView(controller, model);
     }
     
+    /**
+     * 
+     * @param   controller
+     * @param   models
+     * @return 
+     * @since   0.4.0
+     * @version 0.4.0
+     * @author  Naoghuman
+     */
+    public static FXMLView create(final Class<? extends FXMLController> controller, final List<FXMLModel> models) {
+        return new FXMLView(controller, models);
+    }
+    
     private FXMLLoader fxmlLoader;
     private Object     instance;
-    private String     baseBundleName;
+    private String     baseName;
     private String     conventionalName;
     private URL        urlForFXML;
     
     private Optional<ResourceBundle> resourceBundle = Optional.empty();
     private Optional<URL>            urlForCSS      = Optional.empty();
 
+    private FXMLView(final Class<? extends FXMLController> controller) {
+        DefaultFXMLValidator.requireNonNull(controller);
+        
+        this.initialize(controller);
+    }
+
     private FXMLView(final Class<? extends FXMLController> controller, final FXMLModel model) {
         DefaultFXMLValidator.requireNonNull(controller);
         DefaultFXMLValidator.requireNonNull(model);
+        
+        this.initialize(controller);
+        this.getController().configure(model);
+    }
+
+    private FXMLView(final Class<? extends FXMLController> controller, final List<FXMLModel> models) {
+        DefaultFXMLValidator.requireNonNull(controller);
+        DefaultFXMLValidator.requireNonNull(models);
+        
+        this.initialize(controller);
+        this.getController().configure(models);
+    }
+    
+    private void initialize(final Class<? extends FXMLController> controller) {
+        DefaultFXMLValidator.requireNonNull(controller);
         
         this.initializeController(controller);
         this.initializeConventionalName();
@@ -82,7 +117,7 @@ public final class FXMLView {
         this.initializeResourceBundle(controller);
         this.initializeURLforCSS();
         
-        this.initializeFXMLLoader(model);
+        this.initializeFXMLLoader();
     }
     
     private void initializeController(final Class<? extends FXMLController> controller) {
@@ -124,17 +159,16 @@ public final class FXMLView {
         final String controllerName = controller.getName();
         DefaultFXMLValidator.requireEndsWith(controllerName, DEFAULT_SUFFIX_CONTROLLER);
         
-        baseBundleName = controllerName.substring(0, controllerName.lastIndexOf(DEFAULT_SUFFIX_CONTROLLER));
-        baseBundleName = baseBundleName.toLowerCase();
-        DefaultFXMLValidator.requireNonNullAndNotEmpty(baseBundleName);
+        baseName = controllerName.substring(0, controllerName.lastIndexOf(DEFAULT_SUFFIX_CONTROLLER));
+        baseName = baseName.toLowerCase();
+        DefaultFXMLValidator.requireNonNullAndNotEmpty(baseName);
         
         try {
-            resourceBundle = Optional.ofNullable(ResourceBundle.getBundle(baseBundleName));
+            resourceBundle = Optional.ofNullable(ResourceBundle.getBundle(baseName));
         } catch (MissingResourceException ex) {
             LoggerFacade.getDefault().warn(this.getClass(), 
-                    String.format(
-                            "Can't find a ResourceBundle with the specified 'base' name: %s. Skip loading from the ResourceBundle.", // NOI18N
-                            baseBundleName));
+                    String.format("Can't find a ResourceBundle with the specified 'base' name: %s. Skip loading from the ResourceBundle.", // NOI18N
+                            baseName));
         }
     }
     
@@ -142,7 +176,7 @@ public final class FXMLView {
         urlForCSS = Optional.ofNullable(this.getInstance().getClass().getResource(this.getConventionalName() + DEFAULT_SUFFIX_CSS));
     }
     
-    private void initializeFXMLLoader(final FXMLModel model) {
+    private void initializeFXMLLoader() {
         try {
             fxmlLoader = new FXMLLoader();
             fxmlLoader.setController(this.getInstance());
@@ -159,8 +193,6 @@ public final class FXMLView {
                     root.getStylesheets().add(url.toExternalForm());
                 });
             });
-            
-            this.getController().configure(model);
         } catch (IOException ex) {
             LoggerFacade.getDefault().error(this.getClass(),
                     String.format(
@@ -174,11 +206,11 @@ public final class FXMLView {
      * 
      * @return 
      * @since   0.1.0-PRERELEASE
-     * @version 0.1.0-PRERELEASE
+     * @version 0.4.0
      * @author  Naoghuman
      */
-    public String getBaseBundleName() {
-        return baseBundleName;
+    public String getBaseName() {
+        return baseName;
     }
     
     /**
@@ -285,7 +317,7 @@ public final class FXMLView {
         
         sb.append("  controller       = ").append(this.getController().getClass().getName()).append(",\n"); // NOI18N
         sb.append("  conventionalName = ").append(this.getConventionalName()               ).append(",\n"); // NOI18N
-        sb.append("  baseBundleName   = ").append(this.getBaseBundleName()                 ).append(",\n"); // NOI18N
+        sb.append("  baseName         = ").append(this.getBaseName()                       ).append(",\n"); // NOI18N
         sb.append("  urlForFXML       = ").append(this.getURLforFXML() != null    ? this.getURLforFXML().toString()      : "<not-defined>").append(",\n"); // NOI18N
         sb.append("  urlForCSS        = ").append(this.getURLforCSS().isPresent() ? this.getURLforCSS().get().toString() : "<not-defined>").append(",\n"); // NOI18N
         sb.append("  root             = ").append(this.getRoot().isPresent()      ? this.getRoot().get().toString()      : "<not-defined>").append("\n"); // NOI18N
